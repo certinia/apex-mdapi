@@ -3495,15 +3495,21 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'leadAccessLevel','name'};
     }
-    public class StaticResource {
+    public class StaticResource extends MetadataWithContent {
+		public String type = 'StaticResource';
+		public String fullName;    	
+		public String content;
         public String cacheControl;
         public String contentType;
         public String description;
+        private String[] type_att_info = new String[]{'xsi:type'};
+        private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
+        private String[] content_type_info = new String[]{'content','http://www.w3.org/2001/XMLSchema','base64Binary','0','1','false'};
         private String[] cacheControl_type_info = new String[]{'cacheControl','http://soap.sforce.com/2006/04/metadata','StaticResourceCacheControl','1','1','false'};
         private String[] contentType_type_info = new String[]{'contentType','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
         private String[] description_type_info = new String[]{'description','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'cacheControl','contentType','description'};
+        private String[] field_order_type_info = new String[]{'fullName', 'content', 'cacheControl','contentType','description'};
     }
     public class ProfileFieldLevelSecurity {
         public Boolean editable;

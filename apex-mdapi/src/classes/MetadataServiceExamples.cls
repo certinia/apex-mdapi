@@ -68,6 +68,17 @@ public with sharing class MetadataServiceExamples
 		apexPage.content = EncodingUtil.base64Encode(Blob.valueOf('<apex:page/>'));
  		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { apexPage });
 	}
+
+	public static void createStaticResource()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.StaticResource staticResource = new MetadataService.StaticResource();
+		staticResource.fullName = 'test';
+		staticResource.contentType = 'text';
+		staticResource.cacheControl = 'public';
+		staticResource.content = EncodingUtil.base64Encode(Blob.valueOf('Static stuff'));
+ 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { staticResource });
+	}
 	
 	public static void listMetadata()
 	{
@@ -79,6 +90,9 @@ public with sharing class MetadataServiceExamples
 		MetadataService.ListMetadataQuery queryValidationRule = new MetadataService.ListMetadataQuery();
 		queryValidationRule.type_x = 'ValidationRule';
 		queries.add(queryValidationRule);		
+		MetadataService.ListMetadataQuery queryCustomField = new MetadataService.ListMetadataQuery();
+		queryCustomField.type_x = 'CustomField';
+		queries.add(queryCustomField);		
 		MetadataService.FileProperties[] fileProperties = service.listMetadata(queries, 25);
 		for(MetadataService.FileProperties fileProperty : fileProperties)
 			System.debug(fileProperty.fullName);
