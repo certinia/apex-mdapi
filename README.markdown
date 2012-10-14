@@ -117,11 +117,11 @@ Examples
 Metadata Retrieve Demo
 ----------------------
 
-The **MetadataServiceController** and **metadataservice.page** illustrate a demonstration of using the excellent **JSZip** library to handle the zip file contents and pass the file data back to the page for handling in Apex (the demo stores the file data in viewstate but the hook exists in the controller to push this any place you please). It also shows how to handle the AsyncRequest and checkStatus call. Enjoy and here is a screenshot!
+The [MetadataServiceController](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceController.cls) and [metadataservice.page](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadataservice.page) demonstrate using the excellent [JSZip](http://stuartk.com/jszip/) library to handle the zip file contents and pass the file XML data back to the controller for handling in Apex. The demo stores the file data in viewstate but the hook exists in the controller to push this any place you please. It also shows how to handle the AsyncRequest and checkStatus call. Enjoy and here is a screenshot!
 
 ![Metadata Retrieve Demo Screenshot](https://raw.github.com/financialforcedev/apex-mdapi/master/images/mdretrievedemo.png)
 
-**NOTE:** I nearly got this working without using JSZip, in a pure 100% native Apex and Visualforce way. I utilised the Metadata CRUD API to dynamically upload the zip file as a Static Resource. Then used PageReference.getContent to peak into it! However there seems to be a bug with Static Resources containing files with spaces in their names! No matter how I escapted the URL, I got a 404. I'm researching this further. So watch this space...
+**NOTE:** I nearly got this working without using [JSZip](http://stuartk.com/jszip/), in a pure 100% native Apex and Visualforce way. I utilised the Metadata CRUD API to dynamically upload the zip file as a Static Resource. Then used PageReference.getContent to peak into it! However there seems to be a bug with Static Resources containing files with spaces in their names! No matter how I escapted the URL, I got a 404. I'm researching this further. So watch this space...
 
 Metadata Deploy Demo
 ---------------------
@@ -171,6 +171,6 @@ If you want to repeat what I did on new version of the Metadata WSDL or just wan
 About the Author
 ----------------
 
-My name is Andrew Fawcett, I am the CTO of FinancialForce.com, if you want to ask questions you can do so via the Issues tab or just follow me on Twitter, my name is **andyinthecloud**. 
+My name is Andrew Fawcett, I am the CTO of FinancialForce.com, if you want to ask questions you can do so via the Issues tab or just follow me on Twitter, my name is [andyinthecloud](http://twitter.com/andyinthecloud)
 
 I enjoy making life easier and enabling more people to help me in this endevour! And thus API's is one of my main passions. Hence this article! Enjoy and do let me know what cool time saving solutions you create!
