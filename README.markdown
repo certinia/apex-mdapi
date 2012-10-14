@@ -30,7 +30,7 @@ The main reasons are as follows...
 * Some operation names, such as create and update are also reserved words.
 * The WSDL2Apex tool does not support polymorphic XML and the Metadata WSDL contains types that extend each other, e.g. CustomObject extends Metadata
 * The Apex XML serialiser does not support inheritance (see above point). More specifically it does not see base class members nor does it emit the 'xsi:type' attribute to support polymorphic XML data binding.
-* The Apex language does not support the Zip file format, so the **retrieve** and the **deploy** operations are a no go. Without some external assistance to prepare the zip file, some have suggested utilising a VF page and a Javascript page for this.
+* The Apex language does not support the Zip file format, so the **retrieve** and the **deploy** operations are a no go from a pure Apex perspective. Without some external assistance to prepare the zip file, some have suggested utilising a VF page and a Javascript page for this (Update: 14th October, see new section below)
 * Most operations return **AsyncResult** which gives you an Id to call back on to determine the fate of your request. While this can be called, you will need to do this via VF page refresh or within a scheduled job.
 
 So assuming we can resolve these issues and tolerate some of the gaps, what does that leave us with? 
@@ -113,6 +113,20 @@ Examples
 		service.SessionHeader.sessionId = UserInfo.getSessionId();
 		return service;		
 	}
+
+Metadata Retrieve Demo
+----------------------
+
+The **MetadataServiceController** and **metadataservice.page** illustrate a demonstration of using the excellent **JSZip** library to handle the zip file contents and pass the file data back to the page for handling in Apex (the demo stores the file data in viewstate but the hook exists in the controller to push this any place you please). It also shows how to handle the AsyncRequest and checkStatus call. Enjoy and here is a screenshot!
+
+![Metadata Retrieve Demo Screenshot](images/mdretrievedemo.png)
+
+**NOTE:** I nearly got this working without using JSZip, in a pure 100% native Apex and Visualforce way. I utilised the Metadata CRUD API to dynamically upload the zip file as a Static Resource. Then used PageReference.getContent to peak into it! However there seems to be a bug with Static Resources containing files with spaces in their names! No matter how I escapted the URL, I got a 404. I'm researching this further. So watch this space...
+
+Metadata Deploy Demo
+---------------------
+
+The ability to deploy Apex code is something a lot of people have been asking about. Using the JSZip library this should be possible. Watch this space for an upcoming demo of that!
 
 How was it done?
 ----------------

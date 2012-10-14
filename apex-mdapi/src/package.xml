@@ -2,8 +2,21 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>MetadataService</members>
+        <members>MetadataServiceController</members>
         <members>MetadataServiceExamples</members>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>metadataservice</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>StaticResource</name>
     </types>
     <version>24.0</version>
 </Package>
