@@ -119,7 +119,7 @@ Metadata Retrieve Demo
 
 The **MetadataServiceController** and **metadataservice.page** illustrate a demonstration of using the excellent **JSZip** library to handle the zip file contents and pass the file data back to the page for handling in Apex (the demo stores the file data in viewstate but the hook exists in the controller to push this any place you please). It also shows how to handle the AsyncRequest and checkStatus call. Enjoy and here is a screenshot!
 
-![Metadata Retrieve Demo Screenshot](images/mdretrievedemo.png)
+![Metadata Retrieve Demo Screenshot](https://raw.github.com/financialforcedev/apex-mdapi/master/images/mdretrievedemo.png)
 
 **NOTE:** I nearly got this working without using JSZip, in a pure 100% native Apex and Visualforce way. I utilised the Metadata CRUD API to dynamically upload the zip file as a Static Resource. Then used PageReference.getContent to peak into it! However there seems to be a bug with Static Resources containing files with spaces in their names! No matter how I escapted the URL, I got a 404. I'm researching this further. So watch this space...
 
