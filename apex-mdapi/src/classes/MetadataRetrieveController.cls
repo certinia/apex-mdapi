@@ -27,7 +27,7 @@
 /**
  * This example demonstrates how to utilise the Metadata API Retrieve operation inconjunction with the JSZip JavaScript library
  **/
-public with sharing class MetadataServiceController 
+public with sharing class MetadataRetrieveController 
 {
 	public List<SelectOption> Layouts {get; set;}
 	public String LayoutName {get; set;}	

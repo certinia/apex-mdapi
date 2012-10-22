@@ -17,8 +17,8 @@ While Salesforce offer on platform Apex developers a means to query some of this
 
 So what can we do in the meantime as Apex developers? Well it turns out that Apex is quite good at making outbound calls to Web Services and more recently REST base API's, all be it as always with a few governors to be aware. So why can Apex not call out to the Metadata Web Services API? After all, there is a WSDL for it and you have the ability as an Apex developer to import a WSDL into Apex and consume the code it generates to make the call, right? Well...
 
-Problems and (some) Solutions
------------------------------
+Problems and Solutions
+----------------------
 
 Salesforce have been promoting recently the Metadata REST API. While this is still not a native API to Apex, it would be a lot easier to call than the Web Service one, though you would have develop your own wrapper classes. Unfortunatly this API is still in pilot and I have been told by Salesforce its appearance as a GA API is still someway out, sadly.
 
@@ -29,17 +29,18 @@ The main reasons are as follows...
 * The port name uses a reserved word, Metadata.
 * Some operation names, such as create and update are also reserved words.
 * The WSDL2Apex tool does not support polymorphic XML and the Metadata WSDL contains types that extend each other, e.g. CustomObject extends Metadata
-* The Apex XML serialiser does not support inheritance (see above point). More specifically it does not see base class members nor does it emit the 'xsi:type' attribute to support polymorphic XML data binding.
-* The Apex language does not support the Zip file format, so the **retrieve** and the **deploy** operations are a no go from a pure Apex perspective. Without some external assistance to prepare the zip file, some have suggested utilising a VF page and a Javascript page for this (Update: 14th October, see new section below)
-* Most operations return **AsyncResult** which gives you an Id to call back on to determine the fate of your request. While this can be called, you will need to do this via VF page refresh or within a scheduled job.
+* The Apex XML serialiser does not support inheritance (see above point). More specifically it does not see base class members nor does it emit the 'xsi:type' attribute to support polymorphic XML data binding. So the generated Apex code requires a bit of tweaking to support this.
+* The Apex language does not support the Zip file format, so the **retrieve** and the **deploy** operations so these are a no go from a pure Apex perspective. However this doesnt stop the of Javascript to handle zips! See sections below on how this has been done.
+* Most operations return **AsyncResult** which gives you an Id to call back on to determine the fate of your request. While this can be called, you will need to do this via AJAX, Apex Future or Apex Job. The deploy and retrieve samples utilise apex:actionPoller.
 
-So assuming we can resolve these issues and tolerate some of the gaps, what does that leave us with? 
+So once we resolve these issues and with a splash of AJAX and Javascript we can now get access to the Metadata API from Apex!
 
-* The following operations appear useable (though I have only tested a subset so far) within Apex, **create**, **update** and **delete**. 
+* The following so called CRUD operations appear useable (though I have only tested a subset so far) within Apex, **create**, **update** and **delete**. 
 * As well as **listMetadata** and **describeMetadata** (though you may well hit a heap issue here in large orgs). 
 * You can also call **checkStatus** to check the status of your requests. 
+* With a bit of help from a Javascript library, the infamous **retrieve** and **deploy** also become workable.
 
-**Note:** The CRUD operations do not support Apex components sadly, this is a API restriction and not an issue with calling from Apex as such.
+**Note:** The CRUD operations do not support Apex Class or Apex Trigger components sadly, this is a API restriction and not an issue with calling from Apex as such.
 
 So I've created this Github repo to capture a modified version of the generated Apex class around the Metadata API. Which addresses the problems above. So that you can download it and get started straight away. Be warned though I have only performed tweaks to some of the more popular component types. I am more than happy if others want to contribute tweaks to others!
 
@@ -117,7 +118,7 @@ Examples
 Metadata Retrieve Demo
 ----------------------
 
-The [MetadataServiceController](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceController.cls) and [metadataservice.page](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadataservice.page) demonstrate using the excellent [JSZip](http://stuartk.com/jszip/) library to handle the zip file contents and pass the file XML data back to the controller for handling in Apex. The demo stores the file data in viewstate but the hook exists in the controller to push this any place you please. It also shows how to handle the AsyncRequest and checkStatus call. Enjoy and here is a screenshot!
+The [MetadataRetrieveController](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataRetrieveController.cls) and [metadataretrieve.page](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadataretrieve.page) samples demonstrate using the excellent [JSZip](http://stuartk.com/jszip/) library to handle the zip retrieve file contents. Passing the zip entries back to the controller for handling in Apex. This sample stores the file data in a list in the controller, though you could send or process the file anyway you see fit. It also shows how to handle the AsyncRequest and checkStatus calls. Enjoy and here is a screenshot!
 
 ![Metadata Retrieve Demo Screenshot](https://raw.github.com/financialforcedev/apex-mdapi/master/images/mdretrievedemo.png)
 
@@ -126,10 +127,85 @@ The [MetadataServiceController](https://github.com/financialforcedev/apex-mdapi/
 Metadata Deploy Demo
 ---------------------
 
-The ability to deploy Apex code is something a lot of people have been asking about. Using the JSZip library this should be possible. Watch this space for an upcoming demo of that!
+**IMPORTANT NOTE:** This demo allows you (in theory since I've not tested all) to deploy any Metadata Component types, including ApexClass. In many use cases it is possible to deploy Apex using the existing tools Salesforce provide, changesets, migration toolkit (aka Ant ) and packages. Only utilise this capability if your sure your use case requires it. Note that this does not bypass the need to deploy test code with the correct coverage when deploying into production environments.
 
-How was it done?
-----------------
+The ability to deploy Apex code (and other Metadata component types not covered by the CRUD operations) is something it seems a lot of people have been asking about. Using the JSZip library I have got this working. I also decided to create some Visualforce components to wrap this library to make it a little easier to use. These components are called zip, zipEntry and unzip, you can see them in action on the pages used by this demo and the one above. 
+
+To illustrate error handling, I've shown in the screen shot a deliberate failed deploy, since getting the feedback is just as an important aspect of the solution as a successful one! The key implementation parts of the sample are shown below, enjoy!
+
+![Metadata Deploy Demo Screenshot](https://raw.github.com/financialforcedev/apex-mdapi/master/images/mddeploydemo.png)
+
+	public String getPackageXml()
+	{
+		return '<?xml version="1.0" encoding="UTF-8"?>' + 
+			'<Package xmlns="http://soap.sforce.com/2006/04/metadata">' + 
+    			'<types>' + 
+        			'<members>HelloWorld</members>' +
+        			'<name>ApexClass</name>' + 
+    			'</types>' + 
+    			'<version>26.0</version>' + 
+			'</Package>';		
+	}
+	
+	public String getHelloWorldMetadata()
+	{
+		return '<?xml version="1.0" encoding="UTF-8"?>' +
+			'<ApexClass xmlns="http://soap.sforce.com/2006/04/metadata">' +
+			    '<apiVersion>26.0</apiVersion>' + 
+			    '<status>Active</status>' +
+			'</ApexClass>';		
+	}
+
+	public String getHelloWorld()	
+	{
+		return 'public class HelloWorld' + 
+			'{' + 
+				'public static void helloWorld()' +
+				'{' + 
+					'System.debug(\' Hello World\');' +
+				'}' +
+			'}';
+	}
+
+	<apex:actionFunction name="deployZip" action="{!deployZip}" rendered="{!ISNULL(AsyncResult)}" rerender="form">
+		<apex:param name="data" assignTo="{!ZipData}" value=""/>
+	</apex:actionFunction>
+
+	<c:zip name="generateZip" oncomplete="deployZip(data);" rendered="{!ISNULL(AsyncResult)}">
+		<c:zipEntry path="package.xml" data="{!PackageXml}"/>
+		<c:zipEntry path="classes/HelloWorld.cls-meta.xml" ata="{!HelloWorldMetadata}"/>
+		<c:zipEntry path="classes/HelloWorld.cls" data="{!HelloWorld}"/>
+	</c:zip>
+	
+	<input type="button" onclick="generateZip();" value="Deploy"/>
+
+	public PageReference deployZip()
+	{
+		ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deploying...'));
+
+		// Deploy zip file posted back from the page action function				
+		MetadataService.MetadataPort service = createService();
+		MetadataService.DeployOptions deployOptions = new MetadataService.DeployOptions();
+        deployOptions.allowMissingFiles = false;
+        deployOptions.autoUpdatePackage = false;
+        deployOptions.checkOnly = false;
+        deployOptions.ignoreWarnings = false;
+        deployOptions.performRetrieve = false;
+        deployOptions.purgeOnDelete = false;
+        deployOptions.rollbackOnError = true;
+        deployOptions.runAllTests = false;
+        deployOptions.runTests = null;
+        deployOptions.singlePackage = true;		
+		AsyncResult = service.deploy(ZipData, DeployOptions);				
+		return null;
+	}	
+
+**NOTE:** I am using Visualforce state (aka Viewstate) and Visualforce AJAX in the above two examples. This will limit the size of the files and zip file being exchanged. Use of JavaScript Remoting will give you increased flexibility in file size (docs state a response size of 15MB is supported). However this will mean storing state in a custom object. In a later revision I may enhance the zip VF components to support this automatically, leaving the controller to simply read and write to the custom object. Finally, keep in mind that you can also for most other Metadata Component types use the CRUD operations as shown above.
+
+You can review the [MetadataDeployController](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataDeployController.cls) and [metadatadeploy.page](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadatadeploy.page) for the full code. I have also included for now the zip components, though I may move those out to another repo in due course.
+
+How to create your own MetadataService.cls
+------------------------------------------
 
 If you want to repeat what I did on new version of the Metadata WSDL or just want to tweak further component types beyond the ones used in the above examples. Here is how I did it...
 

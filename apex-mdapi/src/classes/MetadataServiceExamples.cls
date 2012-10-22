@@ -57,6 +57,20 @@ public with sharing class MetadataServiceExamples
 		customField.length = 42;
  		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
 	}
+	
+	public static void updateField()
+	{
+	    MetadataService.MetadataPort service = createService(); 
+	    MetadataService.CustomField customField = new MetadataService.CustomField();
+	    customField.fullName = 'Test__c.TestField__c';
+	    customField.label='New Test Field Label';
+	    customField.type_x = 'Text'; 
+	    customField.length = 52;
+	    MetadataService.UpdateMetadata ut = new MetadataService.UpdateMetadata();
+	    ut.currentName='Test__c.TestField__c';
+	    ut.metadata= customField;
+	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.updateMetadata> {ut});	
+	}	
 
 	public static void createPage()
 	{
