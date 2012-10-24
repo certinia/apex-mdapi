@@ -173,7 +173,7 @@ To illustrate error handling, I've shown in the screen shot a deliberate failed 
 
 	<c:zip name="generateZip" oncomplete="deployZip(data);" rendered="{!ISNULL(AsyncResult)}">
 		<c:zipEntry path="package.xml" data="{!PackageXml}"/>
-		<c:zipEntry path="classes/HelloWorld.cls-meta.xml" ata="{!HelloWorldMetadata}"/>
+		<c:zipEntry path="classes/HelloWorld.cls-meta.xml" data="{!HelloWorldMetadata}"/>
 		<c:zipEntry path="classes/HelloWorld.cls" data="{!HelloWorld}"/>
 	</c:zip>
 	
