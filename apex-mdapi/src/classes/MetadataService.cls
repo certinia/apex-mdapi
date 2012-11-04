@@ -3083,7 +3083,9 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'members','name'};
     }
-    public class PicklistValue {
+    public class PicklistValue extends Metadata {
+		public String type = 'PicklistValue';
+		public String fullName;    	
         public Boolean allowEmail;
         public Boolean closed;
         public String color;
@@ -3098,6 +3100,8 @@ public class MetadataService {
         public String reverseRole;
         public Boolean reviewed;
         public Boolean won;
+        private String[] type_att_info = new String[]{'xsi:type'};
+        private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] allowEmail_type_info = new String[]{'allowEmail','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
         private String[] closed_type_info = new String[]{'closed','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
         private String[] color_type_info = new String[]{'color','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
@@ -3113,7 +3117,7 @@ public class MetadataService {
         private String[] reviewed_type_info = new String[]{'reviewed','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
         private String[] won_type_info = new String[]{'won','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'allowEmail','closed','color','controllingFieldValues','converted','cssExposed','default_x','description','forecastCategory','highPriority','probability','reverseRole','reviewed','won'};
+        private String[] field_order_type_info = new String[]{'fullName', 'allowEmail','closed','color','controllingFieldValues','converted','cssExposed','default_x','description','forecastCategory','highPriority','probability','reverseRole','reviewed','won'};
     }
     public class RemoteSiteSetting {
         public String description;

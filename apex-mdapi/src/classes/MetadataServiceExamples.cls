@@ -112,6 +112,46 @@ public with sharing class MetadataServiceExamples
 			System.debug(fileProperty.fullName);
 	}
 	
+	public static void createPicklistField()
+	{
+	    MetadataService.MetadataPort service = createService();     
+	    MetadataService.CustomField customField = new MetadataService.CustomField();
+	    customField.fullName = 'Lead.picklist__c';
+	    customField.label = 'picklist';
+	    customField.type_x = 'Picklist';
+	    metadataservice.Picklist pt = new metadataservice.Picklist();
+	    pt.sorted= false;
+	    metadataservice.PicklistValue one = new metadataservice.PicklistValue();
+	    one.fullName= 'first';
+	    one.default_x=false ;
+	    pt.picklistValues = new list<metadataservice.PicklistValue>{one};
+	    customField.picklist = pt ;
+	    MetadataService.AsyncResult[] results = service.create (new List<MetadataService.Metadata> { customField });
+	}	
+
+	public static void UpdatePicklistField()
+	{
+	    MetadataService.MetadataPort service = createService();     
+	    MetadataService.CustomField customField = new MetadataService.CustomField();
+	    customField.fullName = 'Lead.picklist__c';
+	    customField.label = 'picklist';
+	    customField.type_x = 'Picklist';
+	    metadataservice.Picklist pt = new metadataservice.Picklist();
+	    pt.sorted= false;
+	    metadataservice.PicklistValue two = new metadataservice.PicklistValue();
+	    two.fullName= 'second';
+	    two.default_x=false ;
+	    metadataservice.PicklistValue three = new metadataservice.PicklistValue();
+	    three.fullName= 'third';
+	    three.default_x=false ;
+	    pt.picklistValues = new list<metadataservice.PicklistValue>{two,three};
+	    customField.picklist = pt ;
+	    MetadataService.UpdateMetadata ut = new MetadataService.UpdateMetadata();
+	    ut.currentName='Lead.picklist__c';
+	    ut.metadata= customField;	
+	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.updateMetadata> {ut});
+	}
+	
 	public static MetadataService.MetadataPort createService()
 	{ 
 		MetadataService.MetadataPort service = new MetadataService.MetadataPort();

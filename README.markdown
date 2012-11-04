@@ -115,6 +115,8 @@ Examples
 		return service;		
 	}
 
+You can view more examples [here](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceExamples.cls). Thanks to [mohit-address](https://github.com/mohit-address) for submitting examples relating to updating picklist values.
+
 Metadata Retrieve Demo
 ----------------------
 
