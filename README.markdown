@@ -215,7 +215,9 @@ Metadata Explore Demo
 
 With my recent Sencha skills, I decided to see if I could start the roots of a Metadata Explorer tool, using the **describeMetadata** API call. I've commited the basics of it into the repo, here is a screenshot to give you an idea. It works by using Sencha Stores and the Tree control to incrementally load the tree as the user expands the Metadata Types, quite fun!
 
-![Metadata Deploy Demo Screenshot](https://raw.github.com/financialforcedev/apex-mdapi/master/images/mdbrowsedemo.png)
+![Metadata Browse Demo Screenshot](https://raw.github.com/financialforcedev/apex-mdapi/master/images/mdbrowsedemo.png)
+
+You can study the Visualforce page [here](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadatabrowser.page) which mostly contains the Sencha code, making use of the [metadatadata](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadatadata.page) page as a data proxy for the Sencha store. The controller for this data proxy page is [here](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataDataController.cls). Which emits the JSON data (using calls to the describeMetadata API call) used by the Sencha store .
 
 How to create your own MetadataService.cls
 ------------------------------------------
