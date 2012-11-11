@@ -25,20 +25,27 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 -->
-<apex:page controller="MetadataRetrieveController" action="{!listLayouts}" sidebar="false">
+<apex:page controller="MetadataRetrieveController" action="{!init}" sidebar="false">
     <apex:form id="form" >
         <apex:sectionHeader title="Metadata Retrieve Demo"/>
         <apex:pageMessages id="messages"/>
         <apex:actionPoller action="{!checkAsyncRequest}" interval="5" rerender="form" rendered="{!NOT(ISNULL(AsyncResult))}"/>
         <apex:pageBlock title="Layouts" rendered="{!AND(ISNULL(AsyncResult),ISNULL(MetaDataRetrieveZip))}">
             <apex:pageBlockButtons >
-                <apex:commandButton value="Retrieve" action="{!retrieveLayout}" />
+                <apex:commandButton value="Retrieve" action="{!retrieveMetadataItem}" />
             </apex:pageBlockButtons>
             <apex:pageBlockSection columns="1">
                 <apex:pageBlockSectionItem >
-                    <apex:outputLabel value="Layout:" />
-                    <apex:selectList size="1" value="{!LayoutName}" >
-                        <apex:selectOptions value="{!Layouts}"/>
+                    <apex:outputLabel value="Metadata Type:" />
+                    <apex:selectList size="1" value="{!MetadataType}" >
+                        <apex:selectOptions value="{!MetadataTypes}"/>
+                        <apex:actionSupport event="onchange"  action="{!listMetadataItems}"/> 
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Metadata Item:" />
+                    <apex:selectList size="1" value="{!MetaDataItem}" >
+                        <apex:selectOptions value="{!MetaDataItems}"/>
                     </apex:selectList>
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>

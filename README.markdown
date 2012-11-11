@@ -1,6 +1,10 @@
 Apex Wrapper for Salesforce Metadata API
 ========================================
 
+**Update: 11th November:**
+- Updated the Retrieve Demo to utilise 'describeMetadata' API call to allow the user to select which Metadata Type to list and retrieve.
+- Added 'Metadata Explore' demo (see below) a Sencha powered demo of 'describeMetadata' and 'listMetadata' API's
+
 Background
 -----------
 
@@ -205,6 +209,13 @@ To illustrate error handling, I've shown in the screen shot a deliberate failed 
 **NOTE:** I am using Visualforce state (aka Viewstate) and Visualforce AJAX in the above two examples. This will limit the size of the files and zip file being exchanged. Use of JavaScript Remoting will give you increased flexibility in file size (docs state a response size of 15MB is supported). However this will mean storing state in a custom object. In a later revision I may enhance the zip VF components to support this automatically, leaving the controller to simply read and write to the custom object. Finally, keep in mind that you can also for most other Metadata Component types use the CRUD operations as shown above.
 
 You can review the [MetadataDeployController](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataDeployController.cls) and [metadatadeploy.page](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadatadeploy.page) for the full code. I have also included for now the zip components, though I may move those out to another repo in due course.
+
+Metadata Explore Demo
+---------------------
+
+With my recent Sencha skills, I decided to see if I could start the roots of a Metadata Explorer tool, using the **describeMetadata** API call. I've commited the basics of it into the repo, here is a screenshot to give you an idea. It works by using Sencha Stores and the Tree control to incrementally load the tree as the user expands the Metadata Types, quite fun!
+
+![Metadata Deploy Demo Screenshot](https://raw.github.com/financialforcedev/apex-mdapi/master/images/mdbrowsedemo.png)
 
 How to create your own MetadataService.cls
 ------------------------------------------
