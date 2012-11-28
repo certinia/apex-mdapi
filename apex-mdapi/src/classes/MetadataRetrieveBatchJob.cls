@@ -25,7 +25,7 @@
 **/
 
 /**
- * Initial in progress class to illustrate using Metadata API in Batch Apex 
+ * Initial (in progress class) to illustrate using Metadata API in Batch Apex (aka using AysncResult)
  *   (resulted in a bug fix to MetadataService end point resolution code)
  **/
 public with sharing class MetadataRetrieveBatchJob 
@@ -72,6 +72,7 @@ public with sharing class MetadataRetrieveBatchJob
 	
 	public static void run()
 	{
+		// TODO: Consider life time of session here
 		Database.executeBatch(new MetadataRetrieveBatchJob(UserInfo.getSessionId()));
 	}
 	
