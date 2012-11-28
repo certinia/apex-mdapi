@@ -3,6 +3,7 @@
     <types>
         <members>MetadataDataController</members>
         <members>MetadataDeployController</members>
+        <members>MetadataRetrieveBatchJob</members>
         <members>MetadataRetrieveController</members>
         <members>MetadataService</members>
         <members>MetadataServiceExamples</members>
