@@ -1409,7 +1409,15 @@ public class MetadataService {
         private String[] field_order_type_info = new String[]{'assignToReference','field'};
     }
     public class MetadataPort {
-        public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/25.0';
+        public String endpoint_x;
+        {
+        	// Workaround to platform bug (?) where the following method returns a none HTTPS URL in a Batch Apex context
+        	URL baseUrl = URL.getSalesforceBaseUrl();
+        	System.debug('Protocol is ' + baseUrl.getProtocol());
+        	if(baseUrl.getProtocol() == 'http')
+        		baseUrl = new URL('https', baseUrl.getHost(), baseUrl.getPort(), baseUrl.getFile()); // Switch to https protocol
+        	endpoint_x = baseUrl.toExternalForm() + '/services/Soap/m/25.0';
+        }
         public Map<String,String> inputHttpHeaders_x;
         public Map<String,String> outputHttpHeaders_x;
         public String clientCertName_x;
