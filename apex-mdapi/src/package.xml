@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>MetadataDataController</members>
@@ -9,12 +9,6 @@
         <members>MetadataServiceExamples</members>
         <members>MetadataServiceTest</members>
         <name>ApexClass</name>
-    </types>
-    <types>
-        <members>unzip</members>
-        <members>zip</members>
-        <members>zipEntry</members>
-        <name>ApexComponent</name>
     </types>
     <types>
         <members>*</members>
@@ -28,5 +22,10 @@
         <members>*</members>
         <name>StaticResource</name>
     </types>
+    <types>
+        <members>*</members>
+        <name>ApexComponent</name>
+    </types>
     <version>24.0</version>
 </Package>
+

@@ -46,6 +46,45 @@ public with sharing class MetadataServiceExamples
 		customObject.sharingModel = 'ReadWrite';
 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customObject });
 	}
+
+	public static void createLookupField()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.CustomField customField = new MetadataService.CustomField();
+		customField.fullName = 'Test__c.LookupField__c';
+		customField.label = 'Lookup Field';
+		customField.type_x = 'Lookup';
+		customField.relationshipLabel = 'Tests';
+		customField.relationshipName = 'Tests';
+		customField.referenceTo = 'Test__c';
+ 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
+	}
+
+
+	public static void createExternalField()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.CustomField customField = new MetadataService.CustomField();
+		customField.fullName = 'Test__c.ExternalField__c';
+		customField.label = 'External Field';
+		customField.type_x = 'Text';
+		customField.length = 42;
+		customField.externalId = true;
+ 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
+	}
+		
+	public static void createLongTextAreaField()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.CustomField customField = new MetadataService.CustomField();
+		customField.fullName = 'Test__c.LongTextAreaField__c';
+		customField.label = 'Long Text Area Field';
+		customField.type_x = 'LongTextArea';
+		customField.length = 32000;
+		customField.visibleLines = 3;
+ 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
+	}
+
 	
 	public static void createField()
 	{
