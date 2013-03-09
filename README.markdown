@@ -4,6 +4,7 @@ Apex Wrapper for Salesforce Metadata API
 **Update: 11th November 2012:**
 - Updated the Retrieve Demo to utilise 'describeMetadata' API call to allow the user to select which Metadata Type to list and retrieve.
 - Added 'Metadata Explore' demo (see below) a Sencha powered demo of 'describeMetadata' and 'listMetadata' API's
+
 **Update: 3rd March 2013:**
 - Updated MetadataServiceExample.cls with more sample code creating various field types.
 
