@@ -8,6 +8,9 @@ Apex Wrapper for Salesforce Metadata API
 **Update: 3rd March 2013:**
 - Updated MetadataServiceExample.cls with more sample code creating various field types.
 
+**Update: 10th March 2013:**
+- Updated to Spring'13 Metadat API, more info on new features of this version [here](http://developer.force.com/releases/release/Spring13/Bulk+Metadata+and+Streaming+API+Updates). 
+
 Background
 -----------
 
