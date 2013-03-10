@@ -188,7 +188,45 @@ public with sharing class MetadataServiceExamples
 	    MetadataService.UpdateMetadata ut = new MetadataService.UpdateMetadata();
 	    ut.currentName='Lead.picklist__c';
 	    ut.metadata= customField;	
-	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.updateMetadata> {ut});
+	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.UpdateMetadata> {ut});
+	}
+	
+	public static void createAddressSettings()
+	{
+	    MetadataService.MetadataPort service = createService();
+	    MetadataService.AddressSettings addressSettings = new MetadataService.AddressSettings();
+	    addressSettings.fullName = 'Address';	    
+	    addressSettings.countriesAndStates = new MetadataService.CountriesAndStates();
+		MetadataService.Country us = new MetadataService.Country();
+		us.active = true;
+		us.integrationValue = 'United States';
+		us.isoCode = 'US';
+		us.label = 'United States';
+		MetadataService.State stateAL = new MetadataService.State();
+		stateAL.active = true;
+		stateAL.integrationValue = 'Alabama';
+		stateAL.isoCode = 'AL';
+		stateAL.label = 'Alabama';		
+		MetadataService.State stateAK = new MetadataService.State();
+		stateAK.active = true;
+		stateAK.integrationValue = 'Alaska';
+		stateAK.isoCode = 'AK';
+		stateAK.label = 'Alaska';		
+		us.states = new List<MetadataService.State> { stateAL, stateAK };
+		addressSettings.countriesAndStates.countries = new List<MetadataService.Country> { us };
+	    MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> {addressSettings});		
+	}
+	
+	public static void updateCaseSettings()
+	{
+	    MetadataService.MetadataPort service = createService();
+	    MetadataService.CaseSettings caseSettings = new MetadataService.CaseSettings();
+	    caseSettings.fullName = 'Case';
+	    caseSettings.notifyOwnerOnCaseComment = true;
+	    MetadataService.UpdateMetadata updateMetadata = new MetadataService.UpdateMetadata();
+	    updateMetadata.currentName='Case.settings';
+	    updateMetadata.metadata= caseSettings;		    	    		
+	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.UpdateMetadata> { updateMetadata });		
 	}
 	
 	public static MetadataService.MetadataPort createService()

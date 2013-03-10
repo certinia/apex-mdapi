@@ -1087,17 +1087,21 @@ public class MetadataService {
     }
     public class RecordTypePicklistValue {
         public String picklist;
-        public MetadataService.PicklistValue[] values;
+        public MetadataService.PicklistValue[] values;        
         private String[] picklist_type_info = new String[]{'picklist','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
         private String[] values_type_info = new String[]{'values','http://soap.sforce.com/2006/04/metadata','PicklistValue','0','-1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'picklist','values'};
     }
-    public class AddressSettings {
+    public class AddressSettings extends Metadata {
+    	public String type = 'AddressSettings';
+    	public String fullName;
         public MetadataService.CountriesAndStates countriesAndStates;
+ 		private String[] type_att_info = new String[]{'xsi:type'};
+        private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] countriesAndStates_type_info = new String[]{'countriesAndStates','http://soap.sforce.com/2006/04/metadata','CountriesAndStates','1','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'countriesAndStates'};
+        private String[] field_order_type_info = new String[]{'fullName', 'countriesAndStates'};
     }
     public class describeMetadata_element {
         public Double asOfVersion;
@@ -2193,7 +2197,9 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'assignRecordIdToReference','connector','faultConnector','inputAssignments','object_x'};
     }
-    public class CaseSettings {
+    public class CaseSettings extends Metadata {
+    	public String type = 'CaseSettings';
+    	public String fullName;
         public String caseAssignNotificationTemplate;
         public String caseCloseNotificationTemplate;
         public String caseCommentNotificationTemplate;
@@ -2220,6 +2226,8 @@ public class MetadataService {
         public Boolean showFewerCloseActions;
         public Boolean useSystemEmailAddress;
         public MetadataService.WebToCaseSettings webToCase;
+		private String[] type_att_info = new String[]{'xsi:type'};
+        private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] caseAssignNotificationTemplate_type_info = new String[]{'caseAssignNotificationTemplate','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] caseCloseNotificationTemplate_type_info = new String[]{'caseCloseNotificationTemplate','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] caseCommentNotificationTemplate_type_info = new String[]{'caseCommentNotificationTemplate','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
