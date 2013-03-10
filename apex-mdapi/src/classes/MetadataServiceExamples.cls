@@ -168,7 +168,7 @@ public with sharing class MetadataServiceExamples
 	    MetadataService.AsyncResult[] results = service.create (new List<MetadataService.Metadata> { customField });
 	}	
 
-	public static void UpdatePicklistField()
+	public static void updatePicklistField()
 	{
 	    MetadataService.MetadataPort service = createService();     
 	    MetadataService.CustomField customField = new MetadataService.CustomField();
