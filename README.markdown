@@ -11,6 +11,11 @@ Apex Wrapper for Salesforce Metadata API
 **Update: 10th March 2013:**
 - Updated to **Spring'13 Metadata API (v27.0)**, more info on new features of this version [here](http://developer.force.com/releases/release/Spring13/Bulk+Metadata+and+Streaming+API+Updates). Also added new samples for Settings configuraiton, see blog [here](http://andyinthecloud.com/2013/03/10/apex-metadata-api-spring13-update-org-settings-access).
 
+Known Issues and Resolutions
+----------------------------
+
+- If you recieve the error message 'Insufficient access; cannot execute Metadata operation with PAC enabled session id' within Apex code within a managed package utilising this library. Please ensure to changed the API access from Restricted to Unrestricted on your Package defintion. Many thanks to the great work from [vipulpahwa](https://github.com/vipulpahwa) and [Daniel Blackhall](https://github.com/seeflat) to getting to the bottom of this rather cryptic error message.
+
 Background
 -----------
 
