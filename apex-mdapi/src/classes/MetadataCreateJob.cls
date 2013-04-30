@@ -31,25 +31,25 @@
  **/
 public with sharing class MetadataCreateJob 
 	implements Database.Batchable<Item>, Database.Stateful, Database.AllowsCallouts
-{
-	private List<Item> items;
-	
-	private Map<Integer, Item> itemsByIndex;
-	
+{	
+	private String sessionId;	
+	private List<Item> items;	
 	private IMetadataAsyncCallback callback;
+	private Map<Integer, Item> itemsByIndex;	
 	
-	private String sessionId;
-	
+	/**
+	 * Private constructor, this job can only be started via the run method
+	 **/
 	private MetadataCreateJob(String sessionId, List<Item> items, IMetadataAsyncCallback callback)
 	{
 		this.sessionId = sessionId;
 		this.items = items;
 		this.callback = callback;
-		this.itemsByIndex = new Map<Integer, Item>();
 		
 		// Index the items such that the scope items passed during execute can 
-		//  be mapped to those maintained in the job state
+		//  be mapped to these maintained in the job state
 		Integer index = 0;
+		itemsByIndex = new Map<Integer, Item>();
 		for(Item item : items)
 		{
 			item.index = index++;
@@ -80,7 +80,7 @@ public with sharing class MetadataCreateJob
 			if(item.aysncResult == null)				
 				item.aysncResult = service.create(new List<MetadataService.Metadata> { item.metaData })[0];
 			// Check the status of the last create call
-			else if(Item.aysncResult != null)
+			else if(item.aysncResult != null)
 				item.aysncResult = service.checkStatus(new String[] { item.aysncResult.Id } )[0];
 		}
 		catch(Exception e)
