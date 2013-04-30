@@ -28,6 +28,9 @@
  * This file demonstrates how to call the Salesforce Metadata API from Apex 
  *   for warnings, limits and further todos of this approach please review the readme 
  *   at https://github.com/financialforcedev/apex-mdapi for more information
+ *
+ * NOTE: You need to handle the AsyncResult value, via checkStatus and related methods e.g. checkDeployStatus
+ *       refer to the Metadata API developers guide for more information and the read me of this repo for other samples 
  **/
  
 public with sharing class MetadataServiceExamples 

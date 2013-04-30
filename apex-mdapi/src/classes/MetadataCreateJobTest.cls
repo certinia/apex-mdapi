@@ -25,7 +25,18 @@
 **/
 
 @IsTest
-private with sharing class MetadataServiceTest 
+private with sharing class MetadataCreateJobTest 
 {
-
+	private static testmethod void testRun()
+	{
+		// TODO: Still working on the mocking for this test, following should be taken as an example only
+		MetadataService.CustomField customField = new MetadataService.CustomField();
+		customField.fullName = 'Test__c.TestField__c';
+		customField.label = 'Test Field';
+		customField.type_x = 'Text';
+		customField.length = 42;
+		MetadataCreateJob.run(
+			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(customField) },
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());		
+	}
 }
