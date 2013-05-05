@@ -4,6 +4,7 @@
         <members>MetadataCreateJob</members>
         <members>MetadataCreateJobTest</members>
         <members>MetadataService</members>
+        <members>MetadataServiceTest</members>
         <name>ApexClass</name>
     </types>
     <version>24.0</version>

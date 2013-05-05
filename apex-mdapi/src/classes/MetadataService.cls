@@ -32,7 +32,7 @@
  *          please review the readme at https://github.com/financialforcedev/apex-mdapi for more information
  */   
 
-public class MetadataService {
+public class MetadataService {	
     public class listMetadataResponse_element {
         public MetadataService.FileProperties[] result;
         private String[] result_type_info = new String[]{'result','http://soap.sforce.com/2006/04/metadata','FileProperties','0','-1','false'};
@@ -4763,5 +4763,7 @@ public class MetadataService {
         private String[] ownerRules_type_info = new String[]{'ownerRules','http://soap.sforce.com/2006/04/metadata','AccountOwnerSharingRule','0','-1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'criteriaBasedRules','ownerRules'};
-    }
+    }    
+	// Following constructor required to work around current coverage bug in Salesforce
+	public MetadataService() { if(!Test.isRunningTest()) System.assert(false, 'Only for use in tests'); }    
 }

@@ -38,5 +38,5 @@ private with sharing class MetadataCreateJobTest
 		MetadataCreateJob.run(
 			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(customField) },
 			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());		
-	}
+	}	
 }
