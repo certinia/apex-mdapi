@@ -421,5 +421,11 @@ private class MetadataServiceTest
         new MetadataService.CallCenterSection();
         new MetadataService.EntitlementProcessMilestoneTimeTrigger();
         new MetadataService.StaticResource();
+        new MetadataService.MilestoneType();
+        new MetadataService.FiscalYearSettings();
+        new MetadataService.CompanySettings();
+        new MetadataService.WebToCaseSettings();
+        new MetadataService.EscalationRule();
+        new MetadataService.DashboardMobileSettings();
     }
 }
