@@ -14,6 +14,9 @@ Apex Wrapper for Salesforce Metadata API
 **Update: 5th May 2013:**
 - Updated MetadataServiceTest.cls, now provides 100% code coverage of MetadataService.cls!
 
+**Update: 6th May 2013:**
+- Updated MetadataCreateJob.cls, new feature to process Metadata API requests in Batch Apex, see examples.
+
 Known Issues and Resolutions
 ----------------------------
 
@@ -134,6 +137,58 @@ Examples
 	}
 
 You can view more examples [here](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceExamples.cls). Thanks to [mohit-address](https://github.com/mohit-address) for submitting examples relating to updating picklist values.
+
+Metadata Batch Apex Demo
+------------------------
+
+As described above you can poll the checkStatus operation for completion via either apex:actionPoller or Batch Apex. This example code shows how to create a number of Metadata components (custom object, fields and a page) from Apex without requiring Visualforce. You can read more about it [here](http://andyinthecloud.com/2013/05/06/scripting-the-apex-metadata-api-and-batch-apex-support/)
+
+		// Define Metadata item to create a Custom Object
+		MetadataService.CustomObject customObject = new MetadataService.CustomObject();
+		customObject.fullName = objectName + '__c';
+		customObject.label = objectName;
+		customObject.pluralLabel = objectName+'s';
+		customObject.nameField = new MetadataService.CustomField();
+		customObject.nameField.type_x = 'Text';
+		customObject.nameField.label = 'Test Record';
+		customObject.deploymentStatus = 'Deployed';
+		customObject.sharingModel = 'ReadWrite';
+		
+		// Define Metadata item to create a Custom Field on the above object
+		MetadataService.CustomField customField1 = new MetadataService.CustomField();
+		customField1.fullName = objectName+'__c.TestField1__c';
+		customField1.label = 'Test Field 1';
+		customField1.type_x = 'Text';
+		customField1.length = 42;
+
+		// Define Metadata item to create a Custom Field on the above object
+		MetadataService.CustomField customField2 = new MetadataService.CustomField();
+		customField2.fullName = objectName+'__c.TestField2__c';
+		customField2.label = 'Test Field 2';
+		customField2.type_x = 'Text';
+		customField2.length = 42;
+		
+		// Define Metadata item to create a Visualforce page to display the above field
+		MetadataService.ApexPage apexPage = new MetadataService.ApexPage();
+		apexPage.apiVersion = 25;
+		apexPage.fullName = objectName.toLowercase();
+		apexPage.label = objectName + ' Page';
+		apexPage.content = EncodingUtil.base64Encode(Blob.valueOf(
+			'<apex:page standardController=\''+objectName+'__c\'>'+
+				'{!' + objectName + '__c.TestField1__c}' +
+				'{!' + objectName + '__c.TestField2__c}' + 
+			'</apex:page>'));
+		
+		// Pass the Metadata items to the job for processing, indicating any dependencies
+		MetadataCreateJob.run(
+			new List<MetadataCreateJob.Item> { 
+					new MetadataCreateJob.Item(customObject),					
+					new MetadataCreateJob.Item(customField1, null, true), // Set wait to true, to process after object creation
+					new MetadataCreateJob.Item(customField2),  
+					new MetadataCreateJob.Item(apexPage, null, true) // Set wait to true, to process after field creation
+				},
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+
 
 Metadata Retrieve Demo
 ----------------------
