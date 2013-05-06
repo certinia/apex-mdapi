@@ -53,8 +53,8 @@ The main reasons are as follows...
 
 So once we resolve these issues and with a splash of AJAX and Javascript we can now get access to the Metadata API from Apex!
 
-* The following so called CRUD operations appear useable (though I have only tested a subset so far) within Apex, **create**, **update** and **delete**. 
-* As well as **listMetadata** and **describeMetadata** (though you may well hit a heap issue here in large orgs). 
+* The following so called CRUD operations are useable within Apex, **create**, **update** and **delete**. 
+* As well as **listMetadata** and **describeMetadata**. 
 * You can also call **checkStatus** to check the status of your requests. 
 * With a bit of help from a Javascript library, the infamous **retrieve** and **deploy** also become workable.
 
