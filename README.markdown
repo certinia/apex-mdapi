@@ -51,7 +51,7 @@ The main reasons are as follows...
 * The Apex language does not support the Zip file format, so the **retrieve** and the **deploy** operations so these are a no go from a pure Apex perspective. However this doesnt stop the of Javascript to handle zips! See sections below on how this has been done.
 * Most operations return **AsyncResult** which gives you an Id to call back on to determine the fate of your request. While this can be called, you will need to do this via AJAX, Apex Future or Apex Job. The deploy and retrieve samples utilise apex:actionPoller.
 
-So once we resolve these issues and with a splash of AJAX and Javascript we can now get access to the Metadata API from Apex!
+So once these issues are resolved we can now get access to the Metadata API from Apex!
 
 * The following so called CRUD operations are useable within Apex, **create**, **update** and **delete**. 
 * As well as **listMetadata** and **describeMetadata**. 
