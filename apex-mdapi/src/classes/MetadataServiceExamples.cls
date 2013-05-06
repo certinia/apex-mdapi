@@ -240,7 +240,57 @@ public with sharing class MetadataServiceExamples
 		customField.type_x = 'Text';
 		customField.length = 42;
 		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(customField) },
+			new List<MetadataCreateJob.Item> { 
+				new MetadataCreateJob.Item(customField) },
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+	}
+
+	public static void dynamicCreation(String objectName)
+	{
+		// Define Metadata item to create a Custom Object
+		MetadataService.CustomObject customObject = new MetadataService.CustomObject();
+		customObject.fullName = objectName + '__c';
+		customObject.label = objectName;
+		customObject.pluralLabel = objectName+'s';
+		customObject.nameField = new MetadataService.CustomField();
+		customObject.nameField.type_x = 'Text';
+		customObject.nameField.label = 'Test Record';
+		customObject.deploymentStatus = 'Deployed';
+		customObject.sharingModel = 'ReadWrite';
+		
+		// Define Metadata item to create a Custom Field on the above object
+		MetadataService.CustomField customField1 = new MetadataService.CustomField();
+		customField1.fullName = objectName+'__c.TestField1__c';
+		customField1.label = 'Test Field 1';
+		customField1.type_x = 'Text';
+		customField1.length = 42;
+
+		// Define Metadata item to create a Custom Field on the above object
+		MetadataService.CustomField customField2 = new MetadataService.CustomField();
+		customField2.fullName = objectName+'__c.TestField2__c';
+		customField2.label = 'Test Field 2';
+		customField2.type_x = 'Text';
+		customField2.length = 42;
+		
+		// Define Metadata item to create a Visualforce page to display the above field
+		MetadataService.ApexPage apexPage = new MetadataService.ApexPage();
+		apexPage.apiVersion = 25;
+		apexPage.fullName = objectName.toLowercase();
+		apexPage.label = objectName + ' Page';
+		apexPage.content = EncodingUtil.base64Encode(Blob.valueOf(
+			'<apex:page standardController=\''+objectName+'__c\'>'+
+				'{!' + objectName + '__c.TestField1__c}' +
+				'{!' + objectName + '__c.TestField2__c}' + 
+			'</apex:page>'));
+		
+		// Pass the Metadata items to the job for processing, indicating any dependencies
+		MetadataCreateJob.run(
+			new List<MetadataCreateJob.Item> { 
+					new MetadataCreateJob.Item(customObject),					
+					new MetadataCreateJob.Item(customField1, null, true), // Set wait to true, to process after object creation
+					new MetadataCreateJob.Item(customField2),  
+					new MetadataCreateJob.Item(apexPage, null, true) // Set wait to true, to process after field creation
+				},
 			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
 	}
 	

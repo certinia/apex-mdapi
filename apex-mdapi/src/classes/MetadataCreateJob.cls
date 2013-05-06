@@ -25,9 +25,13 @@
 **/
 
 /**
- * Processes a list of Metdata components, checking the status and calling a callback when all are complete.
- * It currently processes each component in isolation though in the order given. It supports
- * an email callback implementation though others can be implemented via the IMetadataAsyncCallback interface
+ * Processes a list of Metdata components to create and calling an Apex callback when all are complete.
+ *
+ *   It currently processes each component in the order given, items can be marked as dependent on the
+ *     proceeding item (via the wait flag) if there are dependencies, for example a VF page referencing an object
+ * 
+ *   It supports an email callback implementation though others can be implemented via 
+ *     the IMetadataAsyncCallback interface
  **/
 public with sharing class MetadataCreateJob 
 	implements Database.Batchable<Item>, Database.Stateful, Database.AllowsCallouts
@@ -183,20 +187,34 @@ public with sharing class MetadataCreateJob
 		public Integer index {get; private set;}
 		// Generic reference to caller context related to this job / metadata item (e.g. record id)
 		public Object context;
+		// Wait for the previous item to complete?
+		public Boolean wait = false;
 		// Metadata item to be created
-		public MetadataService.Metadata metaData;
+		public MetadataService.Metadata metaData {get; private set;}
 		// Exceptions raised 
 		public Exception createException {get; private set;}
 		// Result of the checkStatus call
 		public MetadataService.AsyncResult aysncResult {get; private set;}
+
+		/**
+		 * Constructs a Metadata work item to be processed by the job,
+		*   it will be processed in parrell with its proceeding item
+		 **/ 	
+		public Item(MetadataService.Metadata metaData)
+		{
+			this(metaData, null, false);
+		}
 	
 		/**
 		 * Constructs a Metadata work item to be processed by the job, you may also store your 
 		 *   own state in the 'context' property, this will be passed back via the callback on completion
+		 *   Setting wait ensures that the item will not be processed until the proceeding item completes
 		 **/ 	
-		public Item(MetadataService.Metadata metaData)
+		public Item(MetadataService.Metadata metaData, Object context, Boolean wait)
 		{
-			this.metaData = metaData;	
+			this.metaData = metaData;
+			this.context = context;
+			this.wait = wait;	
 		}
 	}
 	
@@ -244,6 +262,8 @@ public with sharing class MetadataCreateJob
 					continue;
 				if(item.createException != null)
 					continue;
+				if(iteratorItems.size() > 0 && item.wait)
+					break;
 				iteratorItems.add(item);
 			}
 		}
