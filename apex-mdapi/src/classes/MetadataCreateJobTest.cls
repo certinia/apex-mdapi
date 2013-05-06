@@ -24,19 +24,93 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
+/**
+ * Initial test for the MetadataCreateJob utility class, 
+ *   more testing will be permitted once Summer'13 is released and mixed mock callouts and DML permitted
+ **/
 @IsTest
 private with sharing class MetadataCreateJobTest 
 {
-	private static testmethod void testRun()
+    /**
+     * Metadata Web Service mock for testing MetadataCreateJob
+     **/
+	private class WebServiceMockImpl implements WebServiceMock 
 	{
-		// TODO: Still working on the mocking for this test, following should be taken as an example only
+		public void doInvoke(
+			Object stub, Object request, Map<String, Object> response,
+			String endpoint, String soapAction, String requestName,
+			String responseNS, String responseName, String responseType) 
+		{
+			// Mock response for 'create' operation?
+			if(request instanceof MetadataService.create_element)
+			{
+				MetadataService.createResponse_element responseElement = new MetadataService.createResponse_element();
+				MetadataService.AsyncResult asyncResult = new MetadataService.AsyncResult();
+				asyncResult.done = false; // Emulate the need for a second job execution to poll via checkStatus
+				responseElement.result = new MetadataService.AsyncResult[] { asyncResult };
+				response.put('response_x', responseElement);				
+			}			
+			// Mock response for 'checkStatus' operation?			
+			else if(request instanceof MetadataService.checkStatus_element)
+			{				
+				MetadataService.checkStatusResponse_element responseElement = new MetadataService.checkStatusResponse_element();
+				MetadataService.AsyncResult asyncResult = new MetadataService.AsyncResult();
+				asyncResult.done = true; // Emulate completion of the original 'create' operation
+				responseElement.result = new MetadataService.AsyncResult[] { asyncResult };
+				response.put('response_x', responseElement);
+			}
+			return;
+		}
+	}    
+
+	private static testmethod void testCreateField()
+	{
+    	// Metadata Web Service mock implementation
+        Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
+		
+		// Create a field
+		Test.startTest();
 		MetadataService.CustomField customField = new MetadataService.CustomField();
 		customField.fullName = 'Test__c.TestField__c';
 		customField.label = 'Test Field';
 		customField.type_x = 'Text';
 		customField.length = 42;
+		MetadataCreateJob.Item item = new MetadataCreateJob.Item(customField);
+		item.context = 'Some context';
 		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(customField) },
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());		
-	}	
+			new List<MetadataCreateJob.Item> { item },
+			new AssertMetadataAsyncCallback());
+		Test.stopTest(); // Assertions are implemented in the AssertMetadataAsyncCallback methods 		
+	}
+	
+	/**
+	 * Class implements callback provided to the create job and asserts the results
+	 **/
+	public class AssertMetadataAsyncCallback
+		implements MetadataCreateJob.IMetadataAsyncCallback
+	{
+		public void batchId(Id batchId)
+		{
+			// Must have received the Batch Apex Id (this allows clients to provide monitoring UIs)
+			System.assert(batchId!=null, 'Batch Id is null');				
+		}
+		
+		public void deployComplete(List<MetadataCreateJob.Item> items)
+		{
+			// Assert the completed item
+			System.assertEquals('Some context', items[0].context);
+			MetadataService.CustomField customField = (MetadataService.CustomField) items[0].metadata;
+			System.assertEquals('Test__c.TestField__c', customField.fullName);
+			System.assertEquals('Test Field', customField.label);
+			System.assertEquals('Text', customField.type_x);
+			System.assertEquals(42, customField.length); 
+			
+			// Currently the platform does not support testing callouts and DML (such as invoking Database.executeBatch)
+			System.assertEquals('You have uncommitted work pending. Please commit or rollback before calling out', 
+				items[0].createException.getMessage());
+			
+			// TODO: Once Summer'13 is released this can be tested properly, as the above restriction will not apply in a test context
+			// System.assertEquals(true, items[0].aysncResult.done);
+		}		
+	}		
 }

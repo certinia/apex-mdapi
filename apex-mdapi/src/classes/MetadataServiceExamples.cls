@@ -232,6 +232,18 @@ public with sharing class MetadataServiceExamples
 	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.UpdateMetadata> { updateMetadata });		
 	}
 	
+	public static void createJob()
+	{
+		MetadataService.CustomField customField = new MetadataService.CustomField();
+		customField.fullName = 'Test__c.TestField__c';
+		customField.label = 'Test Field';
+		customField.type_x = 'Text';
+		customField.length = 42;
+		MetadataCreateJob.run(
+			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(customField) },
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+	}
+	
 	public static MetadataService.MetadataPort createService()
 	{ 
 		MetadataService.MetadataPort service = new MetadataService.MetadataPort();
