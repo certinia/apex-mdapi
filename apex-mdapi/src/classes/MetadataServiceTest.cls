@@ -25,7 +25,7 @@
 **/
 
 /**
- * This is a dummy test class to obtain 100% coverage for the generated code, it is not a funcitonal test class
+ * This is a dummy test class to obtain 100% coverage for the generated WSDL2Apex code, it is not a funcitonal test class
  *   You should follow the usual practices to cover your other code, as shown in the MetadataCreateJobTest.cls
  **/ 
 @isTest  
