@@ -26,6 +26,10 @@
 **/
 -->
 <apex:page controller="MetadataDeployController" sidebar="false">
+	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip-load.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip-deflate.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip-inflate.js')}"/>
 	<apex:form id="form">
 	    <apex:sectionHeader title="Metadata Deploy Demo"/>
 		<apex:pageMessages />

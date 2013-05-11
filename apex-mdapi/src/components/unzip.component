@@ -28,10 +28,6 @@
 <apex:component >
 	<apex:attribute name="oncomplete" type="string" description="Javascript executed on unzip of file entry"/>
 	<apex:attribute name="name" type="string" description="Name of the Javascript function generated to unzip files"/>
-	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip-load.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip-deflate.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip-inflate.js')}"/>
 	<script>    
 		// Unzip and push zip entries onto list for processing
 	    var zipData = '<apex:componentBody />';

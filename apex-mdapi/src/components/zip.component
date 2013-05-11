@@ -28,10 +28,6 @@
 <apex:component >
 	<apex:attribute name="oncomplete" type="string" description="Javascript executed once all files have been zipped"/>
 	<apex:attribute name="name" type="string" description="Name of the Javascript function generated to zip files"/>
-	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip-load.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip-deflate.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.jszip, '/jszip-inflate.js')}"/>
 	<script>
 		// Create JSZip (currently global) instance to receive files 
 		zipFile = new JSZip();
