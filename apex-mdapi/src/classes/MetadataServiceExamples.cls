@@ -294,6 +294,21 @@ public with sharing class MetadataServiceExamples
 			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
 	}
 	
+	public static void createRecordType()
+	{
+		MetadataService.RecordType recordType = new MetadataService.RecordType();
+		recordType.active = true;
+		recordType.fullName = 'Test__c.RecordTypeA';
+		recordType.label = 'Record Type A';
+		recordType.businessProcess = null;
+		recordType.description = 'My new record type';		
+		 
+		// Pass the Metadata items to the job for processing, indicating any dependencies
+		MetadataCreateJob.run(
+			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(recordType) },
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+	}
+	
 	public static MetadataService.MetadataPort createService()
 	{ 
 		MetadataService.MetadataPort service = new MetadataService.MetadataPort();

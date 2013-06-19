@@ -319,19 +319,23 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'metadataObjects','organizationNamespace','partialSaveAllowed','testRequired'};
     }
-    public class RecordType {
+    public class RecordType extends Metadata {
+		public String type = 'RecordType';
+        public String fullName;    	
         public Boolean active;
         public String businessProcess;
         public String description;
         public String label;
         public MetadataService.RecordTypePicklistValue[] picklistValues;
+        private String[] type_att_info = new String[]{'xsi:type'};
+		private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] active_type_info = new String[]{'active','http://www.w3.org/2001/XMLSchema','boolean','1','1','false'};
         private String[] businessProcess_type_info = new String[]{'businessProcess','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] description_type_info = new String[]{'description','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] label_type_info = new String[]{'label','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
         private String[] picklistValues_type_info = new String[]{'picklistValues','http://soap.sforce.com/2006/04/metadata','RecordTypePicklistValue','0','-1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'active','businessProcess','description','label','picklistValues'};
+        private String[] field_order_type_info = new String[]{'fullName','active','businessProcess','description','label','picklistValues'};
     }
     public class Scontrol {
         public String contentSource;
