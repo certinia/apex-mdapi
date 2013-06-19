@@ -311,7 +311,7 @@ If you want to repeat what I did on new version of the Metadata WSDL or just wan
                - See this for guidelines http://andyinthecloud.com/2013/05/11/code-coverage-for-wsdl2apex-generated-classes
      - Making further edits to the Apex code
           - Modify the end point to be dynamic
-               - public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/25.0';
+               - public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/28.0';
           - Make 'Metadata' inner class 'virtual'
           - Make 'MetadataWithContent' inner class 'virtual'
           - Review WSDL for types that extend 'tns:Metadata' and update related Apex classes to also extend Metadata
