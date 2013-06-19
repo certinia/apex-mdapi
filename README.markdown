@@ -305,9 +305,10 @@ If you want to repeat what I did on new version of the Metadata WSDL or just wan
                - To be compatible with the samples here, edit the method name update_x to updateMetadata
                - To be compatible with the samples here, edit the method name delete_x to deleteMetadata
                - Save the class
-          - Run the MetadataServiceText class
+          - Update the MetadataServiceText class
+               - Observe the uncovered items (new metadata operations, types added since last release)          
                - Add new code to cover operations and types
-               - See this for guidelines [here](http://andyinthecloud.com/2013/05/11/code-coverage-for-wsdl2apex-generated-classes/)
+               - See this for guidelines http://andyinthecloud.com/2013/05/11/code-coverage-for-wsdl2apex-generated-classes
      - Making further edits to the Apex code
           - Modify the end point to be dynamic
                - public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/25.0';
