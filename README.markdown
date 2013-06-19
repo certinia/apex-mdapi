@@ -298,13 +298,16 @@ If you want to repeat what I did on new version of the Metadata WSDL or just wan
                - Change the Port name from 'Metadata' to 'MetadataPort'
           - Attempt to generate Apex from this WSDL
                - Give it a better name if you want when prompted, e.g. MetadataService
-               - It will error with unexpected name 'update'…. 
-               - At this stage copy paste the Apex code from the browser
+               - In earlier platform releases this would error, as update and delete are reserved words.
+               - It seems this has now been fixed and as of Summer'13 the Metadata API WSDL generates without errors!
           - Open Eclipse (or your favourite editor)
-               - Paste in the code
-               - Edit the method name update to updateMetadata
-               - Edit the method name delete to deleteMetadata
-               - Upload to server and confirm its saved
+               - Open the class
+               - To be compatible with the samples here, edit the method name update_x to updateMetadata
+               - To be compatible with the samples here, edit the method name delete_x to deleteMetadata
+               - Save the class
+          - Run the MetadataServiceText class
+               - Add new code to cover operations and types
+               - See this for guidelines [here](http://andyinthecloud.com/2013/05/11/code-coverage-for-wsdl2apex-generated-classes/)
      - Making further edits to the Apex code
           - Modify the end point to be dynamic
                - public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/25.0';
