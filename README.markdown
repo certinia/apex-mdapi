@@ -304,6 +304,7 @@ If you want to repeat what I did on new version of the Metadata WSDL or just wan
                - Open the class
                - To be compatible with the samples here, edit the method name update_x to updateMetadata
                - To be compatible with the samples here, edit the method name delete_x to deleteMetadata
+               - To be compatible with the samples here, edit the method name retrieve_x to retrieve
                - Save the class
           - Update the MetadataServiceText class
                - Observe the uncovered items (new metadata operations, types added since last release)          
