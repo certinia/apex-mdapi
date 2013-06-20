@@ -17,6 +17,9 @@ Apex Wrapper for Salesforce Metadata API
 **Update: 6th May 2013:**
 - Updated MetadataCreateJob.cls, new feature to process Metadata API requests in Batch Apex, see examples.
 
+**Update: 20th June 2013:**
+- Updated to **Summer'13 Metadata API (v28.0)**, more cool stuff to follow on this, such an Apex package installer UI!
+
 Known Issues and Resolutions
 ----------------------------
 
