@@ -33,6 +33,14 @@
  *       refer to the Metadata API developers guide for more information and the read me of this repo for other samples 
  **/
  
+/**
+ * Note: Most of the examples don't check the AsyncResult, see the repo readme for more details on how to do this
+ *       or add a debug to output the AsyncResult Id and issue the following code from anonymous Apex some time after
+ *
+ *         String[] asyncProcessId = new String[] { '04sG00000041iElIAI' };
+ *         MetadataService.AsyncResult[] results = MetadataServiceExamples.createService().checkStatus(asyncProcessId);
+ *         System.debug(results[0].message);
+ */
 public with sharing class MetadataServiceExamples 
 {
 	public static void createObject()
@@ -309,6 +317,60 @@ public with sharing class MetadataServiceExamples
 			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
 	}
 	
+	public static void deleteRecordType()
+	{
+		// Salesforce bug? The follow results in 'Cannot delete record type through API' 
+		//   yet the docs say otherwise, http://www.salesforce.com/us/developer/docs/api_meta/Content/meta_recordtype.htm
+		//   'For more information, see “Record Types Overview” in the Salesforce online help. 
+		//    Use this metadata type to create, update, or delete record type definitions for a custom object.'
+		MetadataService.RecordType recordType = new MetadataService.RecordType();
+		recordType.active = true;
+		recordType.fullName = 'Test__c.RecordTypeA';
+	    MetadataService.MetadataPort service = createService();
+		MetadataService.AsyncResult[] results = service.deleteMetadata(new List<MetadataService.Metadata> { recordType });
+	}
+	
+	public static void installPackages()
+	{
+		// Install packageA, then pacakgeB
+		MetadataService.InstalledPackage installedPackageA = new MetadataService.InstalledPackage();
+		installedPackageA.versionNumber = '1.0';
+		installedPackageA.password = 'fred1234';
+		installedPackageA.fullName = 'packagea';
+		MetadataService.InstalledPackage installedPackageB = new MetadataService.InstalledPackage();
+		installedPackageB.versionNumber = '1.0';
+		installedPackageB.fullName = 'packageb';
+		MetadataService.AsyncResult[] results = createService().create(new List<MetadataService.Metadata> { installedPackageA, installedPackageB });		
+	}
+	
+	public static void installPackagesCreateJob()
+	{
+		// Install packageA, then pacakgeB
+		MetadataService.InstalledPackage installedPackageA = new MetadataService.InstalledPackage();
+		installedPackageA.versionNumber = '1.0';
+		installedPackageA.fullName = 'packagea';
+		MetadataService.InstalledPackage installedPackageB = new MetadataService.InstalledPackage();
+		installedPackageB.versionNumber = '1.0';
+		installedPackageB.fullName = 'packageb';
+				 
+		// Pass the Metadata items to the job for processing, indicating any dependencies
+		MetadataCreateJob.run(
+			new List<MetadataCreateJob.Item> { 
+				new MetadataCreateJob.Item(installedPackageA ),
+				new MetadataCreateJob.Item(installedPackageB ) },
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+	}
+	
+	public static void uninstallPackages()
+	{
+		// Uninstall packages
+		MetadataService.InstalledPackage installedPackageA = new MetadataService.InstalledPackage();
+		installedPackageA.fullName = 'packagea';
+		MetadataService.InstalledPackage installedPackageB = new MetadataService.InstalledPackage();
+		installedPackageB.fullName = 'packageb';
+		MetadataService.AsyncResult[] results = createService().deleteMetadata(new List<MetadataService.Metadata> { installedPackageA, installedPackageB });
+	}
+		
 	public static MetadataService.MetadataPort createService()
 	{ 
 		MetadataService.MetadataPort service = new MetadataService.MetadataPort();
