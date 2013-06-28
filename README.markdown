@@ -1,5 +1,5 @@
-Apex Wrapper for Salesforce Metadata API
-========================================
+Apex Wrapper Salesforce Metadata API
+====================================
 
 **Update: 11th November 2012:**
 - Updated the Retrieve Demo to utilise 'describeMetadata' API call to allow the user to select which Metadata Type to list and retrieve.
