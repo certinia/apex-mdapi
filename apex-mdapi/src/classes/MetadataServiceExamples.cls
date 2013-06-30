@@ -144,6 +144,32 @@ public with sharing class MetadataServiceExamples
  		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { staticResource });
 	}
 	
+	public static void createWebLink()
+	{
+		MetadataService.WebLink webLink = new MetadataService.WebLink();
+		webLink.fullName = 'Test__c.googleButton';
+		webLink.availability = 'online';
+		webLink.displayType = 'link';
+		webLink.encodingKey = 'UTF-8';
+		webLink.hasMenubar = false;
+		webLink.hasScrollbars = true;
+		webLink.hasToolbar = false;
+		webLink.height = 600;
+		webLink.isResizable = true;
+		webLink.linkType = 'url';
+		webLink.masterLabel = 'google';
+		webLink.openType = 'newWindow';
+		webLink.position = 'none';
+		webLink.protected_x = false;
+		webLink.showsLocation = false;
+		webLink.showsStatus = false;
+		webLink.url = 'http://www.google.com';
+		webLink.width = 600;		
+		MetadataCreateJob.run(
+			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(webLink) },
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+	}
+	
 	public static void listMetadata()
 	{
 		MetadataService.MetadataPort service = createService();		

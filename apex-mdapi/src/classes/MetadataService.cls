@@ -3341,7 +3341,9 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'customShortcut','defaultShortcut'};
     }
-    public class WebLink {
+    public class WebLink extends Metadata {
+        public String type = 'WebLink';
+        public String fullName;    	
         public String availability;
         public String description;
         public String displayType;
@@ -3363,6 +3365,8 @@ public class MetadataService {
         public Boolean showsStatus;
         public String url;
         public Integer width;
+        private String[] type_att_info = new String[]{'xsi:type'};
+        private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] availability_type_info = new String[]{'availability','http://soap.sforce.com/2006/04/metadata','WebLinkAvailability','1','1','false'};
         private String[] description_type_info = new String[]{'description','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] displayType_type_info = new String[]{'displayType','http://soap.sforce.com/2006/04/metadata','WebLinkDisplayType','1','1','false'};
@@ -3385,7 +3389,7 @@ public class MetadataService {
         private String[] url_type_info = new String[]{'url','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] width_type_info = new String[]{'width','http://www.w3.org/2001/XMLSchema','int','0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'availability','description','displayType','encodingKey','hasMenubar','hasScrollbars','hasToolbar','height','isResizable','linkType','masterLabel','openType','page_x','position','protected_x','requireRowSelection','scontrol','showsLocation','showsStatus','url','width'};
+        private String[] field_order_type_info = new String[]{'fullName', 'availability','description','displayType','encodingKey','hasMenubar','hasScrollbars','hasToolbar','height','isResizable','linkType','masterLabel','openType','page_x','position','protected_x','requireRowSelection','scontrol','showsLocation','showsStatus','url','width'};
     }
     public class ApprovalStep {
         public Boolean allowDelegate;
