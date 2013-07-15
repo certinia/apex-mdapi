@@ -43,7 +43,7 @@ public with sharing class MetadataRetrieveController
 	public PageReference init()
 	{
 		// List available Metadata Types via the 'describeMetadata' API call
-		MetadataService.MetadataPort service = MetadataServiceExamples.createService();					
+		MetadataService.MetadataPort service = createService();					
 		MetadataService.DescribeMetadataResult describeResult = service.describeMetadata(26);
 		List<String> metadataTypeNames = new List<String>();
 		for(MetadataService.DescribeMetadataObject metadataObject : describeResult.metadataObjects)
