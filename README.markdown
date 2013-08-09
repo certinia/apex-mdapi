@@ -77,7 +77,7 @@ Links
 Examples
 --------
 
-**NOTE:** The following examples do not show how to call the checkStatus method. This will need to be done in your Visualforce controller via a timed refresh or via a scheduled job. See the following Retrieve and Deploy demos for how to use apex:actionPoller for this.
+**NOTE:** The following examples do not show how to call the checkStatus method. This will need to be done in your Visualforce controller via a timed refresh or via a scheduled job. See the following Retrieve and Deploy demos for how to use apex:actionPoller for this or the Batch Apex demo.
 
 	public static void createObject()
 	{
