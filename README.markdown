@@ -21,7 +21,7 @@ Apex Wrapper Salesforce Metadata API
 - Updated to **Summer'13 Metadata API (v28.0)**, more cool stuff to follow on this, such an Apex package installer UI!
 
 **Update: 30th August 2013:**
-- Version interesting fix for the 'delete' CRUD operation, see this StackExchange [answer](http://salesforce.stackexchange.com/questions/15902/how-to-dynamically-set-type-x-value-for-metadata-customfield/15913#15913) for more and the MetadataServiceExamples.deleteField method
+- Very interesting fix for the 'delete' CRUD operation, see this StackExchange [answer](http://salesforce.stackexchange.com/questions/15902/how-to-dynamically-set-type-x-value-for-metadata-customfield/15913#15913) for more and the MetadataServiceExamples.deleteField method
 
 Known Issues and Resolutions
 ----------------------------
