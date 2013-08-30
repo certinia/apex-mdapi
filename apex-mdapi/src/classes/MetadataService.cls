@@ -1118,7 +1118,7 @@ public class MetadataService {
         private String[] summaryOperation_type_info = new String[]{'summaryOperation','http://soap.sforce.com/2006/04/metadata','SummaryOperations','0','1','false'};
         private String[] trackFeedHistory_type_info = new String[]{'trackFeedHistory','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
         private String[] trackHistory_type_info = new String[]{'trackHistory','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
-        private String[] type_x_type_info = new String[]{'type','http://soap.sforce.com/2006/04/metadata','FieldType','1','1','false'};
+        private String[] type_x_type_info = new String[]{'type','http://soap.sforce.com/2006/04/metadata','FieldType','0','1','false'};
         private String[] unique_type_info = new String[]{'unique','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
         private String[] visibleLines_type_info = new String[]{'visibleLines','http://www.w3.org/2001/XMLSchema','int','0','1','false'};
         private String[] writeRequiresMasterRead_type_info = new String[]{'writeRequiresMasterRead','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};

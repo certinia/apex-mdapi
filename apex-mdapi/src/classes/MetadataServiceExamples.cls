@@ -108,6 +108,14 @@ public with sharing class MetadataServiceExamples
  		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
 	}
 	
+	public static void deleteField()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.CustomField customField = new MetadataService.CustomField();
+		customField.fullName = 'Test__c.TestField__c';
+ 		MetadataService.AsyncResult[] results = service.deleteMetadata(new List<MetadataService.Metadata> { customField });		
+	}
+	
 	public static void updateField()
 	{
 	    MetadataService.MetadataPort service = createService(); 
