@@ -302,6 +302,7 @@ If you want to repeat what I did on new version of the Metadata WSDL or just wan
      - Generating a valid Apex MetadataService class
           - Edit the WSDL
                - Change the Port name from 'Metadata' to 'MetadataPort'
+               - As of Summer'13 (API 28) there was a small bug in the CustomField type definition, change the 'type' element definition to include a minOccurs="0" atttribute, as per the other elements in this type.
           - Attempt to generate Apex from this WSDL
                - Give it a better name if you want when prompted, e.g. MetadataService
                - In earlier platform releases this would error, as update and delete are reserved words.
