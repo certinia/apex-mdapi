@@ -404,6 +404,44 @@ public with sharing class MetadataServiceExamples
 		installedPackageB.fullName = 'packageb';
 		MetadataService.AsyncResult[] results = createService().deleteMetadata(new List<MetadataService.Metadata> { installedPackageA, installedPackageB });
 	}
+	
+	public static void createCustomSite()
+	{
+		MetadataService.CustomSite customSite = new MetadataService.CustomSite();
+		customSite.fullName = 'MyCustomSite';
+		customSite.active = true;
+		customSite.allowHomePage = true;
+		customSite.allowStandardIdeasPages = true;		
+		customSite.active = true;
+		customSite.allowHomePage = true;
+		customSite.allowStandardIdeasPages = true;
+		customSite.allowStandardLookups = true;
+		customSite.allowStandardSearch = true;
+		customSite.authorizationRequiredPage = 'Unauthorized';
+		customSite.bandwidthExceededPage = 'BandwidthExceeded';
+		customSite.changePasswordPage = 'ChangePassword';
+		customSite.chatterAnswersForgotPasswordConfirmPage = null;
+		customSite.chatterAnswersForgotPasswordPage = null;
+		customSite.chatterAnswersHelpPage = null;
+		customSite.chatterAnswersLoginPage = null;
+		customSite.chatterAnswersRegistrationPage = null;
+		customSite.favoriteIcon = null;
+		customSite.fileNotFoundPage = 'FileNotFound';
+		customSite.genericErrorPage = 'Exception';
+		customSite.inMaintenancePage = 'InMaintenance';
+		customSite.serverIsDown =  null;
+		customSite.indexPage = 'UnderConstruction';
+		customSite.masterLabel = 'customSite';
+		customSite.portal = null;
+		customSite.requireInsecurePortalAccess = false;
+		customSite.siteAdmin = 'admin@mysiteorg.com';
+		customSite.siteTemplate = 'SiteTemplate';
+		customSite.siteType = 'Visualforce';
+		MetadataCreateJob.run(
+			new List<MetadataCreateJob.Item> { 
+				new MetadataCreateJob.Item(customSite ) },
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());						
+	}	
 		
 	public static MetadataService.MetadataPort createService()
 	{ 

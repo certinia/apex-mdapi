@@ -575,7 +575,9 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'field'};
     }
-    public class CustomSite {
+    public class CustomSite extends Metadata {
+    	public String type = 'CustomSite';
+    	public String fullName;
         public Boolean active;
         public Boolean allowHomePage;
         public Boolean allowStandardAnswersPages;
@@ -613,6 +615,8 @@ public class MetadataService {
         public String siteType;
         public String subdomain;
         public String urlPathPrefix;
+        private String[] type_att_info = new String[]{'xsi:type'};
+        private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] active_type_info = new String[]{'active','http://www.w3.org/2001/XMLSchema','boolean','1','1','false'};
         private String[] allowHomePage_type_info = new String[]{'allowHomePage','http://www.w3.org/2001/XMLSchema','boolean','1','1','false'};
         private String[] allowStandardAnswersPages_type_info = new String[]{'allowStandardAnswersPages','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
@@ -651,7 +655,7 @@ public class MetadataService {
         private String[] subdomain_type_info = new String[]{'subdomain','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] urlPathPrefix_type_info = new String[]{'urlPathPrefix','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'active','allowHomePage','allowStandardAnswersPages','allowStandardIdeasPages','allowStandardLookups','allowStandardSearch','analyticsTrackingCode','authorizationRequiredPage','bandwidthExceededPage','changePasswordPage','chatterAnswersForgotPasswordConfirmPage','chatterAnswersForgotPasswordPage','chatterAnswersHelpPage','chatterAnswersLoginPage','chatterAnswersRegistrationPage','customWebAddresses','description','favoriteIcon','fileNotFoundPage','genericErrorPage','guestProfile','inMaintenancePage','inactiveIndexPage','indexPage','masterLabel','myProfilePage','portal','requireInsecurePortalAccess','robotsTxtPage','rootComponent','serverIsDown','siteAdmin','siteRedirectMappings','siteTemplate','siteType','subdomain','urlPathPrefix'};
+        private String[] field_order_type_info = new String[]{'fullName', 'active','allowHomePage','allowStandardAnswersPages','allowStandardIdeasPages','allowStandardLookups','allowStandardSearch','analyticsTrackingCode','authorizationRequiredPage','bandwidthExceededPage','changePasswordPage','chatterAnswersForgotPasswordConfirmPage','chatterAnswersForgotPasswordPage','chatterAnswersHelpPage','chatterAnswersLoginPage','chatterAnswersRegistrationPage','customWebAddresses','description','favoriteIcon','fileNotFoundPage','genericErrorPage','guestProfile','inMaintenancePage','inactiveIndexPage','indexPage','masterLabel','myProfilePage','portal','requireInsecurePortalAccess','robotsTxtPage','rootComponent','serverIsDown','siteAdmin','siteRedirectMappings','siteTemplate','siteType','subdomain','urlPathPrefix'};
     }
     public class ReportBlockInfo {
         public MetadataService.ReportAggregateReference[] aggregateReferences;
