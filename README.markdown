@@ -1,27 +1,28 @@
 Apex Wrapper Salesforce Metadata API
 ====================================
 
-**Update: 11th November 2012:**
-- Updated the Retrieve Demo to utilise 'describeMetadata' API call to allow the user to select which Metadata Type to list and retrieve.
-- Added 'Metadata Explore' demo (see below) a Sencha powered demo of 'describeMetadata' and 'listMetadata' API's
-
-**Update: 3rd March 2013:**
-- Updated MetadataServiceExample.cls with more sample code creating various field types.
-
-**Update: 10th March 2013:**
-- Updated to **Spring'13 Metadata API (v27.0)**, more info on new features of this version [here](http://developer.force.com/releases/release/Spring13/Bulk+Metadata+and+Streaming+API+Updates). Also added new samples for Settings configuraiton, see blog [here](http://andyinthecloud.com/2013/03/10/apex-metadata-api-spring13-update-org-settings-access).
-
-**Update: 5th May 2013:**
-- Updated MetadataServiceTest.cls, now provides 100% code coverage of MetadataService.cls!
-
-**Update: 6th May 2013:**
-- Updated MetadataCreateJob.cls, new feature to process Metadata API requests in Batch Apex, see examples.
+**Update: 30th August 2013:**
+- Very interesting fix for the 'delete' CRUD operation (for fields), see this StackExchange [answer](http://salesforce.stackexchange.com/questions/15902/how-to-dynamically-set-type-x-value-for-metadata-customfield/15913#15913) for more and the MetadataServiceExamples.deleteField method
 
 **Update: 20th June 2013:**
 - Updated to **Summer'13 Metadata API (v28.0)**, more cool stuff to follow on this, such an Apex package installer UI!
 
-**Update: 30th August 2013:**
-- Very interesting fix for the 'delete' CRUD operation (for fields), see this StackExchange [answer](http://salesforce.stackexchange.com/questions/15902/how-to-dynamically-set-type-x-value-for-metadata-customfield/15913#15913) for more and the MetadataServiceExamples.deleteField method
+**Update: 6th May 2013:**
+- Updated MetadataCreateJob.cls, new feature to process Metadata API requests in Batch Apex, see examples.
+
+**Update: 5th May 2013:**
+- Updated MetadataServiceTest.cls, now provides 100% code coverage of MetadataService.cls!
+
+**Update: 10th March 2013:**
+- Updated to **Spring'13 Metadata API (v27.0)**, more info on new features of this version [here](http://developer.force.com/releases/release/Spring13/Bulk+Metadata+and+Streaming+API+Updates). Also added new samples for Settings configuraiton, see blog [here](http://andyinthecloud.com/2013/03/10/apex-metadata-api-spring13-update-org-settings-access).
+
+**Update: 3rd March 2013:**
+- Updated MetadataServiceExample.cls with more sample code creating various field types.
+
+**Update: 11th November 2012:**
+- Updated the Retrieve Demo to utilise 'describeMetadata' API call to allow the user to select which Metadata Type to list and retrieve.
+- Added 'Metadata Explore' demo (see below) a Sencha powered demo of 'describeMetadata' and 'listMetadata' API's
+
 
 Known Issues and Resolutions
 ----------------------------
