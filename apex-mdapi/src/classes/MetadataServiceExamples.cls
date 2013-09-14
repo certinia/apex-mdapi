@@ -442,6 +442,52 @@ public with sharing class MetadataServiceExamples
 				new MetadataCreateJob.Item(customSite ) },
 			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());						
 	}	
+	
+	public static void createDetailObject()
+	{
+		// Define Metadata item to create a Custom Object
+		MetadataService.CustomObject customObject = new MetadataService.CustomObject();
+		customObject.fullName = 'TestDetail__c';
+		customObject.label = 'Test Detail';
+		customObject.pluralLabel = 'Test Details';
+		customObject.nameField = new MetadataService.CustomField();
+		customObject.nameField.type_x = 'Text';
+		customObject.nameField.label = 'Test Detail Record';
+		customObject.deploymentStatus = 'Deployed';
+		customObject.sharingModel = 'ReadWrite';
+		
+		// Define Metadata item to create a Custom Formula Field on the above object
+		MetadataService.CustomField customField1 = new MetadataService.CustomField();
+        customField1.fullName = 'TestDetail__c.FormulaField__c';
+        customField1.externalId = false;
+        customField1.formula = '42';
+        customField1.formulaTreatBlanksAs = 'BlankAsZero';
+        customField1.label = 'Formula Field';
+        customField1.precision = 18;
+        customField1.required = false;
+        customField1.scale = 2;
+        customField1.type_x = 'Number';
+        customField1.unique = false;		
+
+		// Define Metadata item to create a Custom Field on the above object
+		MetadataService.CustomField customField2 = new MetadataService.CustomField();
+        customField2.fullName = 'TestDetail__c.Test__c';
+        customField2.externalId = false;
+        customField2.label = 'Test';
+        customField2.referenceTo = 'Test__c';
+        customField2.relationshipLabel = 'Test Children';
+        customField2.relationshipName = 'Test_Children';
+        customField2.relationshipOrder = 0;
+        customField2.type_x = 'MasterDetail';
+        customField2.writeRequiresMasterRead = false;
+		
+		// Pass the Metadata items to the job for processing
+		MetadataCreateJob.run(
+			new List<MetadataCreateJob.Item> { 
+					new MetadataCreateJob.Item(customObject),					
+					new MetadataCreateJob.Item(new List<MetadataService.Metadata> { customField1, customField2 }, null, true) }, // Set wait to true, to process after object creation
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());								
+	}	
 		
 	public static MetadataService.MetadataPort createService()
 	{ 

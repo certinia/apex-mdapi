@@ -99,7 +99,7 @@ private with sharing class MetadataCreateJobTest
 		{
 			// Assert the completed item
 			System.assertEquals('Some context', items[0].context);
-			MetadataService.CustomField customField = (MetadataService.CustomField) items[0].metadata;
+			MetadataService.CustomField customField = (MetadataService.CustomField) items[0].metadata[0];
 			System.assertEquals('Test__c.TestField__c', customField.fullName);
 			System.assertEquals('Test Field', customField.label);
 			System.assertEquals('Text', customField.type_x);

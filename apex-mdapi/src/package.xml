@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>*</members>
+        <members>MetadataCreateJob</members>
+        <members>MetadataCreateJobTest</members>
+        <members>MetadataDataController</members>
+        <members>MetadataDeployController</members>
+        <members>MetadataRetrieveController</members>
+        <members>MetadataService</members>
+        <members>MetadataServiceExamples</members>
+        <members>MetadataServiceTest</members>
         <name>ApexClass</name>
     </types>
     <types>
-        <members>*</members>
+        <members>unzip</members>
+        <members>zip</members>
+        <members>zipEntry</members>
         <name>ApexComponent</name>
     </types>
     <types>
-        <members>*</members>
+        <members>metadatadata</members>
+        <members>metadatadeploy</members>
+        <members>metadataretrieve</members>
         <name>ApexPage</name>
     </types>
     <types>
@@ -17,7 +28,8 @@
         <name>CustomTab</name>
     </types>
     <types>
-        <members>*</members>
+        <members>extjs</members>
+        <members>jszip</members>
         <name>StaticResource</name>
     </types>
     <version>24.0</version>

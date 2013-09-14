@@ -82,7 +82,7 @@ public with sharing class MetadataCreateJob
 		{
 			// Call create and check result
 			if(item.aysncResult == null)				
-				item.aysncResult = service.create(new List<MetadataService.Metadata> { item.metaData })[0];
+				item.aysncResult = service.create(item.metaData)[0];
 			// Check the status of the last create call
 			else if(item.aysncResult != null)
 				item.aysncResult = service.checkStatus(new String[] { item.aysncResult.Id } )[0];
@@ -98,7 +98,6 @@ public with sharing class MetadataCreateJob
 	{ 
 		// Start new job for those not yet processed?
 		if (new JobIterable(items).Iterator().hasNext())
-			// For Summer'13 the new one off schedule feature could be used here
 			run(sessionId, items, callback); 
 		else // If all components processed if all now processed
 			callback.deployComplete(items);
@@ -121,8 +120,8 @@ public with sharing class MetadataCreateJob
 		//   and issue max of 10 components per call to 'create' (as per Metadata API Documentation)
 		Integer maxScopeSize = 1;
 				
-		// Start the job to process the given components, inform the callback of the Id
-		callback.batchId( Database.executeBatch(new MetadataCreateJob(sessionId, items, callback), maxScopeSize) );		
+		// Start a job in 1 minutes time to process the given components, inform the callback of the Id
+		callback.batchId( System.scheduleBatch( new MetadataCreateJob(sessionId, items, callback), 'Metadata Create', 1, maxScopeSize ) );		
 	}
 
 	/**
@@ -190,7 +189,7 @@ public with sharing class MetadataCreateJob
 		// Wait for the previous item to complete?
 		public Boolean wait = false;
 		// Metadata item to be created
-		public MetadataService.Metadata metaData {get; private set;}
+		public List<MetadataService.Metadata> metaData {get; private set;}
 		// Exceptions raised 
 		public Exception createException {get; private set;}
 		// Result of the checkStatus call
@@ -202,7 +201,7 @@ public with sharing class MetadataCreateJob
 		 **/ 	
 		public Item(MetadataService.Metadata metaData)
 		{
-			this(metaData, null, false);
+			this(new List<MetadataService.Metadata> { metadata }, null, false);
 		}
 	
 		/**
@@ -211,6 +210,25 @@ public with sharing class MetadataCreateJob
 		 *   Setting wait ensures that the item will not be processed until the proceeding item completes
 		 **/ 	
 		public Item(MetadataService.Metadata metaData, Object context, Boolean wait)
+		{
+			this(new List<MetadataService.Metadata> { metadata }, context, wait);
+		}
+
+		/**
+		 * Constructs a Metadata work item to be processed by the job,
+		*   it will be processed in parrell with its proceeding item
+		 **/ 	
+		public Item(List<MetadataService.Metadata> metaData)
+		{
+			this(metaData, null, false);
+		}
+	
+		/**
+		 * Constructs a Metadata work item to be processed by the job, you may also store your 
+		 *   own state in the 'context' property, this will be passed back via the callback on completion
+		 *   Setting wait ensures that the item will not be processed until the proceeding item completes
+		 **/ 	
+		public Item(List<MetadataService.Metadata> metaData, Object context, Boolean wait)
 		{
 			this.metaData = metaData;
 			this.context = context;
