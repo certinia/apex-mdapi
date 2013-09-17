@@ -488,6 +488,59 @@ public with sharing class MetadataServiceExamples
 					new MetadataCreateJob.Item(new List<MetadataService.Metadata> { customField1, customField2 }, null, true) }, // Set wait to true, to process after object creation
 			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());								
 	}	
+	
+	public static void createFieldSet()
+	{
+		MetadataService.MetadataPort service = createService();	
+		
+		// FieldSet 	
+		MetadataService.FieldSet fieldSet = new MetadataService.FieldSet();
+		fieldSet.fullName = 'Test__c.MyFieldSet';
+		fieldSet.label = 'My FieldSet';
+		fieldSet.description = 'Used by my VF page';
+		MetadataService.FieldSetItem myAvailableField = new MetadataService.FieldSetItem();
+		myAvailableField.field = 'TestField__c';
+		myAvailableField.isFieldManaged = true;
+		myAvailableField.isRequired = true;
+		fieldSet.availableFields = new List<MetadataService.FieldSetItem>();
+		fieldSet.availableFields.add(myAvailableField);
+		
+		// Create
+		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { fieldSet });
+	}
+
+	public static void updateFieldSet()
+	{
+		MetadataService.MetadataPort service = createService();
+		
+		// FieldSet		
+		MetadataService.FieldSet fieldSet = new MetadataService.FieldSet();
+		fieldSet.fullName = 'Test__c.MyFieldSet';
+		fieldSet.label = 'My FieldSet';
+		fieldSet.description = 'Used by my VF page';			
+		MetadataService.FieldSetItem myAvailableField = new MetadataService.FieldSetItem();
+		myAvailableField.field = 'TestField__c';
+		myAvailableField.isFieldManaged = true;
+		myAvailableField.isRequired = true;
+		MetadataService.FieldSetItem myAvailableFieldNew = new MetadataService.FieldSetItem();
+		myAvailableFieldNew.field = 'ExternalField__c';
+		myAvailableFieldNew.isFieldManaged = true;
+		myAvailableFieldNew.isRequired = true;
+		fieldSet.availableFields = new List<MetadataService.FieldSetItem>();
+		fieldSet.availableFields.add(myAvailableField);
+		fieldSet.availableFields.add(myAvailableFieldNew);
+		MetadataService.FieldSetItem myDisplayField = new MetadataService.FieldSetItem();
+		myDisplayField.field = 'TestField__c';
+		myDisplayField.isFieldManaged = true;
+		myDisplayField.isRequired = true;
+		
+		// Update
+		List<MetadataService.UpdateMetadata> updateMetadataList = new List<MetadataService.UpdateMetadata>();
+		updateMetadataList.add(new MetadataService.UpdateMetadata());
+		updateMetadataList[0].currentName = 'Test__c.MyFieldSet';
+		updateMetadataList[0].metadata = fieldSet;
+		MetadataService.AsyncResult[] results = service.updateMetadata(updateMetadataList);
+	}
 		
 	public static MetadataService.MetadataPort createService()
 	{ 
