@@ -529,10 +529,6 @@ public with sharing class MetadataServiceExamples
 		fieldSet.availableFields = new List<MetadataService.FieldSetItem>();
 		fieldSet.availableFields.add(myAvailableField);
 		fieldSet.availableFields.add(myAvailableFieldNew);
-		MetadataService.FieldSetItem myDisplayField = new MetadataService.FieldSetItem();
-		myDisplayField.field = 'TestField__c';
-		myDisplayField.isFieldManaged = true;
-		myDisplayField.isRequired = true;
 		
 		// Update
 		List<MetadataService.UpdateMetadata> updateMetadataList = new List<MetadataService.UpdateMetadata>();
