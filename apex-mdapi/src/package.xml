@@ -21,6 +21,7 @@
         <members>metadatadata</members>
         <members>metadatadeploy</members>
         <members>metadataretrieve</members>
+        <members>metadatabrowser</members>
         <name>ApexPage</name>
     </types>
     <types>
