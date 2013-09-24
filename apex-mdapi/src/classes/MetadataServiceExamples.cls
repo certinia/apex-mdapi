@@ -537,6 +537,46 @@ public with sharing class MetadataServiceExamples
 		updateMetadataList[0].metadata = fieldSet;
 		MetadataService.AsyncResult[] results = service.updateMetadata(updateMetadataList);
 	}
+	
+	/**
+	 * Test via Execute Annoymous (Eclipse/Developer Console) 
+	 * 1. First run this System.debug('AsyncId is ' + MetadataServiceExamples.addActionOverride().id);
+	 * 2. Note the Id output in the debug log and update the follow statement before executing it
+	 * 3. Wait for a few seconds then run this System.debug(MetadataServiceExamples.checkAsync('04sG00000041ndgIAA'));
+	 * See README for notes on how to use BatchApex or apex:actionPoller to implement this in an application  
+	 **/ 
+	public static MetadataService.AsyncResult addActionOverride()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.CustomObject customObject = new MetadataService.CustomObject();
+		customObject.fullName = 'Test__c';
+		customObject.label = 'Test';
+		customObject.pluralLabel = 'Tests';
+		customObject.nameField = new MetadataService.CustomField();
+		customObject.nameField.type_x = 'Text';
+		customObject.nameField.label = 'Test Record';
+		customObject.deploymentStatus = 'Deployed';
+		customObject.sharingModel = 'ReadWrite';		
+		customObject.actionOverrides = new List<MetadataService.ActionOverride>();
+		customObject.actionOverrides.add(new MetadataService.ActionOverride());
+		customObject.actionOverrides[0].actionName = 'Edit';
+		customObject.actionOverrides[0].content = 'TestPage';
+		customObject.actionOverrides[0].type_x = 'visualforce';
+		customObject.actionOverrides[0].skipRecordTypeSelect = false;
+		customObject.actionOverrides[0].comment = 'A comment for edit action';
+		List<MetadataService.UpdateMetadata> updateMetadataList = new List<MetadataService.UpdateMetadata>();
+		updateMetadataList.add(new MetadataService.UpdateMetadata());
+		updateMetadataList[0].currentName = 'Test__c';
+		updateMetadataList[0].metadata = customObject;
+		MetadataService.AsyncResult[] results = service.updateMetadata(updateMetadataList);
+		return results[0];		
+	}
+	
+	public static String checkAsync(String asyncId)
+	{
+		MetadataService.MetadataPort service = createService();		
+		return service.checkStatus(new List<String> { asyncId })[0].message;		
+	}
 		
 	public static MetadataService.MetadataPort createService()
 	{ 
