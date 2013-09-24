@@ -1,6 +1,8 @@
 Apex Wrapper Salesforce Metadata API
 ====================================
 
+**[Deploy to Salesforce](https://githubsfdeploy.herokuapp.com/app/githubdeploy/financialforcedev/apex-mdapi)**
+
 **Update: 30th August 2013:**
 - Very interesting fix for the 'delete' CRUD operation (for fields), see this StackExchange [answer](http://salesforce.stackexchange.com/questions/15902/how-to-dynamically-set-type-x-value-for-metadata-customfield/15913#15913) for more and the MetadataServiceExamples.deleteField method
 
