@@ -3,6 +3,10 @@ Apex Wrapper Salesforce Metadata API
 
 **[Deploy to Salesforce](https://githubsfdeploy.herokuapp.com/app/githubdeploy/financialforcedev/apex-mdapi)**
 
+**Update: 27th October 2013:**
+- A new introduction to the API has been published [here](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/)
+- A new supporting Visualforce example has also been created to show how to use apex:actionPoller
+
 **Update: 30th August 2013:**
 - Very interesting fix for the 'delete' CRUD operation (for fields), see this StackExchange [answer](http://salesforce.stackexchange.com/questions/15902/how-to-dynamically-set-type-x-value-for-metadata-customfield/15913#15913) for more and the MetadataServiceExamples.deleteField method
 
@@ -146,6 +150,15 @@ Examples
 	}
 
 You can view more examples [here](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceExamples.cls). Thanks to [mohit-address](https://github.com/mohit-address) for submitting examples relating to updating picklist values.
+
+Metadata Visualforce Demo
+-------------------------
+
+If you have an interactive tool your building, you can use Visualforce and use the **apex:actionPoller** to store the AsyncResult in your controller and write a controller method to call the checkStatus, which the action poller repeatedly calls until the AsyncResult indicates the request is completed by Salesforce. You can read more about this sample in this blog [here](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/).
+
+![Visualforce Demo](http://i.stack.imgur.com/OxQUc.png)
+![Visualforce Demo](http://i.stack.imgur.com/x5pYJ.png)
+![Visualforce Demo](http://i.stack.imgur.com/toecI.png)
 
 Metadata Batch Apex Demo
 ------------------------
