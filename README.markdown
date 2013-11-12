@@ -35,8 +35,13 @@ Known Issues and Resolutions
 
 - If you recieve the error message *'Insufficient access; cannot execute Metadata operation with PAC enabled session id'* within Apex code within a managed package utilising this library. Please ensure to changed the API access from Restricted to Unrestricted on your Package defintion. Many thanks to the great work from [vipulpahwa](https://github.com/vipulpahwa) and [Daniel Blackhall](https://github.com/seeflat) to getting to the bottom of this rather cryptic error message.
 
-Background
------------
+Introduction 
+------------
+
+There is a good blog entry providing an introduction to this library [here](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/)
+
+Background and Motivation
+-------------------------
 
 There seems to be a growing number of Apex developers wanting to develop solutions or just handy utils that embrace the declarative nature of the platform. Including those in FinancialForce.com for that matter! Such solutions are dynamically adapting to custom fields or objects that need to be created by the administrator and/or customisations to objects in existing packages.
 
