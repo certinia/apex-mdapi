@@ -572,6 +572,28 @@ public with sharing class MetadataServiceExamples
 		return results[0];		
 	}
 	
+	public static void createListView()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.ListView listView = new MetadataService.ListView();
+		listView.fullName = 'Test__c.MyListView';
+		listView.label = 'My List View';
+		listView.filterScope = 'Everything';
+		listView.columns = new List<String> { 'NAME' };
+		MetadataCreateJob.run(
+			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(listView) },
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());						
+	}
+	
+	public static void deleteListView()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.ListView listView = new MetadataService.ListView();
+		listView.fullName = 'Test__c.MyListView';
+		listView.filterScope = 'Everything';
+ 		MetadataService.AsyncResult[] results = service.deleteMetadata(new List<MetadataService.Metadata> { listView });				
+	}
+	
 	public static String checkAsync(String asyncId)
 	{
 		MetadataService.MetadataPort service = createService();		

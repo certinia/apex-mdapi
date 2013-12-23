@@ -4095,7 +4095,9 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'aggregates','block','blockInfo','buckets','chart','colorRanges','columns','crossFilters','currency_x','description','division','filter','format','groupingsAcross','groupingsDown','name','params','reportType','roleHierarchyFilter','rowLimit','scope','showDetails','sortColumn','sortOrder','territoryHierarchyFilter','timeFrameFilter','userFilter'};
     }
-    public class ListView {
+    public class ListView extends Metadata {
+    	public String type = 'ListView';
+    	public String fullName;
         public String booleanFilter;
         public String[] columns;
         public String division;
@@ -4105,6 +4107,8 @@ public class MetadataService {
         public String language;
         public String queue;
         public MetadataService.SharedTo sharedTo;
+ 		private String[] type_att_info = new String[]{'xsi:type'};
+        private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] booleanFilter_type_info = new String[]{'booleanFilter','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] columns_type_info = new String[]{'columns','http://www.w3.org/2001/XMLSchema','string','0','-1','false'};
         private String[] division_type_info = new String[]{'division','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
@@ -4115,7 +4119,7 @@ public class MetadataService {
         private String[] queue_type_info = new String[]{'queue','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] sharedTo_type_info = new String[]{'sharedTo','http://soap.sforce.com/2006/04/metadata','SharedTo','0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'booleanFilter','columns','division','filterScope','filters','label','language','queue','sharedTo'};
+        private String[] field_order_type_info = new String[]{'fullName', 'booleanFilter','columns','division','filterScope','filters','label','language','queue','sharedTo'};
     }
     public class FlowRecordCreate {
         public String assignRecordIdToReference;
