@@ -151,6 +151,31 @@ public with sharing class MetadataServiceExamples
 		staticResource.content = EncodingUtil.base64Encode(Blob.valueOf('Static stuff'));
  		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { staticResource });
 	}
+
+	public static void updateStaticResource()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.StaticResource staticResource = new MetadataService.StaticResource();
+		staticResource.fullName = 'test';
+		staticResource.contentType = 'text';
+		staticResource.cacheControl = 'public';
+		staticResource.content = EncodingUtil.base64Encode(Blob.valueOf('Static stuff Changed'));
+	    MetadataService.UpdateMetadata ut = new MetadataService.UpdateMetadata();
+	    ut.currentName='test';
+	    ut.metadata= staticResource;
+	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.updateMetadata> {ut});	
+	}
+	
+	public static void deleteStaticResource()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.StaticResource staticResource = new MetadataService.StaticResource();
+		staticResource.fullName = 'test';
+		staticResource.contentType = 'text';
+		staticResource.cacheControl = 'public';
+ 		MetadataService.AsyncResult[] results = service.deleteMetadata(new List<MetadataService.Metadata> { staticResource });		
+	}
+	
 	
 	public static void createWebLink()
 	{
