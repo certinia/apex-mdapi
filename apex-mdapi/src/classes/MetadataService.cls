@@ -33,7 +33,9 @@
  */   
 
 public class MetadataService {
-    public class WorkflowRule {
+    public class WorkflowRule extends Metadata {
+		public String type = 'WorkflowRule';
+		public String fullName;    	
         public MetadataService.WorkflowActionReference[] actions;
         public Boolean active;
         public String booleanFilter;
@@ -42,6 +44,8 @@ public class MetadataService {
         public String formula;
         public String triggerType;
         public MetadataService.WorkflowTimeTrigger[] workflowTimeTriggers;
+		private String[] type_att_info = new String[]{'xsi:type'};
+		private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] actions_type_info = new String[]{'actions','http://soap.sforce.com/2006/04/metadata','WorkflowActionReference','0','-1','false'};
         private String[] active_type_info = new String[]{'active','http://www.w3.org/2001/XMLSchema','boolean','1','1','false'};
         private String[] booleanFilter_type_info = new String[]{'booleanFilter','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
@@ -51,7 +55,7 @@ public class MetadataService {
         private String[] triggerType_type_info = new String[]{'triggerType','http://soap.sforce.com/2006/04/metadata','WorkflowTriggerTypes','1','1','false'};
         private String[] workflowTimeTriggers_type_info = new String[]{'workflowTimeTriggers','http://soap.sforce.com/2006/04/metadata','WorkflowTimeTrigger','0','-1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'actions','active','booleanFilter','criteriaItems','description','formula','triggerType','workflowTimeTriggers'};
+        private String[] field_order_type_info = new String[]{'fullName','actions','active','booleanFilter','criteriaItems','description','formula','triggerType','workflowTimeTriggers'};
     }
     public class FieldOverride {
         public String field;
@@ -937,7 +941,9 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'asyncProcessId'};
     }
-    public class WorkflowOutboundMessage {
+    public class WorkflowOutboundMessage extends WorkflowAction {
+		public String type = 'WorkflowOutboundMessage';
+		public String fullName;    	
         public Double apiVersion;
         public String description;
         public String endpointUrl;
@@ -947,6 +953,8 @@ public class MetadataService {
         public String name;
         public Boolean protected_x;
         public Boolean useDeadLetterQueue;
+		private String[] type_att_info = new String[]{'xsi:type'};
+		private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] apiVersion_type_info = new String[]{'apiVersion','http://www.w3.org/2001/XMLSchema','double','1','1','false'};
         private String[] description_type_info = new String[]{'description','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] endpointUrl_type_info = new String[]{'endpointUrl','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
@@ -957,7 +965,7 @@ public class MetadataService {
         private String[] protected_x_type_info = new String[]{'protected','http://www.w3.org/2001/XMLSchema','boolean','1','1','false'};
         private String[] useDeadLetterQueue_type_info = new String[]{'useDeadLetterQueue','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'apiVersion','description','endpointUrl','fields','includeSessionId','integrationUser','name','protected_x','useDeadLetterQueue'};
+        private String[] field_order_type_info = new String[]{'fullName','apiVersion','description','endpointUrl','fields','includeSessionId','integrationUser','name','protected_x','useDeadLetterQueue'};
     }
     public class RunTestSuccess {
         public String id;
@@ -2277,7 +2285,7 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'actionName','comment','content','skipRecordTypeSelect','type_x'};
     }
-    public class WorkflowAction {
+    public virtual class WorkflowAction extends Metadata {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{};
     }
@@ -2549,7 +2557,9 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'color','height'};
     }
-    public class WorkflowFieldUpdate {
+    public class WorkflowFieldUpdate extends WorkflowAction {
+		public String type = 'WorkflowFieldUpdate';
+		public String fullName;
         public String description;
         public String field;
         public String formula;
@@ -2562,6 +2572,8 @@ public class MetadataService {
         public Boolean protected_x;
         public Boolean reevaluateOnChange;
         public String targetObject;
+		private String[] type_att_info = new String[]{'xsi:type'};
+		private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] description_type_info = new String[]{'description','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] field_type_info = new String[]{'field','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
         private String[] formula_type_info = new String[]{'formula','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
@@ -2575,7 +2587,7 @@ public class MetadataService {
         private String[] reevaluateOnChange_type_info = new String[]{'reevaluateOnChange','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
         private String[] targetObject_type_info = new String[]{'targetObject','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'description','field','formula','literalValue','lookupValue','lookupValueType','name','notifyAssignee','operation','protected_x','reevaluateOnChange','targetObject'};
+        private String[] field_order_type_info = new String[]{'fullName','description','field','formula','literalValue','lookupValue','lookupValueType','name','notifyAssignee','operation','protected_x','reevaluateOnChange','targetObject'};
     }
     public class FlowChoiceUserInput {
         public Boolean isRequired;
@@ -3577,21 +3589,27 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'sharedTo'};
     }
-    public class WorkflowKnowledgePublish {
+    public class WorkflowKnowledgePublish extends WorkflowAction {
+		public String type = 'WorkflowKnowledgePublish';
+		public String fullName;    	
         public String action;
         public String description;
         public String label;
         public String language;
         public Boolean protected_x;
+		private String[] type_att_info = new String[]{'xsi:type'};
+		private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] action_type_info = new String[]{'action','http://soap.sforce.com/2006/04/metadata','KnowledgeWorkflowAction','1','1','false'};
         private String[] description_type_info = new String[]{'description','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] label_type_info = new String[]{'label','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
         private String[] language_type_info = new String[]{'language','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] protected_x_type_info = new String[]{'protected','http://www.w3.org/2001/XMLSchema','boolean','1','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'action','description','label','language','protected_x'};
+        private String[] field_order_type_info = new String[]{'fullName','action','description','label','language','protected_x'};
     }
-    public class Workflow {
+    public class Workflow extends Metadata {
+		public String type = 'Workflow';
+		public String fullName;    	
         public MetadataService.WorkflowAlert[] alerts;
         public MetadataService.WorkflowFieldUpdate[] fieldUpdates;
         public MetadataService.WorkflowKnowledgePublish[] knowledgePublishes;
@@ -3599,6 +3617,8 @@ public class MetadataService {
         public MetadataService.WorkflowRule[] rules;
         public MetadataService.WorkflowSend[] send;
         public MetadataService.WorkflowTask[] tasks;
+		private String[] type_att_info = new String[]{'xsi:type'};
+		private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] alerts_type_info = new String[]{'alerts','http://soap.sforce.com/2006/04/metadata','WorkflowAlert','0','-1','false'};
         private String[] fieldUpdates_type_info = new String[]{'fieldUpdates','http://soap.sforce.com/2006/04/metadata','WorkflowFieldUpdate','0','-1','false'};
         private String[] knowledgePublishes_type_info = new String[]{'knowledgePublishes','http://soap.sforce.com/2006/04/metadata','WorkflowKnowledgePublish','0','-1','false'};
@@ -3607,7 +3627,7 @@ public class MetadataService {
         private String[] send_type_info = new String[]{'send','http://soap.sforce.com/2006/04/metadata','WorkflowSend','0','-1','false'};
         private String[] tasks_type_info = new String[]{'tasks','http://soap.sforce.com/2006/04/metadata','WorkflowTask','0','-1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'alerts','fieldUpdates','knowledgePublishes','outboundMessages','rules','send','tasks'};
+        private String[] field_order_type_info = new String[]{'fullName', 'alerts','fieldUpdates','knowledgePublishes','outboundMessages','rules','send','tasks'};
     }
     public class AddressSettings extends Metadata {
     	public String type = 'AddressSettings';
@@ -3831,7 +3851,9 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'active','booleanFilter','description','errorMessage','field','filterItems','infoMessage','isOptional','name','sourceObject'};
     }
-    public class WorkflowTask {
+    public class WorkflowTask extends WorkflowAction {
+		public String type = 'WorkflowTask';
+		public String fullName;    	
         public String assignedTo;
         public String assignedToType;
         public String description;
@@ -3842,6 +3864,8 @@ public class MetadataService {
         public Boolean protected_x;
         public String status;
         public String subject;
+		private String[] type_att_info = new String[]{'xsi:type'};
+		private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] assignedTo_type_info = new String[]{'assignedTo','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] assignedToType_type_info = new String[]{'assignedToType','http://soap.sforce.com/2006/04/metadata','ActionTaskAssignedToTypes','1','1','false'};
         private String[] description_type_info = new String[]{'description','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
@@ -3853,7 +3877,7 @@ public class MetadataService {
         private String[] status_type_info = new String[]{'status','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
         private String[] subject_type_info = new String[]{'subject','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'assignedTo','assignedToType','description','dueDateOffset','notifyAssignee','offsetFromField','priority','protected_x','status','subject'};
+        private String[] field_order_type_info = new String[]{'fullName','assignedTo','assignedToType','description','dueDateOffset','notifyAssignee','offsetFromField','priority','protected_x','status','subject'};
     }
     public class NextAutomatedApprover {
         public Boolean useApproverFieldOfRecordOwner;
@@ -4545,7 +4569,9 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'allowBack','allowFinish','connector','fields','helpText'};
     }
-    public class WorkflowAlert {
+    public class WorkflowAlert extends WorkflowAction {
+		public String type = 'WorkflowAlert';
+		public String fullName;    	
         public String[] ccEmails;
         public String description;
         public Boolean protected_x;
@@ -4553,6 +4579,8 @@ public class MetadataService {
         public String senderAddress;
         public String senderType;
         public String template;
+		private String[] type_att_info = new String[]{'xsi:type'};
+		private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] ccEmails_type_info = new String[]{'ccEmails','http://www.w3.org/2001/XMLSchema','string','0','-1','false'};
         private String[] description_type_info = new String[]{'description','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
         private String[] protected_x_type_info = new String[]{'protected','http://www.w3.org/2001/XMLSchema','boolean','1','1','false'};
@@ -4561,7 +4589,7 @@ public class MetadataService {
         private String[] senderType_type_info = new String[]{'senderType','http://soap.sforce.com/2006/04/metadata','ActionEmailSenderType','0','1','false'};
         private String[] template_type_info = new String[]{'template','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'ccEmails','description','protected_x','recipients','senderAddress','senderType','template'};
+        private String[] field_order_type_info = new String[]{'fullName','ccEmails','description','protected_x','recipients','senderAddress','senderType','template'};
     }
     public class ForecastRangeSettings {
         public Integer beginning;
@@ -4961,19 +4989,23 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'actions','timeLength','workflowTimeTriggerUnit'};
     }
-    public class WorkflowSend {
+    public class WorkflowSend extends WorkflowAction {
+		public String type = 'WorkflowSend';
+		public String fullName;
         public String action;
         public String description;
         public String label;
         public String language;
         public Boolean protected_x;
+		private String[] type_att_info = new String[]{'xsi:type'};
+		private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] action_type_info = new String[]{'action','http://soap.sforce.com/2006/04/metadata','SendAction','1','1','false'};
         private String[] description_type_info = new String[]{'description','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] label_type_info = new String[]{'label','http://www.w3.org/2001/XMLSchema','string','1','1','false'};
         private String[] language_type_info = new String[]{'language','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
         private String[] protected_x_type_info = new String[]{'protected','http://www.w3.org/2001/XMLSchema','boolean','1','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'action','description','label','language','protected_x'};
+        private String[] field_order_type_info = new String[]{'fullName','action','description','label','language','protected_x'};
     }
     public class PermissionSetFieldPermissions {
         public Boolean editable;
