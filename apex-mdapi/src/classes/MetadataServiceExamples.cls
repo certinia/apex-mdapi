@@ -619,6 +619,26 @@ public with sharing class MetadataServiceExamples
  		MetadataService.AsyncResult[] results = service.deleteMetadata(new List<MetadataService.Metadata> { listView });				
 	}
 	
+	public static void createApprovalProcess()
+	{
+		MetadataService.MetadataPort service = createService();
+		MetadataService.ApprovalProcess approvalProcess = new MetadataService.ApprovalProcess();
+        approvalProcess.fullName = 'Test__c.TestApproval';
+        approvalProcess.label = 'Test Approval';
+        approvalProcess.active = false;
+        approvalProcess.allowRecall = false;
+        approvalProcess.showApprovalHistory = true;
+        approvalProcess.recordEditability = 'AdminOnly';
+        approvalProcess.finalApprovalRecordLock = false;
+        approvalProcess.finalRejectionRecordLock = false;
+        approvalProcess.showApprovalHistory = false;
+        MetadataService.ApprovalSubmitter submitter = new MetadataService.ApprovalSubmitter();
+        submitter.type_x = 'user';
+        submitter.submitter = UserInfo.getUserName();
+        approvalProcess.allowedSubmitters = new List<MetadataService.ApprovalSubmitter> { submitter };
+        MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { approvalProcess });
+	}
+	
 	public static String checkAsync(String asyncId)
 	{
 		MetadataService.MetadataPort service = createService();		

@@ -3893,7 +3893,9 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'aggregate'};
     }
-    public class ApprovalProcess {
+    public class ApprovalProcess extends Metadata {
+		public String type = 'ApprovalProcess';
+        public String fullName;    	
         public Boolean active;
         public Boolean allowRecall;
         public MetadataService.ApprovalSubmitter[] allowedSubmitters;
@@ -3914,6 +3916,8 @@ public class MetadataService {
         public MetadataService.ApprovalAction recallActions;
         public String recordEditability;
         public Boolean showApprovalHistory;
+		private String[] type_att_info = new String[]{'xsi:type'};
+		private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};        
         private String[] active_type_info = new String[]{'active','http://www.w3.org/2001/XMLSchema','boolean','1','1','false'};
         private String[] allowRecall_type_info = new String[]{'allowRecall','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
         private String[] allowedSubmitters_type_info = new String[]{'allowedSubmitters','http://soap.sforce.com/2006/04/metadata','ApprovalSubmitter','0','-1','false'};
@@ -3935,7 +3939,7 @@ public class MetadataService {
         private String[] recordEditability_type_info = new String[]{'recordEditability','http://soap.sforce.com/2006/04/metadata','RecordEditabilityType','1','1','false'};
         private String[] showApprovalHistory_type_info = new String[]{'showApprovalHistory','http://www.w3.org/2001/XMLSchema','boolean','0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'active','allowRecall','allowedSubmitters','approvalPageFields','approvalStep','description','emailTemplate','enableMobileDeviceAccess','entryCriteria','finalApprovalActions','finalApprovalRecordLock','finalRejectionActions','finalRejectionRecordLock','initialSubmissionActions','label','nextAutomatedApprover','postTemplate','recallActions','recordEditability','showApprovalHistory'};
+        private String[] field_order_type_info = new String[]{'fullName','active','allowRecall','allowedSubmitters','approvalPageFields','approvalStep','description','emailTemplate','enableMobileDeviceAccess','entryCriteria','finalApprovalActions','finalApprovalRecordLock','finalRejectionActions','finalRejectionRecordLock','initialSubmissionActions','label','nextAutomatedApprover','postTemplate','recallActions','recordEditability','showApprovalHistory'};
     }
     public class MilestoneType {
         public String description;
