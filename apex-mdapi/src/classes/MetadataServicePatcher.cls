@@ -25,6 +25,37 @@
 **/
 
 /**
+This patch script performs the following changes to the default WSDL2Apex tool output
+
+- Modify the end point to be dynamic
+   - public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/28.0';
+- Make 'Metadata' inner class 'virtual'
+- Make 'MetadataWithContent' inner class 'virtual'
+- Review WSDL for types that extend 'tns:Metadata' and update related Apex classes to also extend Metadata
+- Review WSDL for types that extend 'tns:MetadataWithContent' and update related Apex classes to also extend MetadataWithContent
+- Apply the following to each class that extends Metadata, e.g. for CustomObject
+   Add the following at the top of the class
+        public String type = 'CustomObject';
+        public String fullName;
+   Add the following at the top of the private static members
+        private String[] type_att_info = new String[]{'xsi:type'};
+        private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
+   Add 'fullName' as the first item in the field_order_type_info String array, e.g.
+        private String[] field_order_type_info = new String[]{'fullName', 'actionOverrides' …. 'webLinks'};
+- Apply the following to each class that extends MetadataWithContent, e.g. for ApexPage
+   Add the following after 'fullName'
+        public String content;
+   Add the following after 'fullName_type_info'
+        private String[] content_type_info = new String[]{'content','http://www.w3.org/2001/XMLSchema','base64Binary','0','1','false'};
+   Add 'content' after 'fullName' in the field_order_type_info String array, e.g.
+        private String[] field_order_type_info = new String[]{'fullName', 'content', 'apiVersion','description','label','packageVersions'};
+- Patches the readMetadata operaton with a revised version returning IReadResult
+	(this supports the polymorphic responses returned by the readMetadata operation)
+- Injects IReadResult and IReadResultResponse interfaces
+- Injects implementations of each of these interfaces to support the revised readMetadata option
+**/
+
+/**
  * See the README file for instructions on how to use this class should
  *   should you want to generate your own MetadataService.cls instead of using the one supplied
  **/
