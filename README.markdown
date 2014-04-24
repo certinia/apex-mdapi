@@ -4,7 +4,7 @@ Apex Wrapper Salesforce Metadata API
 **[Deploy to Salesforce](https://githubsfdeploy.herokuapp.com/app/githubdeploy/financialforcedev/apex-mdapi)**
 
 **Update: 24th April 2014:**
-- Updated to **Spring'14 Metadata API (v30.0)**, significant new features, see blog.
+- Updated to **Spring'14 Metadata API (v30.0)**, significant new features, see [blog](http://andyinthecloud.com/2014/04/24/apex-metadata-api-and-spring14-keys-to-the-kingdom/).
 
 **Update: 27th October 2013:**
 - A new introduction to the API has been published [here](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/)
@@ -31,12 +31,6 @@ Apex Wrapper Salesforce Metadata API
 **Update: 11th November 2012:**
 - Updated the Retrieve Demo to utilise 'describeMetadata' API call to allow the user to select which Metadata Type to list and retrieve.
 - Added 'Metadata Explore' demo (see below) a Sencha powered demo of 'describeMetadata' and 'listMetadata' API's
-
-
-Known Issues and Resolutions
-----------------------------
-
-- If you recieve the error message *'Insufficient access; cannot execute Metadata operation with PAC enabled session id'* within Apex code within a managed package utilising this library. Please ensure to changed the API access from Restricted to Unrestricted on your Package defintion. Many thanks to the great work from [vipulpahwa](https://github.com/vipulpahwa) and [Daniel Blackhall](https://github.com/seeflat) to getting to the bottom of this rather cryptic error message.
 
 Documentation 
 -------------
@@ -331,6 +325,11 @@ With my recent Sencha skills, I decided to see if I could start the roots of a M
 ![Metadata Browse Demo Screenshot](https://raw.github.com/financialforcedev/apex-mdapi/master/images/mdbrowsedemo.png)
 
 You can study the Visualforce page [here](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadatabrowser.page) which mostly contains the Sencha code, making use of the [metadatadata](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadatadata.page) page as a data proxy for the Sencha store. The controller for this data proxy page is [here](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataDataController.cls). Which emits the JSON data (using calls to the describeMetadata API call) used by the Sencha store .
+
+Known Issues and Resolutions
+----------------------------
+
+- If you recieve the error message *'Insufficient access; cannot execute Metadata operation with PAC enabled session id'* within Apex code within a managed package utilising this library. Please ensure to changed the API access from Restricted to Unrestricted on your Package defintion. Many thanks to the great work from [vipulpahwa](https://github.com/vipulpahwa) and [Daniel Blackhall](https://github.com/seeflat) to getting to the bottom of this rather cryptic error message.
 
 How to create your own MetadataService.cls
 ------------------------------------------
