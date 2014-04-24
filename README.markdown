@@ -4,7 +4,7 @@ Apex Wrapper Salesforce Metadata API
 **[Deploy to Salesforce](https://githubsfdeploy.herokuapp.com/app/githubdeploy/financialforcedev/apex-mdapi)**
 
 **Update: 24th April 2014:**
-- Updated to **Spring'14 Metadata API (v30.0), significant new features, see blog.
+- Updated to **Spring'14 Metadata API (v30.0)**, significant new features, see blog.
 
 **Update: 27th October 2013:**
 - A new introduction to the API has been published [here](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/)
