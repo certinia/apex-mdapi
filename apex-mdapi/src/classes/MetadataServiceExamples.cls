@@ -639,12 +639,121 @@ public with sharing class MetadataServiceExamples
         MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { approvalProcess });
 	}
 	
+	public static void readAndUpdateLayout()
+	{
+		MetadataService.MetadataPort service = createService();
+		
+		// Create Button
+		MetadataService.WebLink webLink = new MetadataService.WebLink();
+		webLink.fullName = 'Test__c.googleButton';
+		webLink.availability = 'online';
+		webLink.displayType = 'button';
+		webLink.encodingKey = 'UTF-8';
+		webLink.hasMenubar = false;
+		webLink.hasScrollbars = true;
+		webLink.hasToolbar = false;
+		webLink.height = 600;
+		webLink.isResizable = true;
+		webLink.linkType = 'url';
+		webLink.masterLabel = 'google';
+		webLink.openType = 'newWindow';
+		webLink.position = 'none';
+		webLink.protected_x = false;
+		webLink.showsLocation = false;
+		webLink.showsStatus = false;
+		webLink.url = 'http://www.google.com';
+		webLink.width = 600;	
+		handleSaveResults(
+			service.createMetadata(
+				new List<MetadataService.Metadata> { webLink })[0]);
+
+		// Read the Layout		
+		MetadataService.Layout layout = 
+			(MetadataService.Layout) service.readMetadata('Layout', 
+				new String[] { 'Test__c-Test Layout' }).getRecords()[0];
+				
+		// Add the Custom Button to the Layout
+		if(layout.customButtons==null)
+			layout.customButtons = new List<String>();
+		layout.customButtons.add('googleButton');
+		
+		// Update the Layout
+		handleSaveResults(
+			service.updateMetadata(
+				new MetadataService.Metadata[] { layout })[0]);
+	}
+
+	public static void updatePicklist()
+	{
+	    MetadataService.MetadataPort service = createService();     	    
+
+	    // Read Custom Field
+	    MetadataService.CustomField customField = 
+			(MetadataService.CustomField) service.readMetadata('CustomField', 
+				new String[] { 'Lead.picklist__c' }).getRecords()[0];	    
+
+		// Add pick list values
+	    metadataservice.PicklistValue two = new metadataservice.PicklistValue();
+	    two.fullName= 'second';
+	    two.default_x=false;
+	    metadataservice.PicklistValue three = new metadataservice.PicklistValue();
+	    three.fullName= 'third';
+	    three.default_x=false;
+	    customField.picklist.picklistValues.add(two);
+	    customField.picklist.picklistValues.add(three);	    
+
+	    // Update Custom Field
+		handleSaveResults(
+			service.updateMetadata(
+				new MetadataService.Metadata[] { customField })[0]);		
+	}
+
+	public static void copyLayoutSection()
+	{
+	    MetadataService.MetadataPort service = createService();     	    
+
+		// Read the source Layout		
+		MetadataService.Layout sourceLayout = 
+			(MetadataService.Layout) service.readMetadata('Layout', 
+				new String[] { 'Test__c-Test Template Layout' }).getRecords()[0];
+
+		// Read the target Layout		
+		MetadataService.Layout targetLayout = 
+			(MetadataService.Layout) service.readMetadata('Layout', 
+				new String[] { 'Test__c-Test Layout' }).getRecords()[0];
+
+		// Add section from source Layout to target Layout
+		targetLayout.layoutSections.add(
+			sourceLayout.layoutSections[0]);
+
+		// Update target Layout
+		handleSaveResults(
+			service.updateMetadata(
+				new MetadataService.Metadata[] { targetLayout })[0]);
+	}
+
+	/*	
+	public static void readWorkflowAlert()
+	{
+		MetadataService.MetadataPort service = createService();
+		
+		// Read Workflow Alert		
+		MetadataService.WorkflowAlert wfa = 
+			(MetadataService.WorkflowAlert) service.readMetadata('WorkflowAlert', 
+				new String[] { 'Test' }).getRecords()[0];
+		System.debug('Description ' + wfa.description);
+		System.debug('Sender Address ' + wfa.senderAddress);				
+	}
+	*/
+
+	public class MetadataServiceExamplesException extends Exception { }
+	
 	public static String checkAsync(String asyncId)
 	{
 		MetadataService.MetadataPort service = createService();		
 		return service.checkStatus(new List<String> { asyncId })[0].message;		
 	}
-		
+
 	public static MetadataService.MetadataPort createService()
 	{ 
 		MetadataService.MetadataPort service = new MetadataService.MetadataPort();
@@ -652,4 +761,26 @@ public with sharing class MetadataServiceExamples
 		service.SessionHeader.sessionId = UserInfo.getSessionId();
 		return service;		
 	}
+
+	/**
+	 * Example helper method to interpret a SaveResult, throws an exception if errors are found
+	 **/
+	private static void handleSaveResults(MetadataService.SaveResult saveResult)
+	{
+		// Nothing to see?
+		if(saveResult==null || saveResult.success)
+			return;
+		// Construct error message and throw an exception
+		List<String> messages = new List<String>();
+		messages.add(
+			(saveResult.errors.size()==1 ? 'Error ' : 'Errors ') + 
+				'occured processing component ' + saveResult.fullName + '.');
+		for(MetadataService.Error error : saveResult.errors)
+			messages.add(
+				error.message + ' (' + error.statusCode + ').' + 
+				( error.fields!=null && error.fields.size()>0 ? 
+					' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
+		if(messages.size()>0)
+			throw new MetadataServiceExamplesException(String.join(messages, ' '));
+	}	
 }

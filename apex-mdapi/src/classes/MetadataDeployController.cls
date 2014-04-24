@@ -101,8 +101,8 @@ public with sharing class MetadataDeployController
 				ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deployment complete'));
 
 				// Deployment errors?
-				MetadataService.DeployResult deployResult = service.checkDeployStatus(AsyncResult.Id);
-				for(MetadataService.DeployMessage deployMessage : deployResult.messages)
+				MetadataService.DeployResult deployResult = service.checkDeployStatus(AsyncResult.Id, false);
+				for(MetadataService.DeployMessage deployMessage : deployResult.details.componentFailures)
 					if(deployMessage.problem!=null)
 						ApexPages.addMessage(
 							new ApexPages.Message(ApexPages.Severity.Error, 

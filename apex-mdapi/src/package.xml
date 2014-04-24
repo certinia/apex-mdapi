@@ -9,6 +9,7 @@
         <members>MetadataRetrieveController</members>
         <members>MetadataService</members>
         <members>MetadataServiceExamples</members>
+        <members>MetadataServicePatcher</members>
         <members>MetadataServiceTest</members>
         <name>ApexClass</name>
     </types>
@@ -27,13 +28,20 @@
         <name>ApexPage</name>
     </types>
     <types>
-        <members>*</members>
+        <members>MetadataBrowser</members>
+        <members>MetadataDeployDemo</members>
+        <members>MetadataRetrieveDemo</members>
         <name>CustomTab</name>
+    </types>
+    <types>
+        <members>MetadataServicePatcher</members>
+        <members>MetadataServicePatcher/MetadataServicePatched</members>
+        <name>Document</name>
     </types>
     <types>
         <members>extjs</members>
         <members>jszip</members>
         <name>StaticResource</name>
     </types>
-    <version>24.0</version>
+    <version>30.0</version>
 </Package>
