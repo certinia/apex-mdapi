@@ -43,6 +43,7 @@ Documentation
 
 In addition to the documetnation in this README, the following blogs also cover the library.
 
+- [Apex Metadata API and Spring’14 : Keys to the Kingdom!](http://andyinthecloud.com/2014/04/24/apex-metadata-api-and-spring14-keys-to-the-kingdom/)
 - [Introduction to calling the Metadata API from Apex](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/). 
 - [Spring’14 Pre-Release : Updating Layouts in Apex](http://andyinthecloud.com/category/metadata-api/)
 - [“Look ma, no hands!” : Automating Install and Uninstall of Packages!](http://andyinthecloud.com/2013/06/23/look-ma-no-hands-automating-install-and-uninstall-of-packages/)
