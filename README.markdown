@@ -103,6 +103,8 @@ Links
 Examples
 --------
 
+The following examples are a subset of those found in the [MetadataServiceExamples.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceExamples.cls). 
+
 	public static void createObject()
 	{
 		MetadataService.MetadataPort service = createService();		
@@ -115,7 +117,10 @@ Examples
 		customObject.nameField.label = 'Test Record';
 		customObject.deploymentStatus = 'Deployed';
 		customObject.sharingModel = 'ReadWrite';
-		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customObject });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customObject });		
+		handleSaveResults(results[0]);
 	}
 	
 	public static void createField()
@@ -126,7 +131,10 @@ Examples
 		customField.label = 'Test Field';
 		customField.type_x = 'Text';
 		customField.length = 42;
- 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customField });				
+		handleSaveResults(results[0]);
 	}
 
 	public static void createPage()
@@ -137,9 +145,12 @@ Examples
 		apexPage.fullName = 'test';
 		apexPage.label = 'Test Page';
 		apexPage.content = EncodingUtil.base64Encode(Blob.valueOf('<apex:page/>'));
- 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { apexPage });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { apexPage });				
+		handleSaveResults(results[0]);
 	}
-	
+
 	public static void listMetadata()
 	{
 		MetadataService.MetadataPort service = createService();		
