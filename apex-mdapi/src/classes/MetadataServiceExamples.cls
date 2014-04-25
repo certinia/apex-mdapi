@@ -55,7 +55,10 @@ public with sharing class MetadataServiceExamples
 		customObject.nameField.label = 'Test Record';
 		customObject.deploymentStatus = 'Deployed';
 		customObject.sharingModel = 'ReadWrite';
-		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customObject });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customObject });		
+		handleSaveResults(results[0]);
 	}
 
 	public static void createLookupField()
@@ -68,9 +71,11 @@ public with sharing class MetadataServiceExamples
 		customField.relationshipLabel = 'Tests';
 		customField.relationshipName = 'Tests';
 		customField.referenceTo = 'Test__c';
- 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customField });		
+		handleSaveResults(results[0]);
 	}
-
 
 	public static void createExternalField()
 	{
@@ -95,7 +100,6 @@ public with sharing class MetadataServiceExamples
 		customField.visibleLines = 3;
  		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
 	}
-
 	
 	public static void createField()
 	{
@@ -105,7 +109,10 @@ public with sharing class MetadataServiceExamples
 		customField.label = 'Test Field';
 		customField.type_x = 'Text';
 		customField.length = 42;
- 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customField });				
+		handleSaveResults(results[0]);
 	}
 	
 	public static void deleteField()
@@ -138,7 +145,10 @@ public with sharing class MetadataServiceExamples
 		apexPage.fullName = 'test';
 		apexPage.label = 'Test Page';
 		apexPage.content = EncodingUtil.base64Encode(Blob.valueOf('<apex:page/>'));
- 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { apexPage });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { apexPage });				
+		handleSaveResults(results[0]);
 	}
 
 	public static void createStaticResource()
@@ -732,7 +742,6 @@ public with sharing class MetadataServiceExamples
 				new MetadataService.Metadata[] { targetLayout })[0]);
 	}
 
-	/*	
 	public static void readWorkflowAlert()
 	{
 		MetadataService.MetadataPort service = createService();
@@ -740,11 +749,10 @@ public with sharing class MetadataServiceExamples
 		// Read Workflow Alert		
 		MetadataService.WorkflowAlert wfa = 
 			(MetadataService.WorkflowAlert) service.readMetadata('WorkflowAlert', 
-				new String[] { 'Test' }).getRecords()[0];
+				new String[] { 'Test__c.Test' }).getRecords()[0];
 		System.debug('Description ' + wfa.description);
 		System.debug('Sender Address ' + wfa.senderAddress);				
 	}
-	*/
 
 	public class MetadataServiceExamplesException extends Exception { }
 	

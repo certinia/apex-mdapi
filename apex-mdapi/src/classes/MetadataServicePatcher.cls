@@ -171,7 +171,14 @@ public with sharing class MetadataServicePatcher {
 			'Folder' => 'Metadata',
 			'RoleOrTerritory' => 'Metadata',
 			'WorkflowAction' => 'Metadata',
-			'SiteDotCom' => 'MetadataWithContent'
+			'SiteDotCom' => 'MetadataWithContent',
+			'WorkflowTask' => 'WorkflowAction',
+			'WorkflowSend' => 'WorkflowAction',
+			'WorkflowOutboundMessage' => 'WorkflowAction',
+			'WorkflowKnowledgePublish' => 'WorkflowAction',
+			'WorkflowFieldUpdate' => 'WorkflowAction',
+			'WorkflowAlert' => 'WorkflowAction',
+			'WorkflowAction' => 'Metadata'
 			}; // TODO: Inheritance modifications for Sharing Rules, Role, Flow, Workflow Actions, Custom Shortcut, Email Folder, 
 	
 	public static void patch()
@@ -215,6 +222,9 @@ public with sharing class MetadataServicePatcher {
 			// Make MetadataWithContent virtual?
 			else if(trimmedLine.startsWith('public class MetadataWithContent '))
 				line = line.replace('public class MetadataWithContent', 'public virtual class MetadataWithContent extends Metadata');
+			// Make WorkflowAction virtual and extend from Metadata?
+			else if(trimmedLine.startsWith('public class WorkflowAction '))
+				line = line.replace('public class WorkflowAction ', 'public virtual class WorkflowAction extends Metadata');				
 			// Add interfaces to read?
 			else if(trimmedLine.startsWith('public class ReadResult'))
 			{			
