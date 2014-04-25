@@ -3,35 +3,6 @@ Apex Wrapper Salesforce Metadata API
 
 **[Deploy to Salesforce](https://githubsfdeploy.herokuapp.com/app/githubdeploy/financialforcedev/apex-mdapi)**
 
-**Update: 24th April 2014:**
-- Updated to **Spring'14 Metadata API (v30.0)**, significant new features, see [blog](http://andyinthecloud.com/2014/04/24/apex-metadata-api-and-spring14-keys-to-the-kingdom/).
-
-**Update: 27th October 2013:**
-- A new introduction to the API has been published [here](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/)
-- A new supporting Visualforce example has also been created to show how to use apex:actionPoller
-
-**Update: 30th August 2013:**
-- Very interesting fix for the 'delete' CRUD operation (for fields), see this StackExchange [answer](http://salesforce.stackexchange.com/questions/15902/how-to-dynamically-set-type-x-value-for-metadata-customfield/15913#15913) for more and the MetadataServiceExamples.deleteField method
-
-**Update: 20th June 2013:**
-- Updated to **Summer'13 Metadata API (v28.0)**, more cool stuff to follow on this, such an Apex package installer UI!
-
-**Update: 6th May 2013:**
-- Updated MetadataCreateJob.cls, new feature to process Metadata API requests in Batch Apex, see examples.
-
-**Update: 5th May 2013:**
-- Updated MetadataServiceTest.cls, now provides 100% code coverage of MetadataService.cls!
-
-**Update: 10th March 2013:**
-- Updated to **Spring'13 Metadata API (v27.0)**, more info on new features of this version [here](http://developer.force.com/releases/release/Spring13/Bulk+Metadata+and+Streaming+API+Updates). Also added new samples for Settings configuraiton, see blog [here](http://andyinthecloud.com/2013/03/10/apex-metadata-api-spring13-update-org-settings-access).
-
-**Update: 3rd March 2013:**
-- Updated MetadataServiceExample.cls with more sample code creating various field types.
-
-**Update: 11th November 2012:**
-- Updated the Retrieve Demo to utilise 'describeMetadata' API call to allow the user to select which Metadata Type to list and retrieve.
-- Added 'Metadata Explore' demo (see below) a Sencha powered demo of 'describeMetadata' and 'listMetadata' API's
-
 Documentation 
 -------------
 
@@ -66,39 +37,6 @@ While Salesforce offer on platform Apex developers a means to query some of this
 Before you read on, stop by an [up vote this idea](https://success.salesforce.com/ideaView?id=08730000000l4TkAAI) to have a native Metadata API!
 
 So what can we do in the meantime as Apex developers? Well it turns out that Apex is quite good at making outbound calls to Web Services and more recently REST base API's, all be it as always with a few governors to be aware. So why can Apex not call out to the Metadata Web Services API? After all, there is a WSDL for it and you have the ability as an Apex developer to import a WSDL into Apex and consume the code it generates to make the call, right? Well...
-
-Challanges calling the Metadata API from Apex?
-----------------------------------------------
-
-Salesforce have been promoting recently the Metadata REST API. While this is still not a native API to Apex, it would be a lot easier to call than the Web Service one, though you would have develop your own wrapper classes. Unfortunatly this API is still in pilot and I have been told by Salesforce its appearance as a GA API is still someway out, sadly.
-
-So you can download the Metadata WSDL from the Tools page under the Develop menu. If you attempt to use it directly (at version 25) you will encounter a number of issues before you can get the resulting Apex class to even compile. Getting it to then make a valid Metadata API call is then another task. 
-
-The main reasons are as follows...
-
-* The port name uses a reserved word, Metadata.
-* Some operation names, such as create and update are also reserved words.
-* The WSDL2Apex tool does not support polymorphic XML and the Metadata WSDL contains types that extend each other, e.g. CustomObject extends Metadata
-* The Apex XML serialiser does not support inheritance (see above point). More specifically it does not see base class members nor does it emit the 'xsi:type' attribute to support polymorphic XML data binding. So the generated Apex code requires a bit of tweaking to support this.
-* The Apex language does not support the Zip file format, so the **retrieve** and the **deploy** operations so these are a no go from a pure Apex perspective. However this doesnt stop the of Javascript to handle zips! See sections below on how this has been done.
-* Some operations return **AsyncResult** which gives you an Id to call back on to determine the fate of your request. While this can be called, you will need to do this via AJAX, Apex Future or Apex Job. The deploy and retrieve samples utilise apex:actionPoller.
-* Newer CRUD operations since Spring'14, are now realtime, meaning you don't have to poll for the result of the operation as was previously the case. The examples below show these operations in action.
-
-This library addresses all these issues for you, you can download the [MetadataService.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataService.cls) and [MetadataServiceTest.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceTest.cls) and use them directly in your solutions. So you can now gain access to the Metadata API from Apex!
-
-* The following so called CRUD operations are useable within Apex, **create**, **read**, **update** and **delete**. 
-* As well as **listMetadata** and **describeMetadata**. 
-* You can also call **checkStatus** to check the status of your requests. 
-* With a bit of help from a Javascript library, the infamous **retrieve** and **deploy** also become workable.
-
-**Note:** The CRUD operations do not support Apex Class or Apex Trigger components sadly, this is a API restriction and not an issue with calling from Apex as such.
-
-So I've created this Github repo to capture a modified version of the generated Apex class around the Metadata API. Which addresses the problems above. So that you can download it and get started straight away.
-
-Links
------
-
-- [Salesforce Metadata API Developers Guide](http://www.salesforce.com/us/developer/docs/api_meta/index.htm)
 
 Examples
 --------
@@ -344,6 +282,34 @@ Known Issues and Resolutions
 
 - If you recieve the error message *'Insufficient access; cannot execute Metadata operation with PAC enabled session id'* within Apex code within a managed package utilising this library. Please ensure to changed the API access from Restricted to Unrestricted on your Package defintion. Many thanks to the great work from [vipulpahwa](https://github.com/vipulpahwa) and [Daniel Blackhall](https://github.com/seeflat) to getting to the bottom of this rather cryptic error message.
 
+Challanges calling the Metadata API from Apex?
+----------------------------------------------
+
+Salesforce have been promoting recently the Metadata REST API. While this is still not a native API to Apex, it would be a lot easier to call than the Web Service one, though you would have develop your own wrapper classes. Unfortunatly this API is still in pilot and I have been told by Salesforce its appearance as a GA API is still someway out, sadly.
+
+So you can download the Metadata WSDL from the Tools page under the Develop menu. If you attempt to use it directly (at version 25) you will encounter a number of issues before you can get the resulting Apex class to even compile. Getting it to then make a valid Metadata API call is then another task. 
+
+The main reasons are as follows...
+
+* The port name uses a reserved word, Metadata.
+* Some operation names, such as create and update are also reserved words.
+* The WSDL2Apex tool does not support polymorphic XML and the Metadata WSDL contains types that extend each other, e.g. CustomObject extends Metadata
+* The Apex XML serialiser does not support inheritance (see above point). More specifically it does not see base class members nor does it emit the 'xsi:type' attribute to support polymorphic XML data binding. So the generated Apex code requires a bit of tweaking to support this.
+* The Apex language does not support the Zip file format, so the **retrieve** and the **deploy** operations so these are a no go from a pure Apex perspective. However this doesnt stop the of Javascript to handle zips! See sections below on how this has been done.
+* Some operations return **AsyncResult** which gives you an Id to call back on to determine the fate of your request. While this can be called, you will need to do this via AJAX, Apex Future or Apex Job. The deploy and retrieve samples utilise apex:actionPoller.
+* Newer CRUD operations since Spring'14, are now realtime, meaning you don't have to poll for the result of the operation as was previously the case. The examples below show these operations in action.
+
+This library addresses all these issues for you, you can download the [MetadataService.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataService.cls) and [MetadataServiceTest.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceTest.cls) and use them directly in your solutions. So you can now gain access to the Metadata API from Apex!
+
+* The following so called CRUD operations are useable within Apex, **create**, **read**, **update** and **delete**. 
+* As well as **listMetadata** and **describeMetadata**. 
+* You can also call **checkStatus** to check the status of your requests. 
+* With a bit of help from a Javascript library, the infamous **retrieve** and **deploy** also become workable.
+
+**Note:** The CRUD operations do not support Apex Class or Apex Trigger components sadly, this is a API restriction and not an issue with calling from Apex as such.
+
+So I've created this Github repo to capture a modified version of the generated Apex class around the Metadata API. Which addresses the problems above. So that you can download it and get started straight away.
+
 How to create your own MetadataService.cls
 ------------------------------------------
 
@@ -370,6 +336,39 @@ How to create your own MetadataService.cls
                - Future releases of the patch script may also generate this class
 
 **NOTE:** You can review the changes made to the standard Saleforce generated Web Service Apex class for the Metadata API, by reading the comments at the top of the [MetadataServicePatcher.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServicePatcher.cls) class.
+
+Release History
+---------------
+
+**Update: 24th April 2014:**
+- Updated to **Spring'14 Metadata API (v30.0)**, significant new features, see [blog](http://andyinthecloud.com/2014/04/24/apex-metadata-api-and-spring14-keys-to-the-kingdom/).
+
+**Update: 27th October 2013:**
+- A new introduction to the API has been published [here](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/)
+- A new supporting Visualforce example has also been created to show how to use apex:actionPoller
+
+**Update: 30th August 2013:**
+- Very interesting fix for the 'delete' CRUD operation (for fields), see this StackExchange [answer](http://salesforce.stackexchange.com/questions/15902/how-to-dynamically-set-type-x-value-for-metadata-customfield/15913#15913) for more and the MetadataServiceExamples.deleteField method
+
+**Update: 20th June 2013:**
+- Updated to **Summer'13 Metadata API (v28.0)**, more cool stuff to follow on this, such an Apex package installer UI!
+
+**Update: 6th May 2013:**
+- Updated MetadataCreateJob.cls, new feature to process Metadata API requests in Batch Apex, see examples.
+
+**Update: 5th May 2013:**
+- Updated MetadataServiceTest.cls, now provides 100% code coverage of MetadataService.cls!
+
+**Update: 10th March 2013:**
+- Updated to **Spring'13 Metadata API (v27.0)**, more info on new features of this version [here](http://developer.force.com/releases/release/Spring13/Bulk+Metadata+and+Streaming+API+Updates). Also added new samples for Settings configuraiton, see blog [here](http://andyinthecloud.com/2013/03/10/apex-metadata-api-spring13-update-org-settings-access).
+
+**Update: 3rd March 2013:**
+- Updated MetadataServiceExample.cls with more sample code creating various field types.
+
+**Update: 11th November 2012:**
+- Updated the Retrieve Demo to utilise 'describeMetadata' API call to allow the user to select which Metadata Type to list and retrieve.
+- Added 'Metadata Explore' demo (see below) a Sencha powered demo of 'describeMetadata' and 'listMetadata' API's
+
 
 About the Author
 ----------------
