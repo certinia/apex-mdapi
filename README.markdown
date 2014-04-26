@@ -36,13 +36,14 @@ While Salesforce offer on platform Apex developers a means to query some of this
 
 Before you read on, stop by an [up vote this idea](https://success.salesforce.com/ideaView?id=08730000000l4TkAAI) to have a native Metadata API!
 
-So what can we do in the meantime as Apex developers? Well it turns out that Apex is quite good at making outbound calls to Web Services and more recently REST base API's, all be it as always with a few governors to be aware. So why can Apex not call out to the Metadata Web Services API? After all, there is a WSDL for it and you have the ability as an Apex developer to import a WSDL into Apex and consume the code it generates to make the call, right? Well...
+So what can we do in the meantime as Apex developers? Well it turns out that Apex is quite good at making outbound calls to Web Services and more recently REST base API's, all be it as always with a few governors to be aware. So why can Apex not call out to the Metadata Web Services API? After all, there is a WSDL for it and you have the ability as an Apex developer to import a WSDL into Apex and consume the code it generates to make the call...
 
 Examples
 --------
 
 The following examples are a subset of those found in the [MetadataServiceExamples.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceExamples.cls). 
 
+```java
 	public static void createObject()
 	{
 		MetadataService.MetadataPort service = createService();		
@@ -111,6 +112,7 @@ The following examples are a subset of those found in the [MetadataServiceExampl
 		service.SessionHeader.sessionId = UserInfo.getSessionId();
 		return service;		
 	}
+```
 
 You can view more examples [here](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceExamples.cls). Thanks to [mohit-address](https://github.com/mohit-address) for submitting examples relating to updating picklist values.
 
@@ -132,6 +134,7 @@ Metadata Batch Apex Demo
 
 As described above you can poll the checkStatus operation for completion via either apex:actionPoller or Batch Apex. This example code shows how to create a number of Metadata components (custom object, fields and a page) from Apex without requiring Visualforce. You can read more about it [here](http://andyinthecloud.com/2013/05/06/scripting-the-apex-metadata-api-and-batch-apex-support/)
 
+```java
 		// Define Metadata item to create a Custom Object
 		MetadataService.CustomObject customObject = new MetadataService.CustomObject();
 		customObject.fullName = objectName + '__c';
@@ -176,8 +179,9 @@ As described above you can poll the checkStatus operation for completion via eit
 					new MetadataCreateJob.Item(customField2),  
 					new MetadataCreateJob.Item(apexPage, null, true) // Set wait to true, to process after field creation
 				},
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());
 
+```
 
 Metadata Retrieve Demo
 ----------------------
@@ -199,6 +203,7 @@ To illustrate error handling, I've shown in the screen shot a deliberate failed 
 
 ![Metadata Deploy Demo Screenshot](https://raw.github.com/financialforcedev/apex-mdapi/master/images/mddeploydemo.png)
 
+```java
 	public String getPackageXml()
 	{
 		return '<?xml version="1.0" encoding="UTF-8"?>' + 
@@ -262,7 +267,9 @@ To illustrate error handling, I've shown in the screen shot a deliberate failed 
         deployOptions.singlePackage = true;		
 		AsyncResult = service.deploy(ZipData, DeployOptions);				
 		return null;
-	}	
+	}
+	
+```
 
 **NOTE:** I am using Visualforce state (aka Viewstate) and Visualforce AJAX in the above two examples. This will limit the size of the files and zip file being exchanged. Use of JavaScript Remoting will give you increased flexibility in file size (docs state a response size of 15MB is supported). However this will mean storing state in a Custom Object, the slight additional complexity of this I wanted to avoid in these samples. As noted below I have recently (December 2012) enhanced the zip components in another repo, they are based on those in this repo, so are fairly simple to retro fit, take a look at the samples there first. Finally, keep in mind that you can also for most other Metadata Component types use the CRUD operations as shown above, which avoid any zip file handling.
 
