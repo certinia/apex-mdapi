@@ -761,7 +761,8 @@ public with sharing class MetadataServiceExamples
 		MetadataService.CustomObject customObject = 
 			(MetadataService.CustomObject) service.readMetadata('CustomObject', 
 				new String[] { 'Test__c' }).getRecords()[0];
-
+		for(MetadataService.CustomField field : customObject.fields)
+			System.debug(field.fullName);
 	}
 
 	public class MetadataServiceExamplesException extends Exception { }
