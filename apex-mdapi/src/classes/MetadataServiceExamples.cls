@@ -754,6 +754,16 @@ public with sharing class MetadataServiceExamples
 		System.debug('Sender Address ' + wfa.senderAddress);				
 	}
 
+	public static void readCustomObject()
+	{
+		MetadataService.MetadataPort service = createService();
+		
+		MetadataService.CustomObject customObject = 
+			(MetadataService.CustomObject) service.readMetadata('CustomObject', 
+				new String[] { 'Test__c' }).getRecords()[0];
+
+	}
+
 	public class MetadataServiceExamplesException extends Exception { }
 	
 	public static String checkAsync(String asyncId)
