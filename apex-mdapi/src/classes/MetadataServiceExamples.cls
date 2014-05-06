@@ -765,8 +765,36 @@ public with sharing class MetadataServiceExamples
 			System.debug(field.fullName);
 	}
 
+	public static void addComponentsToHomePageLayout()
+	{
+		// Retrieve Home Page Layout
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.HomePageLayout homePageLayout = 
+			(MetadataService.HomePageLayout) service.readMetadata('HomePageLayout', 
+				new String[] { 'DE Default' }).getRecords()[0];
+
+		// Create Home Page Component
+		MetadataService.HomePageComponent homePageComponent = 
+			new MetadataService.HomePageComponent();
+		homePageComponent.width = 'wide';
+		homePageComponent.pageComponentType = 'htmlArea';
+		homePageComponent.fullName = 'helloworld';
+		homePageComponent.body = '<p>Hello World</p>';
+		handleSaveResults(
+			service.createMetadata(
+				new MetadataService.Metadata[] { homePageComponent })[0]);		
+
+		// Add component to Home Page Layout and Update
+		if(homePageLayout.wideComponents==null)
+			homePageLayout.wideComponents = new List<String>();
+		homePageLayout.wideComponents.add('helloworld');		
+		handleSaveResults(
+			service.updateMetadata(
+				new MetadataService.Metadata[] { homePageLayout })[0]);		
+	}
+
 	public class MetadataServiceExamplesException extends Exception { }
-	
+
 	public static String checkAsync(String asyncId)
 	{
 		MetadataService.MetadataPort service = createService();		
