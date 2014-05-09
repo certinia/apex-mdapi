@@ -45,7 +45,7 @@ public with sharing class MetadataServiceExamples
 {
 	public static void createObject()
 	{
-		MetadataService.MetadataPort service = createService();		
+		MetadataService.MetadataPort service = createService();
 		MetadataService.CustomObject customObject = new MetadataService.CustomObject();
 		customObject.fullName = 'Test__c';
 		customObject.label = 'Test';
@@ -791,6 +791,18 @@ public with sharing class MetadataServiceExamples
 		handleSaveResults(
 			service.updateMetadata(
 				new MetadataService.Metadata[] { homePageLayout })[0]);		
+	}
+
+	public static void readFolder()
+	{
+		// Retrieve Folder
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.ReportFolder folder = 
+			(MetadataService.ReportFolder) service.readMetadata('ReportFolder', 
+				new String[] { 'MyFolder' }).getRecords()[0];
+		MetadataService.SharedTo shareTo = folder.SharedTo;
+		for(String groupName : shareTo.group_x)
+			System.debug('Shared to Group ' + groupName);
 	}
 
 	public class MetadataServiceExamplesException extends Exception { }

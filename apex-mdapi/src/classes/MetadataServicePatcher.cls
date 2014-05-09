@@ -169,6 +169,10 @@ public with sharing class MetadataServicePatcher {
 			'LiveChatAgentConfig' => 'Metadata',
 			'SynonymDictionary' => 'Metadata',
 			'Folder' => 'Metadata',
+			'ReportFolder' => 'Folder',
+			'DashboardFolder' => 'Folder',
+			'DocumentFolder' => 'Folder',
+			'EmailFolder' => 'Folder',
 			'RoleOrTerritory' => 'Metadata',
 			'WorkflowAction' => 'Metadata',
 			'SiteDotCom' => 'MetadataWithContent',
@@ -179,7 +183,7 @@ public with sharing class MetadataServicePatcher {
 			'WorkflowFieldUpdate' => 'WorkflowAction',
 			'WorkflowAlert' => 'WorkflowAction',
 			'WorkflowAction' => 'Metadata'
-			}; // TODO: Inheritance modifications for Sharing Rules, Role, Flow, Workflow Actions, Custom Shortcut, Email Folder, 
+			}; // TODO: Inheritance modifications for Sharing Rules, Role, Flow and Custom Shortcut
 	
 	public static void patch()
 	{
@@ -222,6 +226,9 @@ public with sharing class MetadataServicePatcher {
 			// Make MetadataWithContent virtual?
 			else if(trimmedLine.startsWith('public class MetadataWithContent '))
 				line = line.replace('public class MetadataWithContent', 'public virtual class MetadataWithContent extends Metadata');
+			// Make Folder virtual and extend from Metadata?
+			else if(trimmedLine.startsWith('public class Folder '))
+				line = line.replace('public class Folder ', 'public virtual class Folder extends Metadata');
 			// Make WorkflowAction virtual and extend from Metadata?
 			else if(trimmedLine.startsWith('public class WorkflowAction '))
 				line = line.replace('public class WorkflowAction ', 'public virtual class WorkflowAction extends Metadata');				
