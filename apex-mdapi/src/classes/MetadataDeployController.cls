@@ -102,13 +102,14 @@ public with sharing class MetadataDeployController
 
 				// Deployment errors?
 				MetadataService.DeployResult deployResult = service.checkDeployStatus(AsyncResult.Id, false);
-				for(MetadataService.DeployMessage deployMessage : deployResult.details.componentFailures)
-					if(deployMessage.problem!=null)
-						ApexPages.addMessage(
-							new ApexPages.Message(ApexPages.Severity.Error, 
-								deployMessage.fileName + 
-									' (Line: ' + deployMessage.lineNumber + ': Column:' + deployMessage.columnNumber + ') : ' + 
-										deployMessage.problem));
+				if(deployResult.details!=null && deployResult.details.componentFailures!=null)
+					for(MetadataService.DeployMessage deployMessage : deployResult.details.componentFailures)
+						if(deployMessage.problem!=null)
+							ApexPages.addMessage(
+								new ApexPages.Message(ApexPages.Severity.Error, 
+									deployMessage.fileName + 
+										' (Line: ' + deployMessage.lineNumber + ': Column:' + deployMessage.columnNumber + ') : ' + 
+											deployMessage.problem));
 				AsyncResult = null;
 			}
 		}
