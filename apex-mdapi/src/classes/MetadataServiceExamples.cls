@@ -135,7 +135,23 @@ public with sharing class MetadataServiceExamples
 	    ut.currentName='Test__c.TestField__c';
 	    ut.metadata= customField;
 	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.updateMetadata> {ut});	
-	}	
+	}
+
+        public static void updateFieldLevelSecurity() {
+            MetadataService.MetadataPort service = createService();
+            MetadataService.Profile admin = (MetadataService.Profile) service.readMetadata('Profile', new String[] { 'Admin' }).getRecords()[0];
+
+            MetadataService.ProfileFieldLevelSecurity fieldSec = new MetadataService.ProfileFieldLevelSecurity();
+            fieldSec.field='Test__c.TestField__c';
+            fieldSec.editable=true;
+
+            admin.fieldPermissions  = new MetadataService.ProfileFieldLevelSecurity[] {fieldSec} ;
+
+            MetadataService.UpdateMetadata ut = new MetadataService.UpdateMetadata();
+	    ut.currentName='Admin';
+	    ut.metadata= admin;
+	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.updateMetadata> {ut});
+        }
 
 	public static void createPage()
 	{
