@@ -645,6 +645,34 @@ public with sharing class MetadataServiceExamples
  		MetadataService.AsyncResult[] results = service.deleteMetadata(new List<MetadataService.Metadata> { listView });				
 	}
 	
+	public static void listListViews()
+	{
+		MetadataService.MetadataPort service = createService();		
+		List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();		
+		MetadataService.ListMetadataQuery listView = new MetadataService.ListMetadataQuery();
+		listView.type_x = 'ListView';
+		queries.add(listView);		
+		MetadataService.FileProperties[] fileProperties = service.listMetadata(queries, 25);
+		for(MetadataService.FileProperties fileProperty : fileProperties)
+			System.debug(fileProperty.fullName);		
+	}
+	
+	public static void readListView()
+	{
+	    MetadataService.MetadataPort service = createService();     	    
+
+	    // Read List View definition
+	    MetadataService.ListView listView = 
+			(MetadataService.ListView) service.readMetadata('ListView', 
+				new String[] { 'Test__c.MyListView' }).getRecords()[0];
+		if(listView.columns!=null)	    
+			for(String column : listView.columns)
+				System.debug('Column ' + column);
+		if(listView.filters!=null)
+			for(MetadataService.ListViewFilter filter : listView.filters)
+				System.debug('Filter ' + filter.field + ' ' + filter.operation + ' ' + filter.value);
+	}
+	
 	public static void createApprovalProcess()
 	{
 		MetadataService.MetadataPort service = createService();
