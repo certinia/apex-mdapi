@@ -737,6 +737,34 @@ public with sharing class MetadataServiceExamples
 				new MetadataService.Metadata[] { layout })[0]);
 	}
 
+	
+	public static void addFieldToLayout()
+	{
+		MetadataService.MetadataPort service = createService();
+
+		// Read the Layout		
+		MetadataService.Layout layout = 
+			(MetadataService.Layout) service.readMetadata('Layout', 
+				new String[] { 'Test__c-Test Layout' }).getRecords()[0];
+
+		// Add Layout section, layout, item and field
+		if(layout.layoutSections==null)
+			layout.layoutSections = new List<MetadataService.LayoutSection>();
+		MetadataService.LayoutSection newLayoutSection = new MetadataService.LayoutSection();
+		newLayoutSection.style = 'OneColumn';
+		MetadataService.LayoutColumn newLayoutColumn = new MetadataService.LayoutColumn();
+		MetadataService.LayoutItem newLayoutItem = new MetadataService.LayoutItem();
+		newLayoutItem.field = 'TestField__c';
+		newLayoutColumn.layoutItems = new List<MetadataService.LayoutItem> { newLayoutItem }; 
+		newLayoutSection.layoutColumns = new List<MetadataService.LayoutColumn> { newLayoutColumn };        
+		layout.layoutSections.add(newLayoutSection);		       		
+		
+		// Update the Layout
+		handleSaveResults(
+			service.updateMetadata(
+				new MetadataService.Metadata[] { layout })[0]);
+	}
+
 	public static void updatePicklist()
 	{
 	    MetadataService.MetadataPort service = createService();     	    
