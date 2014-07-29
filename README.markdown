@@ -8,6 +8,7 @@ Documentation
 
 In addition to the documetnation in this README, the following blogs also cover the library.
 
+- [Post Install Apex Metadata API Configuration Solved!](http://andyinthecloud.com/2014/07/29/post-install-apex-metadata-api-configuration-solved/)
 - [Apex Metadata API and Spring’14 : Keys to the Kingdom!](http://andyinthecloud.com/2014/04/24/apex-metadata-api-and-spring14-keys-to-the-kingdom/)
 - [Introduction to calling the Metadata API from Apex](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/). 
 - [Spring’14 Pre-Release : Updating Layouts in Apex](http://andyinthecloud.com/category/metadata-api/)
