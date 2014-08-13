@@ -3,6 +3,8 @@ Apex Wrapper Salesforce Metadata API
 
 **[Deploy to Salesforce](https://githubsfdeploy.herokuapp.com/app/githubdeploy/financialforcedev/apex-mdapi)**
 
+**IMPORTANT NOTE: Summer'14 API 31.0:** Contains some significant changes and removal of aysnc API's, the follow information will be updated in the comming days to reflect this.
+
 Documentation 
 -------------
 
