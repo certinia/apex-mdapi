@@ -125,19 +125,18 @@ public with sharing class MetadataRetrieveController
 	{
 		// Check the status of the retrieve request
 		MetadataService.MetadataPort service = createService();
-		MetadataService.AsyncResult[] aysncResults = service.checkStatus(new String[] { AsyncResult.Id });
-		if(aysncResults[0].done)
+		MetadataService.RetrieveResult retrieveResult = service.checkRetrieveStatus(AsyncResult.Id);
+		if(retrieveResult.done)
 		{
 			// Errors?
-			if(aysncResults[0].state == 'Error')
+			if(retrieveResult.status != 'Succeeded')
 			{
-				ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, aysncResults[0].message));
+				ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, retrieveResult.errorMessage));
 				AsyncResult = null;				
 			}
 			else
 			{
 				// Place Base64 encoded zip data onto the page for the JSZip library to handle
-				MetadataService.RetrieveResult retrieveResult = service.checkRetrieveStatus(AsyncResult.id);
 				MetaDataRetrieveZip = retrieveResult.zipFile;
 				MetadataFiles = new List<MetadataFile>();
 				ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Expanding...'));

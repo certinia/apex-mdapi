@@ -61,7 +61,7 @@ This patch script performs the following changes to the default WSDL2Apex tool o
  **/
 public with sharing class MetadataServicePatcher {
 
-	private static final String API_VERSION = '30.0';
+	private static final String API_VERSION = '31.0';
 	
 	// List of classes to modify so that they extend appropirte base class (parse WSDL in future?)
 	private static final Map<String, String> METADATA_TYPES = 
@@ -182,7 +182,12 @@ public with sharing class MetadataServicePatcher {
 			'WorkflowKnowledgePublish' => 'WorkflowAction',
 			'WorkflowFieldUpdate' => 'WorkflowAction',
 			'WorkflowAlert' => 'WorkflowAction',
-			'WorkflowAction' => 'Metadata'
+			'WorkflowAction' => 'Metadata',
+			'VisualizationPlugin' => 'Metadata',
+			'CustomMetadata' => 'Metadata',
+			'NameSettings' => 'Metadata',
+			'MarketingActionSettings' => 'Metadata',
+			'CustomPermission' => 'Metadata'
 			}; // TODO: Inheritance modifications for Sharing Rules, Role, Flow and Custom Shortcut
 	
 	public static void patch()
@@ -355,11 +360,11 @@ public with sharing class MetadataServicePatcher {
 				
 		// Upload the generated code to a Document 
 		//   (this can be included in a MavensMate or Eclipse project for easy access via Refresh from Server)
-		List<Document> docs = [select Id from Document where DeveloperName = 'MetadataServicePatched'];
+		List<Document> docs = [select Id from Document where DeveloperName = 'MetadataServicePatchedCopy'];
 		Document generatedCode = docs.size()>0 ? docs[0] : new Document();
 		generatedCode.Name = 'MetadataService';
 		generatedCode.Body = Blob.valueOf(patchClass);
-		generatedCode.DeveloperName = 'MetadataServicePatched';
+		generatedCode.DeveloperName = 'MetadataServicePatchedCopy';
 		generatedCode.FolderId = [select Id from Folder where DeveloperName = 'MetadataServicePatcher'].Id;
 		if(generatedCode.Id == null)
 			insert generatedCode;

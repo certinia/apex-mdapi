@@ -87,31 +87,21 @@ public with sharing class MetadataDeployController
 	{	
 		// Check the status of the retrieve request
 		MetadataService.MetadataPort service = createService();
-		MetadataService.AsyncResult[] aysncResults = service.checkStatus(new String[] { AsyncResult.Id });
-		if(aysncResults[0].done)
+		MetadataService.DeployResult deployResult = service.checkDeployStatus(AsyncResult.Id, true);
+		if(deployResult.done)
 		{
-			// Errors?
-			if(aysncResults[0].state == 'Error')
-			{
-			 	ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, aysncResults[0].message));
-				AsyncResult = null;				
-			}
-			else
-			{
-				ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deployment complete'));
+			ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deployment complete'));
 
-				// Deployment errors?
-				MetadataService.DeployResult deployResult = service.checkDeployStatus(AsyncResult.Id, false);
-				if(deployResult.details!=null && deployResult.details.componentFailures!=null)
-					for(MetadataService.DeployMessage deployMessage : deployResult.details.componentFailures)
-						if(deployMessage.problem!=null)
-							ApexPages.addMessage(
-								new ApexPages.Message(ApexPages.Severity.Error, 
-									deployMessage.fileName + 
-										' (Line: ' + deployMessage.lineNumber + ': Column:' + deployMessage.columnNumber + ') : ' + 
-											deployMessage.problem));
-				AsyncResult = null;
-			}
+			// Deployment errors?
+			if(deployResult.details!=null && deployResult.details.componentFailures!=null)
+				for(MetadataService.DeployMessage deployMessage : deployResult.details.componentFailures)
+					if(deployMessage.problem!=null)
+						ApexPages.addMessage(
+							new ApexPages.Message(ApexPages.Severity.Error, 
+								deployMessage.fileName + 
+									' (Line: ' + deployMessage.lineNumber + ': Column:' + deployMessage.columnNumber + ') : ' + 
+										deployMessage.problem));
+			AsyncResult = null;
 		}
 		else
 		{
