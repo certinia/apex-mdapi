@@ -233,10 +233,9 @@ One option is to download the Metadata WSDL from the Tools page under the Develo
 
 - [MetadataService.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataService.cls)
 - [MetadataServiceTest.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceTest.cls)
-
-* The following so called CRUD operations are useable within Apex, **createMetadata**, **readMetadata**, **updateMetadata**, **upsertMetadata**, **renameMetadata** and **deleteMetadata**. 
-* As well as **listMetadata** and **describeMetadata**. 
-* With a bit of help from a Javascript library, the infamous **retrieve** and **deploy** also become workable.
+- The following so called CRUD operations are useable within Apex, **createMetadata**, **readMetadata**, **updateMetadata**, **upsertMetadata**, **renameMetadata** and **deleteMetadata**. 
+- As well as **listMetadata** and **describeMetadata**. 
+- With a bit of help from a Javascript library, the infamous **retrieve** and **deploy** also become workable.
 
 **Note:** The CRUD operations do not support Apex Class or Apex Trigger components sadly, this is a API restriction and not an issue with calling from Apex as such.
 
@@ -274,6 +273,7 @@ Release History
 
 **Update: 14th August 2014:**
 - Update to **Spring'14 Metadata API (v31.0)**, signifcant changes to the API, see [blog](http://andyinthecloud.com/2014/08/14/apex-metadata-api-streamlined-and-simplified-for-summer14/).
+
 **Update: 24th April 2014:**
 - Updated to **Spring'14 Metadata API (v30.0)**, significant new features, see [blog](http://andyinthecloud.com/2014/04/24/apex-metadata-api-and-spring14-keys-to-the-kingdom/).
 
