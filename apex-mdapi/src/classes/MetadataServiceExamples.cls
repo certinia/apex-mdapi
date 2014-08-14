@@ -50,6 +50,24 @@ public with sharing class MetadataServiceExamples
 		handleSaveResults(results[0]);
 	}
 
+	public static void upsertObject()
+	{
+		MetadataService.MetadataPort service = createService();
+		MetadataService.CustomObject customObject = new MetadataService.CustomObject();
+		customObject.fullName = 'Test__c';
+		customObject.label = 'Test';
+		customObject.pluralLabel = 'Tests Upsert';
+		customObject.nameField = new MetadataService.CustomField();
+		customObject.nameField.type_x = 'Text';
+		customObject.nameField.label = 'Test Record Upsert';
+		customObject.deploymentStatus = 'Deployed';
+		customObject.sharingModel = 'ReadWrite';
+		List<MetadataService.UpsertResult> results = 		
+			service.upsertMetadata(
+				new MetadataService.Metadata[] { customObject });		
+		handleUpsertResults(results[0]);
+	}
+
 	public static void createLookupField()
 	{
 		MetadataService.MetadataPort service = createService();		
@@ -904,6 +922,7 @@ public with sharing class MetadataServiceExamples
 		if(messages.size()>0)
 			throw new MetadataServiceExamplesException(String.join(messages, ' '));
 	}	
+
 	/**
 	 * Example helper method to interpret a SaveResult, throws an exception if errors are found
 	 **/
@@ -924,5 +943,27 @@ public with sharing class MetadataServiceExamples
 					' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
 		if(messages.size()>0)
 			throw new MetadataServiceExamplesException(String.join(messages, ' '));
-	}		
+	}
+	
+	/**
+	 * Example helper method to interpret a UpsertResult, throws an exception if errors are found
+	 **/
+	private static void handleUpsertResults(MetadataService.UpsertResult upsertResult)
+	{
+		// Nothing to see?
+		if(upsertResult==null || upsertResult.success)
+			return;
+		// Construct error message and throw an exception
+		List<String> messages = new List<String>();
+		messages.add(
+			(upsertResult.errors.size()==1 ? 'Error ' : 'Errors ') + 
+				'occured processing component ' + upsertResult.fullName + '.');
+		for(MetadataService.Error error : upsertResult.errors)
+			messages.add(
+				error.message + ' (' + error.statusCode + ').' + 
+				( error.fields!=null && error.fields.size()>0 ? 
+					' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
+		if(messages.size()>0)
+			throw new MetadataServiceExamplesException(String.join(messages, ' '));
+	}
 }
