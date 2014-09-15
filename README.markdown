@@ -21,6 +21,13 @@ This API mirrors as much as possible the API types and operations described in t
 
 - [Salesforce Metadata API Developers Guide](http://www.salesforce.com/us/developer/docs/api_meta/index.htm)
 
+Showcase
+--------
+
+This new section aims to showcase cool tools and applications people are building with this library. If you would like your name and creation in lights here pleaes raise a GitHub issue with the details and we will gladly showcase it!
+
+![Demo Screenshot](https://raw.githubusercontent.com/financialforcedev/apex-mdapi/master/images/showcase-layouteditingviamdapi.png)
+**Layout Editing Tool** by [BoonPlus](https://github.com/BoonPlus)
 
 Background and Motivation
 -------------------------
