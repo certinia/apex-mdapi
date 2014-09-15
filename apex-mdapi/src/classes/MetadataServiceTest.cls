@@ -73,7 +73,7 @@ private class MetadataServiceTest
 	private static void coverGeneratedCodeCRUDOperations()
 	{	
     	// Null Web Service mock implementation
-        Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
+        System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
         // Only required to workaround a current code coverage bug in the platform
         MetadataService metaDataService = new MetadataService();
         // Invoke operations         
@@ -84,7 +84,7 @@ private class MetadataServiceTest
     private static void coverGeneratedCodeFileBasedOperations1()
     {    	
     	// Null Web Service mock implementation
-        Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
+        System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
         // Only required to workaround a current code coverage bug in the platform
         MetadataService metaDataService = new MetadataService();
         // Invoke operations         
@@ -105,7 +105,7 @@ private class MetadataServiceTest
     private static void coverGeneratedCodeFileBasedOperations2()
     {       
         // Null Web Service mock implementation
-        Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
+        System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
         // Only required to workaround a current code coverage bug in the platform
         MetadataService metaDataService = new MetadataService();
         // Invoke operations         
