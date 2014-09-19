@@ -114,7 +114,7 @@ public with sharing class MetadataRetrieveController
 		retrieveRequest.unpackaged.types = new List<MetadataService.PackageTypeMembers>();
 		MetadataService.PackageTypeMembers packageType = new MetadataService.PackageTypeMembers();
 		packageType.name = MetaDataType; 
-		packageType.members = new String[] { MetaDataItem };
+		packageType.members = new String[] { MetadataFolder, MetaDataItem };
 		retrieveRequest.unpackaged.types.add(packageType);
 		AsyncResult = service.retrieve(retrieveRequest);
 						
