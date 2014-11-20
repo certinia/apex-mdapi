@@ -61,7 +61,7 @@ This patch script performs the following changes to the default WSDL2Apex tool o
  **/
 public with sharing class MetadataServicePatcher {
 
-	private static final String API_VERSION = '31.0';
+	private static final String API_VERSION = '32.0';
 	
 	// List of classes to modify so that they extend appropirte base class (parse WSDL in future?)
 	private static final Map<String, String> METADATA_TYPES = 
@@ -187,7 +187,15 @@ public with sharing class MetadataServicePatcher {
 			'CustomMetadata' => 'Metadata',
 			'NameSettings' => 'Metadata',
 			'MarketingActionSettings' => 'Metadata',
-			'CustomPermission' => 'Metadata'
+			'CustomPermission' => 'Metadata',
+			'AuraDefinitionBundle' => 'Metadata',
+			'CorsWhitelistOrigin' => 'Metadata',
+			'ManagedTopics' => 'Metadata',
+			'Territory2' => 'Metadata',
+			'Territory2Model' => 'Metadata',
+			'Territory2Settings' => 'Metadata',
+			'Territory2Type' => 'Metadata',
+			'XOrgHub' => 'Metadata'
 			}; // TODO: Inheritance modifications for Sharing Rules, Role, Flow and Custom Shortcut
 	
 	public static void patch()
@@ -280,8 +288,6 @@ public with sharing class MetadataServicePatcher {
 						if(trimmedLine == '}')
 							break;
 					}					
-					// Skip the closing brace
-					line = lineReader.next(); 
 					// Emit the new readMetadata method returnin the IReadResult interface
 					newlines.add('        public MetadataService.IReadResult readMetadata(String type_x,String[] fullNames) {');
 					newlines.add('            MetadataService.readMetadata_element request_x = new MetadataService.readMetadata_element();');
@@ -304,7 +310,6 @@ public with sharing class MetadataServicePatcher {
 					newlines.add('            );');
 					newlines.add('            response_x = response_map_x.get(\'response_x\');');
 					newlines.add('            return response_x.getResult();');
-					newlines.add('        }');
 			}
 			// Class definition?
 			else if(trimmedLine.startsWith('public class'))
@@ -420,7 +425,7 @@ public with sharing class MetadataServicePatcher {
 	private static void addCopyright(List<String> lines)
 	{
 		lines.add('/**');
-		lines.add(' * Copyright (c) 2012, FinancialForce.com, inc');
+		lines.add(' * Copyright (c), FinancialForce.com, inc');
 		lines.add(' * All rights reserved.');
 		lines.add(' *');
 		lines.add(' * Redistribution and use in source and binary forms, with or without modification,'); 

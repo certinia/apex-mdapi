@@ -30,7 +30,7 @@
  *   at https://github.com/financialforcedev/apex-mdapi for more information
  **/
  
-public with sharing class MetadataServiceExamples 
+public with sharing class MetadataServiceExamples
 {
 	public static void createObject()
 	{
@@ -299,9 +299,6 @@ public with sharing class MetadataServiceExamples
 	    three.default_x=false ;
 	    pt.picklistValues = new list<metadataservice.PicklistValue>{two,three};
 	    customField.picklist = pt ;
-	    MetadataService.UpdateMetadata ut = new MetadataService.UpdateMetadata();
-	    ut.currentName='Lead.picklist__c';
-	    ut.metadata= customField;	
 		List<MetadataService.SaveResult> results = 		
 			service.updateMetadata(
 				new MetadataService.Metadata[] { customField });
