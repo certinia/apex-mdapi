@@ -285,6 +285,10 @@ How to create your own MetadataService.cls
 Release History
 ---------------
 
+**Update: 20th November 2014:**
+- Updated to **Winter'15 Metadata API (v32.0)**
+- Minor changes, some new component types, blog to follow.
+
 **Update: 14th August 2014:**
 - Updated to **Summer'14 Metadata API (v31.0)**, signifcant changes to the API, see [blog](http://andyinthecloud.com/2014/08/14/apex-metadata-api-streamlined-and-simplified-for-summer14/).
 
