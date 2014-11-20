@@ -259,6 +259,7 @@ How to create your own MetadataService.cls
      - Generating a valid Apex MetadataService class
           - Download and edit the WSDL
                - Change the Port name from 'Metadata' to 'MetadataPort'
+               - Locate the CustomMetadataValue complextype, change the type of the 'value' element to 'xsd:string'
           - Generate Apex from this WSDL
                - When prompted give it a name of MetadataServiceImported
                - Verify a MetadataServiceImported class has been created
