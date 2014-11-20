@@ -278,6 +278,7 @@ How to create your own MetadataService.cls
           - Update MetadataServiceTest.cls
                - See this for guidelines http://andyinthecloud.com/2013/05/11/code-coverage-for-wsdl2apex-generated-classes
                - Future releases of the patch script may also generate this class
+          - Update all the Metadata files to the latest API
 
 **NOTE:** You can review the changes made to the standard Saleforce generated Web Service Apex class for the Metadata API, by reading the comments at the top of the [MetadataServicePatcher.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServicePatcher.cls) class.
 
