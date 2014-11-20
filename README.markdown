@@ -259,7 +259,6 @@ How to create your own MetadataService.cls
      - Generating a valid Apex MetadataService class
           - Download and edit the WSDL
                - Change the Port name from 'Metadata' to 'MetadataPort'
-               - As of Summer'13 (API 28) there was a small bug in the CustomField type definition, change the 'type' element definition to include a minOccurs="0" atttribute, as per the other elements in this type.
           - Generate Apex from this WSDL
                - When prompted give it a name of MetadataServiceImported
                - Verify a MetadataServiceImported class has been created
