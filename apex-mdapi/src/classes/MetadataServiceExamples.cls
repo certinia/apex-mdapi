@@ -888,6 +888,17 @@ public with sharing class MetadataServiceExamples
 			System.debug('Shared to Group ' + groupName);
 	}
 
+	public static void createLignthingComponent()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.AuraDefinitionBundle auraBundle = new MetadataService.AuraDefinitionBundle();
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { auraBundle });
+		handleSaveResults(results[0]);
+
+	}
+
 	public class MetadataServiceExamplesException extends Exception { }
 
 	public static MetadataService.MetadataPort createService()
