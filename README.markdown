@@ -265,6 +265,7 @@ How to create your own MetadataService.cls
                - When prompted give it a name of MetadataServiceImported
                - Verify a MetadataServiceImported class has been created
           - Run the Patch script to generate a new MetadataService class (as a Document)
+               - Check the Release Notes for API changes, locate the Metadata API section and update MetadataServicePatcher.METADATA_TYPES
                - Ensure you have a Document Folder called MetadataServicePatcher (Developer Name)
                - Run the following code from execute annoynmous in Developer Console
                      MetadataServicePatcher.patch();
