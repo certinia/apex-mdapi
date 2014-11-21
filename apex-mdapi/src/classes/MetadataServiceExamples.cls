@@ -888,15 +888,54 @@ public with sharing class MetadataServiceExamples
 			System.debug('Shared to Group ' + groupName);
 	}
 
+	public static void readReport()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.Report report = 
+			(MetadataService.Report) service.readMetadata('Report', 
+				new String[] { 'MyFolder/MyReport' }).getRecords()[0];
+		System.debug(report.description);			
+	}
+
+	public static void readLignthingComponent()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.AuraDefinitionBundle auraBundle = 
+			(MetadataService.AuraDefinitionBundle) service.readMetadata('AuraDefinitionBundle', 
+				new String[] { 'HelloWorld' }).getRecords()[0];
+		System.debug(auraBundle.markup);			
+	}
+
 	public static void createLignthingComponent()
 	{
 		MetadataService.MetadataPort service = createService();		
 		MetadataService.AuraDefinitionBundle auraBundle = new MetadataService.AuraDefinitionBundle();
-		List<MetadataService.SaveResult> results = 		
-			service.createMetadata(
-				new MetadataService.Metadata[] { auraBundle });
-		handleSaveResults(results[0]);
-
+		auraBundle.fullName = 'HellWorld';
+		auraBundle.type_x = 'Component';
+		auraBundle.markup = EncodingUtil.base64Encode(Blob.valueOf(
+			'<aura:component>' + 
+			    '<aura:attribute name="val1" type="String" default="Value"/>' +
+			    '<aura:attribute name="val2" type="String" />' +
+			    '<aura:handler name="init" value="{!this}" action="{!c.myAction}"/>' +
+					'<ui:outputText value=\'Hello world!\'/>' +
+					'<ui:outputText value=\'{!v.val1}\'/>' +
+					'<ui:outputText value=\'{!v.val2}\'/>' +
+				'</aura:handler>' +
+			'</aura:component>'));
+		auraBundle.controllerContent = EncodingUtil.base64Encode(Blob.valueOf( 
+			'({' + 
+				'myAction : function(component) {' + 
+					'component.set(\'v.val1\',\'Value1\');' +
+					'component.set(\'v.val2\',\'Value2\');' +
+			    '}' +
+			'})'));
+		try { 
+			List<MetadataService.SaveResult> results = 		
+				service.createMetadata(
+					new MetadataService.Metadata[] { auraBundle }); 
+			handleSaveResults(results[0]);			
+		}
+		catch (Exception e) { }
 	}
 
 	public class MetadataServiceExamplesException extends Exception { }
