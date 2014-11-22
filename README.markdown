@@ -11,6 +11,7 @@ Documentation
 
 In addition to the documetnation in this README, the following blogs also cover the library.
 
+- [Apex Metadata API Q&A](http://andyinthecloud.com/2014/11/22/apex-metadata-api-qa/)
 - [Apex Metadata API Streamlined and Simplified for Summer’14](http://andyinthecloud.com/2014/08/14/apex-metadata-api-streamlined-and-simplified-for-summer14/)
 - [Post Install Apex Metadata API Configuration Solved!](http://andyinthecloud.com/2014/07/29/post-install-apex-metadata-api-configuration-solved/)
 - [Apex Metadata API and Spring’14 : Keys to the Kingdom!](http://andyinthecloud.com/2014/04/24/apex-metadata-api-and-spring14-keys-to-the-kingdom/)
