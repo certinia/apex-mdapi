@@ -897,6 +897,55 @@ public with sharing class MetadataServiceExamples
 		System.debug(report.description);			
 	}
 
+	public static void readPermissionSet()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.PermissionSet ps = 
+			(MetadataService.PermissionSet) service.readMetadata('PermissionSet', 
+				new String[] { 'Test' }).getRecords()[0];
+
+	}
+
+	public static void createLayout()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.Layout layout = new MetadataService.Layout();
+		layout.fullName = 'Test__c-My Layout';
+		layout.layoutSections = new List<MetadataService.LayoutSection>();
+		MetadataService.LayoutSection layoutSection = new MetadataService.LayoutSection();
+		layoutSection.editHeading = true;
+		layoutSection.label = 'System Information';
+		layoutSection.style = 'TwoColumnsTopToBottom';
+		layoutSection.layoutColumns = new List<MetadataService.LayoutColumn>();
+		MetadataService.LayoutColumn layoutColumn = new MetadataService.LayoutColumn();
+		layoutColumn.layoutItems = new List<MetadataService.LayoutItem>();
+		MetadataService.LayoutItem layoutItem1 = new MetadataService.LayoutItem();
+		layoutItem1.behavior = 'Readonly';
+		layoutItem1.field = 'CreatedById';
+		layoutColumn.layoutItems.add(layoutItem1);
+		MetadataService.LayoutItem layoutItem2 = new MetadataService.LayoutItem();
+		layoutItem2.behavior = 'Required';
+		layoutItem2.field = 'Name';
+		layoutColumn.layoutItems.add(layoutItem2);
+		layoutSection.layoutColumns.add(layoutColumn);
+		layout.layoutSections.add(layoutSection);
+		layout.summaryLayout = new MetadataService.SummaryLayout();
+		layout.summaryLayout.masterLabel = 'Great name';
+		layout.summaryLayout.sizeX = 4;
+		layout.summaryLayout.sizeY = 2;
+		layout.summaryLayout.summaryLayoutStyle = 'Default';
+		layout.summaryLayout.summaryLayoutItems = new List<MetadataService.SummaryLayoutItem>();
+		MetadataService.SummaryLayoutItem summaryLayoutItem = new MetadataService.SummaryLayoutItem();
+		summaryLayoutItem.posX = 0;
+		summaryLayoutItem.posY = 0;
+		summaryLayoutItem.field = 'Name';
+		layout.summaryLayout.summaryLayoutItems.add(summaryLayoutItem);
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { layout });		
+		handleSaveResults(results[0]);		
+	}
+
 	public static void readLignthingComponent()
 	{
 		MetadataService.MetadataPort service = createService();		
