@@ -128,20 +128,6 @@ public with sharing class MetadataServiceExamples
 		handleSaveResults(results[0]);
 	}
 	
-	public static void createFormulaField()
-	{
-		MetadataService.MetadataPort service = createService();		
-		MetadataService.CustomField customField = new MetadataService.CustomField();
-		customField.fullName = 'Test__c.TestFormulaField__c';
-		customField.label = 'Test Formula Field';
-		customField.type_x = 'Date';
-		customField.formula = 'TODAY()';
-		List<MetadataService.SaveResult> results = 		
-			service.createMetadata(
-				new MetadataService.Metadata[] { customField });				
-		handleSaveResults(results[0]);
-	}
-	
 	public static void deleteField()
 	{
 		MetadataService.MetadataPort service = createService();		
@@ -996,6 +982,20 @@ public with sharing class MetadataServiceExamples
 			service.createMetadata(
 				new MetadataService.Metadata[] { auraBundle }); 
 		handleSaveResults(results[0]);			
+	}
+	
+	public static void createFormulaField()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.CustomField customField = new MetadataService.CustomField();
+		customField.fullName = 'Test__c.TestFormulaField__c';
+		customField.label = 'Test Formula Field';
+		customField.type_x = 'Date';
+		customField.formula = 'TODAY()';
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customField });				
+		handleSaveResults(results[0]);
 	}
 
 	public class MetadataServiceExamplesException extends Exception { }
