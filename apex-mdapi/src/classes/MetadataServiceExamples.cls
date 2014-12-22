@@ -998,6 +998,35 @@ public with sharing class MetadataServiceExamples
 		handleSaveResults(results[0]);
 	}
 
+	public static void createLayoutManaged()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.Layout layout = new MetadataService.Layout();
+		layout.fullName = 'packageb__Sales_Invoice__c-Test';
+		layout.layoutSections = new List<MetadataService.LayoutSection>();
+		MetadataService.LayoutSection layoutSection = new MetadataService.LayoutSection();
+		layoutSection.editHeading = true;
+		layoutSection.label = 'System Information';
+		layoutSection.style = 'TwoColumnsTopToBottom';
+		layoutSection.layoutColumns = new List<MetadataService.LayoutColumn>();
+		MetadataService.LayoutColumn layoutColumn = new MetadataService.LayoutColumn();
+		layoutColumn.layoutItems = new List<MetadataService.LayoutItem>();
+		MetadataService.LayoutItem layoutItem1 = new MetadataService.LayoutItem();
+		layoutItem1.behavior = 'Readonly';
+		layoutItem1.field = 'CreatedById';
+		layoutColumn.layoutItems.add(layoutItem1);
+		MetadataService.LayoutItem layoutItem2 = new MetadataService.LayoutItem();
+		layoutItem2.behavior = 'Required';
+		layoutItem2.field = 'Name';
+		layoutColumn.layoutItems.add(layoutItem2);
+		layoutSection.layoutColumns.add(layoutColumn);
+		layout.layoutSections.add(layoutSection);
+		List<MetadataService.UpsertResult> results = 		
+			service.upsertMetadata(
+				new MetadataService.Metadata[] { layout });		
+		handleUpsertResults(results[0]);		
+	}
+
 	public class MetadataServiceExamplesException extends Exception { }
 
 	public static MetadataService.MetadataPort createService()
