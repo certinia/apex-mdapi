@@ -1,13 +1,19 @@
 Apex Wrapper Salesforce Metadata API
 ====================================
 
-**[Deploy to Salesforce](https://githubsfdeploy.herokuapp.com/app/githubdeploy/financialforcedev/apex-mdapi)**
+<a href="https://githubsfdeploy.herokuapp.com?owner=financialforcedev&repo=apex-mdapi">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
+</a>
 
 Documentation 
 -------------
 
-In addition to the documetnation in this README, the following blogs also cover the library.
+In addition to the documentation in this README, the following blogs also cover the library.
 
+- [Apex Metadata API Q&A](http://andyinthecloud.com/2014/11/22/apex-metadata-api-qa/)
+- [Apex Metadata API Streamlined and Simplified for Summer’14](http://andyinthecloud.com/2014/08/14/apex-metadata-api-streamlined-and-simplified-for-summer14/)
+- [Post Install Apex Metadata API Configuration Solved!](http://andyinthecloud.com/2014/07/29/post-install-apex-metadata-api-configuration-solved/)
 - [Apex Metadata API and Spring’14 : Keys to the Kingdom!](http://andyinthecloud.com/2014/04/24/apex-metadata-api-and-spring14-keys-to-the-kingdom/)
 - [Introduction to calling the Metadata API from Apex](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/). 
 - [Spring’14 Pre-Release : Updating Layouts in Apex](http://andyinthecloud.com/category/metadata-api/)
@@ -19,6 +25,13 @@ This API mirrors as much as possible the API types and operations described in t
 
 - [Salesforce Metadata API Developers Guide](http://www.salesforce.com/us/developer/docs/api_meta/index.htm)
 
+Showcase
+--------
+
+This new section aims to showcase cool tools and applications people are building with this library. If you would like your name and creation in lights here pleaes raise a GitHub issue with the details and we will gladly showcase it!
+
+![Demo Screenshot](https://raw.githubusercontent.com/financialforcedev/apex-mdapi/master/images/showcase-layouteditingviamdapi.png)
+**Layout Editing Tool** by [BoonPlus](https://github.com/BoonPlus)
 
 Background and Motivation
 -------------------------
@@ -115,73 +128,6 @@ The following examples are a subset of those found in the [MetadataServiceExampl
 ```
 
 You can view more examples [here](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceExamples.cls). Thanks to [mohit-address](https://github.com/mohit-address) for submitting examples relating to updating picklist values.
-
-Metadata Visualforce Demo
--------------------------
-
-**NOTE:** Since Spring'14 (API 30.0) this only applies if your using the Async versions of the methods or you are finding that the realtime methods are timing out.
-
-If you have an interactive tool your building, you can use Visualforce and use the **apex:actionPoller** to store the AsyncResult in your controller and write a controller method to call the checkStatus, which the action poller repeatedly calls until the AsyncResult indicates the request is completed by Salesforce. You can read more about this sample in this blog [here](http://andyinthecloud.com/2013/10/27/introduction-to-calling-the-metadata-api-from-apex/).
-
-![Visualforce Demo](http://i.stack.imgur.com/OxQUc.png)
-![Visualforce Demo](http://i.stack.imgur.com/x5pYJ.png)
-![Visualforce Demo](http://i.stack.imgur.com/toecI.png)
-
-Metadata Batch Apex Demo
-------------------------
-
-**NOTE:** Since Spring'14 (API 30.0) this only applies if your using the Async versions of the methods or you are finding that the realtime methods are timing out.
-
-As described above you can poll the checkStatus operation for completion via either apex:actionPoller or Batch Apex. This example code shows how to create a number of Metadata components (custom object, fields and a page) from Apex without requiring Visualforce. You can read more about it [here](http://andyinthecloud.com/2013/05/06/scripting-the-apex-metadata-api-and-batch-apex-support/)
-
-```java
-		// Define Metadata item to create a Custom Object
-		MetadataService.CustomObject customObject = new MetadataService.CustomObject();
-		customObject.fullName = objectName + '__c';
-		customObject.label = objectName;
-		customObject.pluralLabel = objectName+'s';
-		customObject.nameField = new MetadataService.CustomField();
-		customObject.nameField.type_x = 'Text';
-		customObject.nameField.label = 'Test Record';
-		customObject.deploymentStatus = 'Deployed';
-		customObject.sharingModel = 'ReadWrite';
-		
-		// Define Metadata item to create a Custom Field on the above object
-		MetadataService.CustomField customField1 = new MetadataService.CustomField();
-		customField1.fullName = objectName+'__c.TestField1__c';
-		customField1.label = 'Test Field 1';
-		customField1.type_x = 'Text';
-		customField1.length = 42;
-
-		// Define Metadata item to create a Custom Field on the above object
-		MetadataService.CustomField customField2 = new MetadataService.CustomField();
-		customField2.fullName = objectName+'__c.TestField2__c';
-		customField2.label = 'Test Field 2';
-		customField2.type_x = 'Text';
-		customField2.length = 42;
-		
-		// Define Metadata item to create a Visualforce page to display the above field
-		MetadataService.ApexPage apexPage = new MetadataService.ApexPage();
-		apexPage.apiVersion = 25;
-		apexPage.fullName = objectName.toLowercase();
-		apexPage.label = objectName + ' Page';
-		apexPage.content = EncodingUtil.base64Encode(Blob.valueOf(
-			'<apex:page standardController=\''+objectName+'__c\'>'+
-				'{!' + objectName + '__c.TestField1__c}' +
-				'{!' + objectName + '__c.TestField2__c}' + 
-			'</apex:page>'));
-		
-		// Pass the Metadata items to the job for processing, indicating any dependencies
-		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { 
-					new MetadataCreateJob.Item(customObject),					
-					new MetadataCreateJob.Item(customField1, null, true), // Set wait to true, to process after object creation
-					new MetadataCreateJob.Item(customField2),  
-					new MetadataCreateJob.Item(apexPage, null, true) // Set wait to true, to process after field creation
-				},
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());
-
-```
 
 Metadata Retrieve Demo
 ----------------------
@@ -289,33 +235,22 @@ Known Issues and Resolutions
 
 - If you recieve the error message *'Insufficient access; cannot execute Metadata operation with PAC enabled session id'* within Apex code within a managed package utilising this library. Please ensure to changed the API access from Restricted to Unrestricted on your Package defintion. Many thanks to the great work from [vipulpahwa](https://github.com/vipulpahwa) and [Daniel Blackhall](https://github.com/seeflat) to getting to the bottom of this rather cryptic error message.
 
-Challanges calling the Metadata API from Apex?
-----------------------------------------------
+How to call the Salesforce Metadata API from Apex
+-------------------------------------------------
 
 Salesforce have been promoting recently the Metadata REST API. While this is still not a native API to Apex, it would be a lot easier to call than the Web Service one, though you would have develop your own wrapper classes. Unfortunatly this API is still in pilot and I have been told by Salesforce its appearance as a GA API is still someway out, sadly.
 
-So you can download the Metadata WSDL from the Tools page under the Develop menu. If you attempt to use it directly (at version 25) you will encounter a number of issues before you can get the resulting Apex class to even compile. Getting it to then make a valid Metadata API call is then another task. 
+One option is to download the Metadata WSDL from the Tools page under the Develop menu and attempt to generate Apex code from this, using the Generate from WSDL button. This does not work straight away, some changes to the WSDL and updates to the generate code is required. Fortunatly this library has done all this for you, so call you need to do is take the MetadataService.cls and MetadataServiceTest.cls and get started with the examples included.  
 
-The main reasons are as follows...
-
-* The port name uses a reserved word, Metadata.
-* Some operation names, such as create and update are also reserved words.
-* The WSDL2Apex tool does not support polymorphic XML and the Metadata WSDL contains types that extend each other, e.g. CustomObject extends Metadata
-* The Apex XML serialiser does not support inheritance (see above point). More specifically it does not see base class members nor does it emit the 'xsi:type' attribute to support polymorphic XML data binding. So the generated Apex code requires a bit of tweaking to support this.
-* The Apex language does not support the Zip file format, so the **retrieve** and the **deploy** operations so these are a no go from a pure Apex perspective. However this doesnt stop the of Javascript to handle zips! See sections below on how this has been done.
-* Some operations return **AsyncResult** which gives you an Id to call back on to determine the fate of your request. While this can be called, you will need to do this via AJAX, Apex Future or Apex Job. The deploy and retrieve samples utilise apex:actionPoller.
-* Newer CRUD operations since Spring'14, are now realtime, meaning you don't have to poll for the result of the operation as was previously the case. The examples below show these operations in action.
-
-This library addresses all these issues for you, you can download the [MetadataService.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataService.cls) and [MetadataServiceTest.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceTest.cls) and use them directly in your solutions. So you can now gain access to the Metadata API from Apex!
-
-* The following so called CRUD operations are useable within Apex, **create**, **read**, **update** and **delete**. 
-* As well as **listMetadata** and **describeMetadata**. 
-* You can also call **checkStatus** to check the status of your requests. 
-* With a bit of help from a Javascript library, the infamous **retrieve** and **deploy** also become workable.
+- [MetadataService.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataService.cls)
+- [MetadataServiceTest.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceTest.cls)
+- The following so called CRUD operations are useable within Apex, **createMetadata**, **readMetadata**, **updateMetadata**, **upsertMetadata**, **renameMetadata** and **deleteMetadata**. 
+- As well as **listMetadata** and **describeMetadata**. 
+- With a bit of help from a Javascript library, the infamous **retrieve** and **deploy** also become workable.
 
 **Note:** The CRUD operations do not support Apex Class or Apex Trigger components sadly, this is a API restriction and not an issue with calling from Apex as such.
 
-So I've created this Github repo to capture a modified version of the generated Apex class around the Metadata API. Which addresses the problems above. So that you can download it and get started straight away.
+I've have created this Github repo to capture a modified version of the generated Apex class around the Metadata API. Which addresses the problems above. So that you can download it and get started straight away.
 
 How to create your own MetadataService.cls
 ------------------------------------------
@@ -325,11 +260,14 @@ How to create your own MetadataService.cls
      - Generating a valid Apex MetadataService class
           - Download and edit the WSDL
                - Change the Port name from 'Metadata' to 'MetadataPort'
-               - As of Summer'13 (API 28) there was a small bug in the CustomField type definition, change the 'type' element definition to include a minOccurs="0" atttribute, as per the other elements in this type.
+               - Locate the CustomMetadataValue complextype, change the type of the 'value' element to 'xsd:string'
+               - Locate the FieldValue complextype, change the type of the 'value' element to 'xsd:string'
           - Generate Apex from this WSDL
                - When prompted give it a name of MetadataServiceImported
                - Verify a MetadataServiceImported class has been created
           - Run the Patch script to generate a new MetadataService class (as a Document)
+               - Check the Release Notes for API changes, locate the Metadata API section and update MetadataServicePatcher.METADATA_TYPES
+               - Update MetadataServicePatcher.API_VERSION
                - Ensure you have a Document Folder called MetadataServicePatcher (Developer Name)
                - Run the following code from execute annoynmous in Developer Console
                      MetadataServicePatcher.patch();
@@ -341,11 +279,19 @@ How to create your own MetadataService.cls
           - Update MetadataServiceTest.cls
                - See this for guidelines http://andyinthecloud.com/2013/05/11/code-coverage-for-wsdl2apex-generated-classes
                - Future releases of the patch script may also generate this class
+          - Update all the Metadata files to the latest API
 
 **NOTE:** You can review the changes made to the standard Saleforce generated Web Service Apex class for the Metadata API, by reading the comments at the top of the [MetadataServicePatcher.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServicePatcher.cls) class.
 
 Release History
 ---------------
+
+**Update: 20th November 2014:**
+- Updated to **Winter'15 Metadata API (v32.0)**
+- Minor changes, some new component types, blog to follow.
+
+**Update: 14th August 2014:**
+- Updated to **Summer'14 Metadata API (v31.0)**, signifcant changes to the API, see [blog](http://andyinthecloud.com/2014/08/14/apex-metadata-api-streamlined-and-simplified-for-summer14/).
 
 **Update: 24th April 2014:**
 - Updated to **Spring'14 Metadata API (v30.0)**, significant new features, see [blog](http://andyinthecloud.com/2014/04/24/apex-metadata-api-and-spring14-keys-to-the-kingdom/).

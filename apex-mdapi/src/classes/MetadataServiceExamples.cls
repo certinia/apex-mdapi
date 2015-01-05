@@ -28,20 +28,9 @@
  * This file demonstrates how to call the Salesforce Metadata API from Apex 
  *   for warnings, limits and further todos of this approach please review the readme 
  *   at https://github.com/financialforcedev/apex-mdapi for more information
- *
- * NOTE: You need to handle the AsyncResult value, via checkStatus and related methods e.g. checkDeployStatus
- *       refer to the Metadata API developers guide for more information and the read me of this repo for other samples 
  **/
  
-/**
- * Note: Most of the examples don't check the AsyncResult, see the repo readme for more details on how to do this
- *       or add a debug to output the AsyncResult Id and issue the following code from anonymous Apex some time after
- *
- *         String[] asyncProcessId = new String[] { '04sG00000041iElIAI' };
- *         MetadataService.AsyncResult[] results = MetadataServiceExamples.createService().checkStatus(asyncProcessId);
- *         System.debug(results[0].message);
- */
-public with sharing class MetadataServiceExamples 
+public with sharing class MetadataServiceExamples
 {
 	public static void createObject()
 	{
@@ -59,6 +48,24 @@ public with sharing class MetadataServiceExamples
 			service.createMetadata(
 				new MetadataService.Metadata[] { customObject });		
 		handleSaveResults(results[0]);
+	}
+
+	public static void upsertObject()
+	{
+		MetadataService.MetadataPort service = createService();
+		MetadataService.CustomObject customObject = new MetadataService.CustomObject();
+		customObject.fullName = 'Test__c';
+		customObject.label = 'Test';
+		customObject.pluralLabel = 'Tests Upsert';
+		customObject.nameField = new MetadataService.CustomField();
+		customObject.nameField.type_x = 'Text';
+		customObject.nameField.label = 'Test Record Upsert';
+		customObject.deploymentStatus = 'Deployed';
+		customObject.sharingModel = 'ReadWrite';
+		List<MetadataService.UpsertResult> results = 		
+			service.upsertMetadata(
+				new MetadataService.Metadata[] { customObject });		
+		handleUpsertResults(results[0]);
 	}
 
 	public static void createLookupField()
@@ -85,8 +92,11 @@ public with sharing class MetadataServiceExamples
 		customField.label = 'External Field';
 		customField.type_x = 'Text';
 		customField.length = 42;
-		customField.externalId = true;
- 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
+		customField.externalId = true;		
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customField });		
+		handleSaveResults(results[0]);
 	}
 		
 	public static void createLongTextAreaField()
@@ -98,7 +108,10 @@ public with sharing class MetadataServiceExamples
 		customField.type_x = 'LongTextArea';
 		customField.length = 32000;
 		customField.visibleLines = 3;
- 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { customField });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customField });		
+		handleSaveResults(results[0]);
 	}
 	
 	public static void createField()
@@ -118,9 +131,10 @@ public with sharing class MetadataServiceExamples
 	public static void deleteField()
 	{
 		MetadataService.MetadataPort service = createService();		
-		MetadataService.CustomField customField = new MetadataService.CustomField();
-		customField.fullName = 'Test__c.TestField__c';
- 		MetadataService.AsyncResult[] results = service.deleteMetadata(new List<MetadataService.Metadata> { customField });		
+		List<MetadataService.DeleteResult> results = 		
+			service.deleteMetadata(
+				'CustomField', new String[] { 'Test__c.TestField__c' });		
+		handleDeleteResults(results[0]);
 	}
 	
 	public static void updateField()
@@ -131,27 +145,25 @@ public with sharing class MetadataServiceExamples
 	    customField.label='New Test Field Label';
 	    customField.type_x = 'Text'; 
 	    customField.length = 52;
-	    MetadataService.UpdateMetadata ut = new MetadataService.UpdateMetadata();
-	    ut.currentName='Test__c.TestField__c';
-	    ut.metadata= customField;
-	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.updateMetadata> {ut});	
+		List<MetadataService.SaveResult> results = 		
+			service.updateMetadata(
+				new MetadataService.Metadata[] { customField });				
+		handleSaveResults(results[0]);	    
 	}
 
-        public static void updateFieldLevelSecurity() {
-            MetadataService.MetadataPort service = createService();
-            MetadataService.Profile admin = (MetadataService.Profile) service.readMetadata('Profile', new String[] { 'Admin' }).getRecords()[0];
-
-            MetadataService.ProfileFieldLevelSecurity fieldSec = new MetadataService.ProfileFieldLevelSecurity();
-            fieldSec.field='Test__c.TestField__c';
-            fieldSec.editable=true;
-
-            admin.fieldPermissions  = new MetadataService.ProfileFieldLevelSecurity[] {fieldSec} ;
-
-            MetadataService.UpdateMetadata ut = new MetadataService.UpdateMetadata();
-	    ut.currentName='Admin';
-	    ut.metadata= admin;
-	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.updateMetadata> {ut});
-        }
+    public static void updateFieldLevelSecurity() 
+    {
+        MetadataService.MetadataPort service = createService();
+        MetadataService.Profile admin = (MetadataService.Profile) service.readMetadata('Profile', new String[] { 'Admin' }).getRecords()[0];
+        MetadataService.ProfileFieldLevelSecurity fieldSec = new MetadataService.ProfileFieldLevelSecurity();
+        fieldSec.field='Test__c.TestField__c';
+        fieldSec.editable=true;
+        admin.fieldPermissions  = new MetadataService.ProfileFieldLevelSecurity[] {fieldSec} ;
+		List<MetadataService.SaveResult> results = 		
+			service.updateMetadata(
+				new MetadataService.Metadata[] { admin });				
+		handleSaveResults(results[0]);	    
+    }
 
 	public static void createPage()
 	{
@@ -175,7 +187,10 @@ public with sharing class MetadataServiceExamples
 		staticResource.contentType = 'text';
 		staticResource.cacheControl = 'public';
 		staticResource.content = EncodingUtil.base64Encode(Blob.valueOf('Static stuff'));
- 		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { staticResource });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { staticResource });				
+		handleSaveResults(results[0]);
 	}
 
 	public static void updateStaticResource()
@@ -186,25 +201,24 @@ public with sharing class MetadataServiceExamples
 		staticResource.contentType = 'text';
 		staticResource.cacheControl = 'public';
 		staticResource.content = EncodingUtil.base64Encode(Blob.valueOf('Static stuff Changed'));
-	    MetadataService.UpdateMetadata ut = new MetadataService.UpdateMetadata();
-	    ut.currentName='test';
-	    ut.metadata= staticResource;
-	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.updateMetadata> {ut});	
+		List<MetadataService.SaveResult> results = 		
+			service.updateMetadata(
+				new MetadataService.Metadata[] { staticResource });				
+		handleSaveResults(results[0]);	    
 	}
 	
 	public static void deleteStaticResource()
 	{
 		MetadataService.MetadataPort service = createService();		
-		MetadataService.StaticResource staticResource = new MetadataService.StaticResource();
-		staticResource.fullName = 'test';
-		staticResource.contentType = 'text';
-		staticResource.cacheControl = 'public';
- 		MetadataService.AsyncResult[] results = service.deleteMetadata(new List<MetadataService.Metadata> { staticResource });		
+		List<MetadataService.DeleteResult> results = 		
+			service.deleteMetadata(
+				'StaticResource', new String[] { 'test' });
+		handleDeleteResults(results[0]);
 	}
-	
-	
+		
 	public static void createWebLink()
 	{
+		MetadataService.MetadataPort service = createService();		
 		MetadataService.WebLink webLink = new MetadataService.WebLink();
 		webLink.fullName = 'Test__c.googleButton';
 		webLink.availability = 'online';
@@ -224,9 +238,10 @@ public with sharing class MetadataServiceExamples
 		webLink.showsStatus = false;
 		webLink.url = 'http://www.google.com';
 		webLink.width = 600;		
-		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(webLink) },
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { webLink });		
+		handleSaveResults(results[0]);
 	}
 	
 	public static void listMetadata()
@@ -259,9 +274,12 @@ public with sharing class MetadataServiceExamples
 	    metadataservice.PicklistValue one = new metadataservice.PicklistValue();
 	    one.fullName= 'first';
 	    one.default_x=false ;
-	    pt.picklistValues = new list<metadataservice.PicklistValue>{one};
+	    pt.picklistValues = new List<MetadataService.PicklistValue>{one};
 	    customField.picklist = pt ;
-	    MetadataService.AsyncResult[] results = service.create (new List<MetadataService.Metadata> { customField });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customField });
+		handleSaveResults(results[0]);
 	}	
 
 	public static void updatePicklistField()
@@ -281,10 +299,10 @@ public with sharing class MetadataServiceExamples
 	    three.default_x=false ;
 	    pt.picklistValues = new list<metadataservice.PicklistValue>{two,three};
 	    customField.picklist = pt ;
-	    MetadataService.UpdateMetadata ut = new MetadataService.UpdateMetadata();
-	    ut.currentName='Lead.picklist__c';
-	    ut.metadata= customField;	
-	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.UpdateMetadata> {ut});
+		List<MetadataService.SaveResult> results = 		
+			service.updateMetadata(
+				new MetadataService.Metadata[] { customField });
+		handleSaveResults(results[0]);	    
 	}
 	
 	public static void createAddressSettings()
@@ -310,7 +328,10 @@ public with sharing class MetadataServiceExamples
 		stateAK.label = 'Alaska';		
 		us.states = new List<MetadataService.State> { stateAL, stateAK };
 		addressSettings.countriesAndStates.countries = new List<MetadataService.Country> { us };
-	    MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> {addressSettings});		
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { addressSettings });
+		handleSaveResults(results[0]);
 	}
 	
 	public static void updateCaseSettings()
@@ -319,23 +340,10 @@ public with sharing class MetadataServiceExamples
 	    MetadataService.CaseSettings caseSettings = new MetadataService.CaseSettings();
 	    caseSettings.fullName = 'Case';
 	    caseSettings.notifyOwnerOnCaseComment = true;
-	    MetadataService.UpdateMetadata updateMetadata = new MetadataService.UpdateMetadata();
-	    updateMetadata.currentName='Case.settings';
-	    updateMetadata.metadata= caseSettings;		    	    		
-	    MetadataService.AsyncResult[] results = service.updateMetadata(new List<MetadataService.UpdateMetadata> { updateMetadata });		
-	}
-	
-	public static void createJob()
-	{
-		MetadataService.CustomField customField = new MetadataService.CustomField();
-		customField.fullName = 'Test__c.TestField__c';
-		customField.label = 'Test Field';
-		customField.type_x = 'Text';
-		customField.length = 42;
-		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { 
-				new MetadataCreateJob.Item(customField) },
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+		List<MetadataService.SaveResult> results = 		
+			service.updateMetadata(
+				new MetadataService.Metadata[] { caseSettings });
+		handleSaveResults(results[0]);	    
 	}
 
 	public static void dynamicCreation(String objectName)
@@ -376,15 +384,21 @@ public with sharing class MetadataServiceExamples
 				'{!' + objectName + '__c.TestField2__c}' + 
 			'</apex:page>'));
 		
-		// Pass the Metadata items to the job for processing, indicating any dependencies
-		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { 
-					new MetadataCreateJob.Item(customObject),					
-					new MetadataCreateJob.Item(customField1, null, true), // Set wait to true, to process after object creation
-					new MetadataCreateJob.Item(customField2),  
-					new MetadataCreateJob.Item(apexPage, null, true) // Set wait to true, to process after field creation
-				},
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+		// Create components in the correct order
+	    MetadataService.MetadataPort service = createService();
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customObject });		
+		handleSaveResults(results[0]);				
+		results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customField1, customField2 });		
+		handleSaveResults(results[0]);				
+		handleSaveResults(results[1]);		
+		results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { apexPage });		
+		handleSaveResults(results[0]);				
 	}
 	
 	public static void createRecordType()
@@ -396,10 +410,11 @@ public with sharing class MetadataServiceExamples
 		recordType.businessProcess = null;
 		recordType.description = 'My new record type';		
 		 
-		// Pass the Metadata items to the job for processing, indicating any dependencies
-		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(recordType) },
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+	    MetadataService.MetadataPort service = createService();
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { recordType });		
+		handleSaveResults(results[0]);				
 	}
 	
 	public static void deleteRecordType()
@@ -412,48 +427,41 @@ public with sharing class MetadataServiceExamples
 		recordType.active = true;
 		recordType.fullName = 'Test__c.RecordTypeA';
 	    MetadataService.MetadataPort service = createService();
-		MetadataService.AsyncResult[] results = service.deleteMetadata(new List<MetadataService.Metadata> { recordType });
+		List<MetadataService.DeleteResult> results = 		
+			service.deleteMetadata(
+				'RecordType', new String[] { 'Test__c.RecordTypeA' });
+		handleDeleteResults(results[0]);
 	}
 	
 	public static void installPackages()
 	{
 		// Install packageA, then pacakgeB
 		MetadataService.InstalledPackage installedPackageA = new MetadataService.InstalledPackage();
-		installedPackageA.versionNumber = '1.0';
 		installedPackageA.password = 'fred1234';
-		installedPackageA.fullName = 'packagea';
-		MetadataService.InstalledPackage installedPackageB = new MetadataService.InstalledPackage();
-		installedPackageB.versionNumber = '1.0';
-		installedPackageB.fullName = 'packageb';
-		MetadataService.AsyncResult[] results = createService().create(new List<MetadataService.Metadata> { installedPackageA, installedPackageB });		
-	}
-	
-	public static void installPackagesCreateJob()
-	{
-		// Install packageA, then pacakgeB
-		MetadataService.InstalledPackage installedPackageA = new MetadataService.InstalledPackage();
 		installedPackageA.versionNumber = '1.0';
 		installedPackageA.fullName = 'packagea';
 		MetadataService.InstalledPackage installedPackageB = new MetadataService.InstalledPackage();
 		installedPackageB.versionNumber = '1.0';
 		installedPackageB.fullName = 'packageb';
 				 
-		// Pass the Metadata items to the job for processing, indicating any dependencies
-		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { 
-				new MetadataCreateJob.Item(installedPackageA ),
-				new MetadataCreateJob.Item(installedPackageB ) },
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());				
+		// Install the packages
+	    MetadataService.MetadataPort service = createService();
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { installedPackageA, installedPackageB });
+		handleSaveResults(results[0]);
+		handleSaveResults(results[1]);		
 	}
 	
 	public static void uninstallPackages()
 	{
 		// Uninstall packages
-		MetadataService.InstalledPackage installedPackageA = new MetadataService.InstalledPackage();
-		installedPackageA.fullName = 'packagea';
-		MetadataService.InstalledPackage installedPackageB = new MetadataService.InstalledPackage();
-		installedPackageB.fullName = 'packageb';
-		MetadataService.AsyncResult[] results = createService().deleteMetadata(new List<MetadataService.Metadata> { installedPackageA, installedPackageB });
+	    MetadataService.MetadataPort service = createService();
+		List<MetadataService.DeleteResult> results = 		
+			service.deleteMetadata(
+				'InstalledPackage', new String[] { 'packagea', 'packageb' });
+		handleDeleteResults(results[0]);
+		handleDeleteResults(results[1]);
 	}
 	
 	public static void createCustomSite()
@@ -488,10 +496,11 @@ public with sharing class MetadataServiceExamples
 		customSite.siteAdmin = 'admin@mysiteorg.com';
 		customSite.siteTemplate = 'SiteTemplate';
 		customSite.siteType = 'Visualforce';
-		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { 
-				new MetadataCreateJob.Item(customSite ) },
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());						
+	    MetadataService.MetadataPort service = createService();
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customSite });
+		handleSaveResults(results[0]);
 	}	
 	
 	public static void createDetailObject()
@@ -532,12 +541,17 @@ public with sharing class MetadataServiceExamples
         customField2.type_x = 'MasterDetail';
         customField2.writeRequiresMasterRead = false;
 		
-		// Pass the Metadata items to the job for processing
-		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { 
-					new MetadataCreateJob.Item(customObject),					
-					new MetadataCreateJob.Item(new List<MetadataService.Metadata> { customField1, customField2 }, null, true) }, // Set wait to true, to process after object creation
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());								
+		// Create components in the correct order
+	    MetadataService.MetadataPort service = createService();
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customObject });
+		handleSaveResults(results[0]);
+		results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customField1, customField2 });
+		handleSaveResults(results[0]);
+		handleSaveResults(results[1]);
 	}	
 	
 	public static void createFieldSet()
@@ -557,7 +571,10 @@ public with sharing class MetadataServiceExamples
 		fieldSet.availableFields.add(myAvailableField);
 		
 		// Create
-		MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { fieldSet });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { fieldSet });
+		handleSaveResults(results[0]);
 	}
 
 	public static void updateFieldSet()
@@ -582,21 +599,13 @@ public with sharing class MetadataServiceExamples
 		fieldSet.availableFields.add(myAvailableFieldNew);
 		
 		// Update
-		List<MetadataService.UpdateMetadata> updateMetadataList = new List<MetadataService.UpdateMetadata>();
-		updateMetadataList.add(new MetadataService.UpdateMetadata());
-		updateMetadataList[0].currentName = 'Test__c.MyFieldSet';
-		updateMetadataList[0].metadata = fieldSet;
-		MetadataService.AsyncResult[] results = service.updateMetadata(updateMetadataList);
+		List<MetadataService.SaveResult> results = 		
+			service.updateMetadata(
+				new MetadataService.Metadata[] { fieldSet });
+		handleSaveResults(results[0]);	    
 	}
 	
-	/**
-	 * Test via Execute Annoymous (Eclipse/Developer Console) 
-	 * 1. First run this System.debug('AsyncId is ' + MetadataServiceExamples.addActionOverride().id);
-	 * 2. Note the Id output in the debug log and update the follow statement before executing it
-	 * 3. Wait for a few seconds then run this System.debug(MetadataServiceExamples.checkAsync('04sG00000041ndgIAA'));
-	 * See README for notes on how to use BatchApex or apex:actionPoller to implement this in an application  
-	 **/ 
-	public static MetadataService.AsyncResult addActionOverride()
+	public static void addActionOverride()
 	{
 		MetadataService.MetadataPort service = createService();		
 		MetadataService.CustomObject customObject = new MetadataService.CustomObject();
@@ -615,12 +624,10 @@ public with sharing class MetadataServiceExamples
 		customObject.actionOverrides[0].type_x = 'visualforce';
 		customObject.actionOverrides[0].skipRecordTypeSelect = false;
 		customObject.actionOverrides[0].comment = 'A comment for edit action';
-		List<MetadataService.UpdateMetadata> updateMetadataList = new List<MetadataService.UpdateMetadata>();
-		updateMetadataList.add(new MetadataService.UpdateMetadata());
-		updateMetadataList[0].currentName = 'Test__c';
-		updateMetadataList[0].metadata = customObject;
-		MetadataService.AsyncResult[] results = service.updateMetadata(updateMetadataList);
-		return results[0];		
+		List<MetadataService.SaveResult> results = 		
+			service.updateMetadata(
+				new MetadataService.Metadata[] { customObject });
+		handleSaveResults(results[0]);	    
 	}
 	
 	public static void createListView()
@@ -631,18 +638,47 @@ public with sharing class MetadataServiceExamples
 		listView.label = 'My List View';
 		listView.filterScope = 'Everything';
 		listView.columns = new List<String> { 'NAME' };
-		MetadataCreateJob.run(
-			new List<MetadataCreateJob.Item> { new MetadataCreateJob.Item(listView) },
-			new MetadataCreateJob.EmailNotificationMetadataAsyncCallback());						
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { listView });
+		handleSaveResults(results[0]);		
 	}
 	
 	public static void deleteListView()
 	{
 		MetadataService.MetadataPort service = createService();		
-		MetadataService.ListView listView = new MetadataService.ListView();
-		listView.fullName = 'Test__c.MyListView';
-		listView.filterScope = 'Everything';
- 		MetadataService.AsyncResult[] results = service.deleteMetadata(new List<MetadataService.Metadata> { listView });				
+		List<MetadataService.DeleteResult> results = 		
+			service.deleteMetadata(
+				'ListView', new String[] { 'Test__c.MyListView' });
+		handleDeleteResults(results[0]);
+	}
+	
+	public static void listListViews()
+	{
+		MetadataService.MetadataPort service = createService();		
+		List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();		
+		MetadataService.ListMetadataQuery listView = new MetadataService.ListMetadataQuery();
+		listView.type_x = 'ListView';
+		queries.add(listView);		
+		MetadataService.FileProperties[] fileProperties = service.listMetadata(queries, 25);
+		for(MetadataService.FileProperties fileProperty : fileProperties)
+			System.debug(fileProperty.fullName);		
+	}
+	
+	public static void readListView()
+	{
+	    MetadataService.MetadataPort service = createService();     	    
+
+	    // Read List View definition
+	    MetadataService.ListView listView = 
+			(MetadataService.ListView) service.readMetadata('ListView', 
+				new String[] { 'Test__c.MyListView' }).getRecords()[0];
+		if(listView.columns!=null)	    
+			for(String column : listView.columns)
+				System.debug('Column ' + column);
+		if(listView.filters!=null)
+			for(MetadataService.ListViewFilter filter : listView.filters)
+				System.debug('Filter ' + filter.field + ' ' + filter.operation + ' ' + filter.value);
 	}
 	
 	public static void createApprovalProcess()
@@ -662,7 +698,10 @@ public with sharing class MetadataServiceExamples
         submitter.type_x = 'user';
         submitter.submitter = UserInfo.getUserName();
         approvalProcess.allowedSubmitters = new List<MetadataService.ApprovalSubmitter> { submitter };
-        MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { approvalProcess });
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { approvalProcess });
+		handleSaveResults(results[0]);
 	}
 	
 	public static void readAndUpdateLayout()
@@ -702,6 +741,34 @@ public with sharing class MetadataServiceExamples
 		if(layout.customButtons==null)
 			layout.customButtons = new List<String>();
 		layout.customButtons.add('googleButton');
+		
+		// Update the Layout
+		handleSaveResults(
+			service.updateMetadata(
+				new MetadataService.Metadata[] { layout })[0]);
+	}
+
+	
+	public static void addFieldToLayout()
+	{
+		MetadataService.MetadataPort service = createService();
+
+		// Read the Layout		
+		MetadataService.Layout layout = 
+			(MetadataService.Layout) service.readMetadata('Layout', 
+				new String[] { 'Test__c-Test Layout' }).getRecords()[0];
+
+		// Add Layout section, layout, item and field
+		if(layout.layoutSections==null)
+			layout.layoutSections = new List<MetadataService.LayoutSection>();
+		MetadataService.LayoutSection newLayoutSection = new MetadataService.LayoutSection();
+		newLayoutSection.style = 'OneColumn';
+		MetadataService.LayoutColumn newLayoutColumn = new MetadataService.LayoutColumn();
+		MetadataService.LayoutItem newLayoutItem = new MetadataService.LayoutItem();
+		newLayoutItem.field = 'TestField__c';
+		newLayoutColumn.layoutItems = new List<MetadataService.LayoutItem> { newLayoutItem }; 
+		newLayoutSection.layoutColumns = new List<MetadataService.LayoutColumn> { newLayoutColumn };        
+		layout.layoutSections.add(newLayoutSection);		       		
 		
 		// Update the Layout
 		handleSaveResults(
@@ -821,13 +888,146 @@ public with sharing class MetadataServiceExamples
 			System.debug('Shared to Group ' + groupName);
 	}
 
-	public class MetadataServiceExamplesException extends Exception { }
-
-	public static String checkAsync(String asyncId)
+	public static void readReport()
 	{
 		MetadataService.MetadataPort service = createService();		
-		return service.checkStatus(new List<String> { asyncId })[0].message;		
+		MetadataService.Report report = 
+			(MetadataService.Report) service.readMetadata('Report', 
+				new String[] { 'MyFolder/MyReport' }).getRecords()[0];
+		System.debug(report.description);			
 	}
+
+	public static void readPermissionSet()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.PermissionSet ps = 
+			(MetadataService.PermissionSet) service.readMetadata('PermissionSet', 
+				new String[] { 'Test' }).getRecords()[0];
+
+	}
+
+	public static void createLayout()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.Layout layout = new MetadataService.Layout();
+		layout.fullName = 'Test__c-My Layout';
+		layout.layoutSections = new List<MetadataService.LayoutSection>();
+		MetadataService.LayoutSection layoutSection = new MetadataService.LayoutSection();
+		layoutSection.editHeading = true;
+		layoutSection.label = 'System Information';
+		layoutSection.style = 'TwoColumnsTopToBottom';
+		layoutSection.layoutColumns = new List<MetadataService.LayoutColumn>();
+		MetadataService.LayoutColumn layoutColumn = new MetadataService.LayoutColumn();
+		layoutColumn.layoutItems = new List<MetadataService.LayoutItem>();
+		MetadataService.LayoutItem layoutItem1 = new MetadataService.LayoutItem();
+		layoutItem1.behavior = 'Readonly';
+		layoutItem1.field = 'CreatedById';
+		layoutColumn.layoutItems.add(layoutItem1);
+		MetadataService.LayoutItem layoutItem2 = new MetadataService.LayoutItem();
+		layoutItem2.behavior = 'Required';
+		layoutItem2.field = 'Name';
+		layoutColumn.layoutItems.add(layoutItem2);
+		layoutSection.layoutColumns.add(layoutColumn);
+		layout.layoutSections.add(layoutSection);
+		layout.summaryLayout = new MetadataService.SummaryLayout();
+		layout.summaryLayout.masterLabel = 'Great name';
+		layout.summaryLayout.sizeX = 4;
+		layout.summaryLayout.sizeY = 2;
+		layout.summaryLayout.summaryLayoutStyle = 'Default';
+		layout.summaryLayout.summaryLayoutItems = new List<MetadataService.SummaryLayoutItem>();
+		MetadataService.SummaryLayoutItem summaryLayoutItem = new MetadataService.SummaryLayoutItem();
+		summaryLayoutItem.posX = 0;
+		summaryLayoutItem.posY = 0;
+		summaryLayoutItem.field = 'Name';
+		layout.summaryLayout.summaryLayoutItems.add(summaryLayoutItem);
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { layout });		
+		handleSaveResults(results[0]);		
+	}
+
+	public static void readLignthingComponent()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.AuraDefinitionBundle auraBundle = 
+			(MetadataService.AuraDefinitionBundle) service.readMetadata('AuraDefinitionBundle', 
+				new String[] { 'HelloWorld' }).getRecords()[0];
+		System.debug(auraBundle.markup);			
+	}
+
+	public static void createLignthingComponent()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.AuraDefinitionBundle auraBundle = new MetadataService.AuraDefinitionBundle();
+		auraBundle.fullName = 'HellWorld';
+		auraBundle.type_x = 'Component';
+		auraBundle.markup = EncodingUtil.base64Encode(Blob.valueOf(
+			'<aura:component>' + 
+			    '<aura:attribute name="val1" type="String" default="Value"/>' +
+			    '<aura:attribute name="val2" type="String" />' +
+			    '<aura:handler name="init" value="{!this}" action="{!c.myAction}"/>' +
+					'<ui:outputText value=\'Hello world!\'/>' +
+					'<ui:outputText value=\'{!v.val1}\'/>' +
+					'<ui:outputText value=\'{!v.val2}\'/>' +
+				'</aura:handler>' +
+			'</aura:component>'));
+		auraBundle.controllerContent = EncodingUtil.base64Encode(Blob.valueOf( 
+			'({' + 
+				'myAction : function(component) {' + 
+					'component.set(\'v.val1\',\'Value1\');' +
+					'component.set(\'v.val2\',\'Value2\');' +
+			    '}' +
+			'})'));
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { auraBundle }); 
+		handleSaveResults(results[0]);			
+	}
+	
+	public static void createFormulaField()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.CustomField customField = new MetadataService.CustomField();
+		customField.fullName = 'Test__c.TestFormulaField__c';
+		customField.label = 'Test Formula Field';
+		customField.type_x = 'Date';
+		customField.formula = 'TODAY()';
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { customField });				
+		handleSaveResults(results[0]);
+	}
+
+	public static void createLayoutManaged()
+	{
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.Layout layout = new MetadataService.Layout();
+		layout.fullName = 'packageb__Sales_Invoice__c-Test';
+		layout.layoutSections = new List<MetadataService.LayoutSection>();
+		MetadataService.LayoutSection layoutSection = new MetadataService.LayoutSection();
+		layoutSection.editHeading = true;
+		layoutSection.label = 'System Information';
+		layoutSection.style = 'TwoColumnsTopToBottom';
+		layoutSection.layoutColumns = new List<MetadataService.LayoutColumn>();
+		MetadataService.LayoutColumn layoutColumn = new MetadataService.LayoutColumn();
+		layoutColumn.layoutItems = new List<MetadataService.LayoutItem>();
+		MetadataService.LayoutItem layoutItem1 = new MetadataService.LayoutItem();
+		layoutItem1.behavior = 'Readonly';
+		layoutItem1.field = 'CreatedById';
+		layoutColumn.layoutItems.add(layoutItem1);
+		MetadataService.LayoutItem layoutItem2 = new MetadataService.LayoutItem();
+		layoutItem2.behavior = 'Required';
+		layoutItem2.field = 'Name';
+		layoutColumn.layoutItems.add(layoutItem2);
+		layoutSection.layoutColumns.add(layoutColumn);
+		layout.layoutSections.add(layoutSection);
+		List<MetadataService.UpsertResult> results = 		
+			service.upsertMetadata(
+				new MetadataService.Metadata[] { layout });		
+		handleUpsertResults(results[0]);		
+	}
+
+	public class MetadataServiceExamplesException extends Exception { }
 
 	public static MetadataService.MetadataPort createService()
 	{ 
@@ -858,4 +1058,48 @@ public with sharing class MetadataServiceExamples
 		if(messages.size()>0)
 			throw new MetadataServiceExamplesException(String.join(messages, ' '));
 	}	
+
+	/**
+	 * Example helper method to interpret a SaveResult, throws an exception if errors are found
+	 **/
+	private static void handleDeleteResults(MetadataService.DeleteResult deleteResult)
+	{
+		// Nothing to see?
+		if(deleteResult==null || deleteResult.success)
+			return;
+		// Construct error message and throw an exception
+		List<String> messages = new List<String>();
+		messages.add(
+			(deleteResult.errors.size()==1 ? 'Error ' : 'Errors ') + 
+				'occured processing component ' + deleteResult.fullName + '.');
+		for(MetadataService.Error error : deleteResult.errors)
+			messages.add(
+				error.message + ' (' + error.statusCode + ').' + 
+				( error.fields!=null && error.fields.size()>0 ? 
+					' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
+		if(messages.size()>0)
+			throw new MetadataServiceExamplesException(String.join(messages, ' '));
+	}
+	
+	/**
+	 * Example helper method to interpret a UpsertResult, throws an exception if errors are found
+	 **/
+	private static void handleUpsertResults(MetadataService.UpsertResult upsertResult)
+	{
+		// Nothing to see?
+		if(upsertResult==null || upsertResult.success)
+			return;
+		// Construct error message and throw an exception
+		List<String> messages = new List<String>();
+		messages.add(
+			(upsertResult.errors.size()==1 ? 'Error ' : 'Errors ') + 
+				'occured processing component ' + upsertResult.fullName + '.');
+		for(MetadataService.Error error : upsertResult.errors)
+			messages.add(
+				error.message + ' (' + error.statusCode + ').' + 
+				( error.fields!=null && error.fields.size()>0 ? 
+					' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
+		if(messages.size()>0)
+			throw new MetadataServiceExamplesException(String.join(messages, ' '));
+	}
 }
