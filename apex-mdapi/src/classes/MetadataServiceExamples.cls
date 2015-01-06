@@ -165,6 +165,19 @@ public with sharing class MetadataServiceExamples
 		handleSaveResults(results[0]);	    
     }
 
+	public static void updateTabVisibility()
+	{
+		MetadataService.MetadataPort service = createService();				MetadataService.Profile admin = (MetadataService.Profile) service.readMetadata('Profile', new String[] { 'Admin' }).getRecords()[0];
+		MetadataService.ProfileTabVisibility tabVis = new MetadataService.ProfileTabVisibility();
+		tabVis.tab = 'Test_Tab__c';
+		tabVis.visibility = 'Hidden';
+		admin.tabVisibilities = new MetadataService.ProfileTabVisibility[] {tabVis};
+		List<MetadataService.SaveResult> results = 		
+			service.updateMetadata(
+				new MetadataService.Metadata[] { admin });
+		handleSaveResults(results[0]);
+	}
+	
 	public static void createPage()
 	{
 		MetadataService.MetadataPort service = createService();		
