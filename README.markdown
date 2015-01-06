@@ -38,18 +38,18 @@ Background and Motivation
 
 There seems to be a growing number of Apex developers wanting to develop solutions or just handy utils that embrace the declarative nature of the platform. Including those in FinancialForce.com for that matter! Such solutions are dynamically adapting to custom fields or objects that need to be created by the administrator and/or customisations to objects in existing packages.
 
-As adminstrators leverage more and more of these solutions the topic of automation arrises. Can the developers of these solutions help the adminstrator by implementing wizards or self configuring solutions without asking the adminstrator to create these manually and then have to reference them back into the solution?
+As adminstrators leverage more and more of these solutions the topic of automation arises. Can the developers of these solutions help the adminstrator by implementing wizards or self configuring solutions without asking the adminstrator to create these manually and then have to reference them back into the solution?
 
 Strategies for calling from Apex
 --------------------------------
 
 Salesforce provides a great number of API's for developers to consume, both off and on platform (as Apex developers). If you happen to be off platform (say in Heroku) and developing code to help automate adminstration. Then you can utilise the Salesforce Metadata API (via the Salesforce WebService Connector) to help with this. It is a robust and readily available API for creating objects, fields, pages and many other component types.
 
-While Salesforce offer on platform Apex developers a means to query some of this information (a subset of the Metadata API coverage) via Apex Describe. It does not as yet provide a means to manipulate this metadata from Apex natively. We are told this is in the pipeline though I am personally not aware of when this will arrive.
+While Salesforce offers on platform Apex developers a means to query some of this information (a subset of the Metadata API coverage) via Apex Describe, it does not as yet provide a means to manipulate this metadata from Apex natively. We are told this is in the pipeline, though I am personally not aware of when this will arrive.
 
-Before you read on, stop by an [up vote this idea](https://success.salesforce.com/ideaView?id=08730000000l4TkAAI) to have a native Metadata API!
+Before you read on, stop by and [up vote this idea](https://success.salesforce.com/ideaView?id=08730000000l4TkAAI) to have a native Metadata API!
 
-So what can we do in the meantime as Apex developers? Well it turns out that Apex is quite good at making outbound calls to Web Services and more recently REST base API's, all be it as always with a few governors to be aware. So why can Apex not call out to the Metadata Web Services API? After all, there is a WSDL for it and you have the ability as an Apex developer to import a WSDL into Apex and consume the code it generates to make the call...
+So what can we do in the meantime as Apex developers? Well it turns out that Apex is quite good at making outbound calls to Web Services and more recently REST based API's, all be it as always with a few governors to be aware. So why can Apex not call out to the Metadata Web Services API? After all, there is a WSDL for it and you have the ability as an Apex developer to import a WSDL into Apex and consume the code it generates to make the call...
 
 Examples
 --------
@@ -132,16 +132,16 @@ You can view more examples [here](https://github.com/financialforcedev/apex-mdap
 Metadata Retrieve Demo
 ----------------------
 
-The [MetadataRetrieveController](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataRetrieveController.cls) and [metadataretrieve.page](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadataretrieve.page) samples demonstrate using the excellent [JSZip](http://stuartk.com/jszip/) library to handle the zip retrieve file contents. Passing the zip entries back to the controller for handling in Apex. This sample stores the file data in a list in the controller, though you could send or process the file anyway you see fit. It also shows how to handle the AsyncRequest and checkStatus calls. Enjoy and here is a screenshot!
+The [MetadataRetrieveController](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataRetrieveController.cls) and [metadataretrieve.page](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadataretrieve.page) samples demonstrate using the excellent [JSZip](http://stuartk.com/jszip/) library to handle the zip retrieve file contents, passing the zip entries back to the controller for handling in Apex. This sample stores the file data in a list in the controller, though you could send or process the file anyway you see fit. It also shows how to handle the AsyncRequest and checkStatus calls. Enjoy and here is a screenshot!
 
 ![Metadata Retrieve Demo Screenshot](https://raw.github.com/financialforcedev/apex-mdapi/master/images/mdretrievedemo.png)
 
-**NOTE:** I nearly got this working without using [JSZip](http://stuartk.com/jszip/), in a pure 100% native Apex and Visualforce way. I utilised the Metadata CRUD API to dynamically upload the zip file as a Static Resource. Then used PageReference.getContent to peak into it! However there seems to be a bug with Static Resources containing files with spaces in their names! No matter how I escapted the URL, I got a 404. I'm researching this further. So watch this space...
+**NOTE:** I nearly got this working without using [JSZip](http://stuartk.com/jszip/), in a pure 100% native Apex and Visualforce way. I utilised the Metadata CRUD API to dynamically upload the zip file as a Static Resource. Then used PageReference.getContent to peak into it! However there seems to be a bug with Static Resources containing files with spaces in their names! No matter how I escaped the URL, I got a 404. I'm researching this further. So watch this space...
 
 Metadata Deploy Demo
 ---------------------
 
-**IMPORTANT NOTE:** This demo allows you (in theory since I've not tested all) to deploy any Metadata Component types, including ApexClass. In many use cases it is possible to deploy Apex using the existing tools Salesforce provide, changesets, migration toolkit (aka Ant ) and packages. Only utilise this capability if your sure your use case requires it. Note that this does not bypass the need to deploy test code with the correct coverage when deploying into production environments.
+**IMPORTANT NOTE:** This demo allows you (in theory since I've not tested all) to deploy any Metadata Component types, including ApexClass. In many use cases it is possible to deploy Apex using the existing tools Salesforce provides: changesets, migration toolkit (aka Ant ) and packages. Only utilise this capability if you're sure your use case requires it. Note that this does not bypass the need to deploy test code with the correct coverage when deploying into production environments.
 
 The ability to deploy Apex code (and other Metadata component types not covered by the CRUD operations) is something it seems a lot of people have been asking about. Using the JSZip library I have got this working. I also decided to create some Visualforce components to wrap this library to make it a little easier to use. These components are called zip, zipEntry and unzip, you can see them in action on the pages used by this demo and the one above. 
 
@@ -219,7 +219,7 @@ To illustrate error handling, I've shown in the screen shot a deliberate failed 
 
 **NOTE:** I am using Visualforce state (aka Viewstate) and Visualforce AJAX in the above two examples. This will limit the size of the files and zip file being exchanged. Use of JavaScript Remoting will give you increased flexibility in file size (docs state a response size of 15MB is supported). However this will mean storing state in a Custom Object, the slight additional complexity of this I wanted to avoid in these samples. As noted below I have recently (December 2012) enhanced the zip components in another repo, they are based on those in this repo, so are fairly simple to retro fit, take a look at the samples there first. Finally, keep in mind that you can also for most other Metadata Component types use the CRUD operations as shown above, which avoid any zip file handling.
 
-You can review the [MetadataDeployController](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataDeployController.cls) and [metadatadeploy.page](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadatadeploy.page) for the full code. I have also included some zip VF components. Starting from December 2012, I create a dedicated repo for zip handling [here](https://github.com/financialforcedev/apex-zip) so if your interested in these, please refer to this repo for the latest.
+You can review the [MetadataDeployController](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataDeployController.cls) and [metadatadeploy.page](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/metadatadeploy.page) for the full code. I have also included some zip VF components. Starting from December 2012, I created a dedicated repo for zip handling [here](https://github.com/financialforcedev/apex-zip) so if you're interested in these, please refer to this repo for the latest.
 
 Metadata Explore Demo
 ---------------------
@@ -233,14 +233,14 @@ You can study the Visualforce page [here](https://github.com/financialforcedev/a
 Known Issues and Resolutions
 ----------------------------
 
-- If you recieve the error message *'Insufficient access; cannot execute Metadata operation with PAC enabled session id'* within Apex code within a managed package utilising this library. Please ensure to changed the API access from Restricted to Unrestricted on your Package defintion. Many thanks to the great work from [vipulpahwa](https://github.com/vipulpahwa) and [Daniel Blackhall](https://github.com/seeflat) to getting to the bottom of this rather cryptic error message.
+- If you recieve the error message *'Insufficient access; cannot execute Metadata operation with PAC enabled session id'* within Apex code within a managed package utilising this library. Please ensure to changed the API access from Restricted to Unrestricted on your Package definition. Many thanks to the great work from [vipulpahwa](https://github.com/vipulpahwa) and [Daniel Blackhall](https://github.com/seeflat) to getting to the bottom of this rather cryptic error message.
 
 How to call the Salesforce Metadata API from Apex
 -------------------------------------------------
 
 Salesforce have been promoting recently the Metadata REST API. While this is still not a native API to Apex, it would be a lot easier to call than the Web Service one, though you would have develop your own wrapper classes. Unfortunatly this API is still in pilot and I have been told by Salesforce its appearance as a GA API is still someway out, sadly.
 
-One option is to download the Metadata WSDL from the Tools page under the Develop menu and attempt to generate Apex code from this, using the Generate from WSDL button. This does not work straight away, some changes to the WSDL and updates to the generate code is required. Fortunatly this library has done all this for you, so call you need to do is take the MetadataService.cls and MetadataServiceTest.cls and get started with the examples included.  
+One option is to download the Metadata WSDL from the Tools page under the Develop menu and attempt to generate Apex code from this, using the Generate from WSDL button. This does not work straight away, some changes to the WSDL and updates to the generated code is required. Fortunately this library has done all this for you, so all you need to do is take the MetadataService.cls and MetadataServiceTest.cls and get started with the examples included.
 
 - [MetadataService.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataService.cls)
 - [MetadataServiceTest.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServiceTest.cls)
@@ -250,7 +250,7 @@ One option is to download the Metadata WSDL from the Tools page under the Develo
 
 **Note:** The CRUD operations do not support Apex Class or Apex Trigger components sadly, this is a API restriction and not an issue with calling from Apex as such.
 
-I've have created this Github repo to capture a modified version of the generated Apex class around the Metadata API. Which addresses the problems above. So that you can download it and get started straight away.
+I've created this Github repo to capture a modified version of the generated Apex class around the Metadata API, which addresses the problems above so that you can download it and get started straight away.
 
 How to create your own MetadataService.cls
 ------------------------------------------
@@ -328,4 +328,4 @@ About the Author
 
 My name is Andrew Fawcett, I am the CTO of FinancialForce.com, if you want to ask questions you can do so via the Issues tab or just follow me on Twitter, my name is [andyinthecloud](http://twitter.com/andyinthecloud)
 
-I enjoy making life easier and enabling more people to help me in this endevour! And thus API's is one of my main passions. Hence this article! Enjoy and do let me know what cool time saving solutions you create!
+I enjoy making life easier and enabling more people to help me in this endeavour! And thus API's are one of my main passions. Hence this article! Enjoy and do let me know what cool time saving solutions you create!
