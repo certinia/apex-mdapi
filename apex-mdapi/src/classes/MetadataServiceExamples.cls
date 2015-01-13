@@ -177,6 +177,18 @@ public with sharing class MetadataServiceExamples
 				new MetadataService.Metadata[] { admin });
 		handleSaveResults(results[0]);
 	}
+
+	public static void updateCustomApplication()
+	{
+		MetadataService.MetadataPort service = createService();
+		MetadataService.CustomApplication customApp = (MetadataService.CustomApplication) service.readMetadata('CustomApplication', new String[] { 'Test_Application' }).getRecords()[0];
+		customApp.defaultLandingTab = 'Test_Tab__c';
+		List<MetadataService.SaveResult> results =
+			service.updateMetadata(
+				new MetadataService.Metadata[] { customApp });
+
+		handleSaveResults(results[0]);
+	}
 	
 	public static void createPage()
 	{
