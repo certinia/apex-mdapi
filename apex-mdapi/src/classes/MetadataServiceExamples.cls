@@ -151,10 +151,15 @@ public with sharing class MetadataServiceExamples
 		handleSaveResults(results[0]);	    
 	}
 
+	/**
+	 * NOTE: Consider using Permission Sets, these can also be created and assignd with DML in Apex
+	 **/
     public static void updateFieldLevelSecurity() 
     {
         MetadataService.MetadataPort service = createService();
-        MetadataService.Profile admin = (MetadataService.Profile) service.readMetadata('Profile', new String[] { 'Admin' }).getRecords()[0];
+        MetadataService.Profile admin = new MetadataService.Profile();
+        admin.fullName = 'Admin';
+        admin.custom = false;
         MetadataService.ProfileFieldLevelSecurity fieldSec = new MetadataService.ProfileFieldLevelSecurity();
         fieldSec.field='Test__c.TestField__c';
         fieldSec.editable=true;
@@ -1071,17 +1076,22 @@ public with sharing class MetadataServiceExamples
 		if(saveResult==null || saveResult.success)
 			return;
 		// Construct error message and throw an exception
-		List<String> messages = new List<String>();
-		messages.add(
-			(saveResult.errors.size()==1 ? 'Error ' : 'Errors ') + 
-				'occured processing component ' + saveResult.fullName + '.');
-		for(MetadataService.Error error : saveResult.errors)
+		if(saveResult.errors!=null) 
+		{
+			List<String> messages = new List<String>();
 			messages.add(
-				error.message + ' (' + error.statusCode + ').' + 
-				( error.fields!=null && error.fields.size()>0 ? 
-					' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
-		if(messages.size()>0)
-			throw new MetadataServiceExamplesException(String.join(messages, ' '));
+				(saveResult.errors.size()==1 ? 'Error ' : 'Errors ') + 
+					'occured processing component ' + saveResult.fullName + '.');
+			for(MetadataService.Error error : saveResult.errors)
+				messages.add(
+					error.message + ' (' + error.statusCode + ').' + 
+					( error.fields!=null && error.fields.size()>0 ? 
+						' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
+			if(messages.size()>0)
+				throw new MetadataServiceExamplesException(String.join(messages, ' '));
+		}
+		if(!saveResult.success)
+			throw new MetadataServiceExamplesException('Request failed with no specified error.');
 	}	
 
 	/**
@@ -1093,17 +1103,22 @@ public with sharing class MetadataServiceExamples
 		if(deleteResult==null || deleteResult.success)
 			return;
 		// Construct error message and throw an exception
-		List<String> messages = new List<String>();
-		messages.add(
-			(deleteResult.errors.size()==1 ? 'Error ' : 'Errors ') + 
-				'occured processing component ' + deleteResult.fullName + '.');
-		for(MetadataService.Error error : deleteResult.errors)
+		if(deleteResult.errors!=null)
+		{
+			List<String> messages = new List<String>();
 			messages.add(
-				error.message + ' (' + error.statusCode + ').' + 
-				( error.fields!=null && error.fields.size()>0 ? 
-					' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
-		if(messages.size()>0)
-			throw new MetadataServiceExamplesException(String.join(messages, ' '));
+				(deleteResult.errors.size()==1 ? 'Error ' : 'Errors ') + 
+					'occured processing component ' + deleteResult.fullName + '.');
+			for(MetadataService.Error error : deleteResult.errors)
+				messages.add(
+					error.message + ' (' + error.statusCode + ').' + 
+					( error.fields!=null && error.fields.size()>0 ? 
+						' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
+			if(messages.size()>0)
+				throw new MetadataServiceExamplesException(String.join(messages, ' '));
+		}
+		if(!deleteResult.success)
+			throw new MetadataServiceExamplesException('Request failed with no specified error.');		
 	}
 	
 	/**
@@ -1115,16 +1130,21 @@ public with sharing class MetadataServiceExamples
 		if(upsertResult==null || upsertResult.success)
 			return;
 		// Construct error message and throw an exception
-		List<String> messages = new List<String>();
-		messages.add(
-			(upsertResult.errors.size()==1 ? 'Error ' : 'Errors ') + 
-				'occured processing component ' + upsertResult.fullName + '.');
-		for(MetadataService.Error error : upsertResult.errors)
+		if(upsertResult.errors!=null)
+		{
+			List<String> messages = new List<String>();
 			messages.add(
-				error.message + ' (' + error.statusCode + ').' + 
-				( error.fields!=null && error.fields.size()>0 ? 
-					' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
-		if(messages.size()>0)
-			throw new MetadataServiceExamplesException(String.join(messages, ' '));
+				(upsertResult.errors.size()==1 ? 'Error ' : 'Errors ') + 
+					'occured processing component ' + upsertResult.fullName + '.');
+			for(MetadataService.Error error : upsertResult.errors)
+				messages.add(
+					error.message + ' (' + error.statusCode + ').' + 
+					( error.fields!=null && error.fields.size()>0 ? 
+						' Fields ' + String.join(error.fields, ',') + '.' : '' ) );
+			if(messages.size()>0)
+				throw new MetadataServiceExamplesException(String.join(messages, ' '));
+		}
+		if(!upsertResult.success)
+			throw new MetadataServiceExamplesException('Request failed with no specified error.');				
 	}
 }
