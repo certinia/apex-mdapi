@@ -1070,7 +1070,7 @@ public with sharing class MetadataServiceExamples
 	/**
 	 * Example helper method to interpret a SaveResult, throws an exception if errors are found
 	 **/
-	private static void handleSaveResults(MetadataService.SaveResult saveResult)
+	public static void handleSaveResults(MetadataService.SaveResult saveResult)
 	{
 		// Nothing to see?
 		if(saveResult==null || saveResult.success)
@@ -1097,7 +1097,7 @@ public with sharing class MetadataServiceExamples
 	/**
 	 * Example helper method to interpret a SaveResult, throws an exception if errors are found
 	 **/
-	private static void handleDeleteResults(MetadataService.DeleteResult deleteResult)
+	public static void handleDeleteResults(MetadataService.DeleteResult deleteResult)
 	{
 		// Nothing to see?
 		if(deleteResult==null || deleteResult.success)
@@ -1124,7 +1124,7 @@ public with sharing class MetadataServiceExamples
 	/**
 	 * Example helper method to interpret a UpsertResult, throws an exception if errors are found
 	 **/
-	private static void handleUpsertResults(MetadataService.UpsertResult upsertResult)
+	public static void handleUpsertResults(MetadataService.UpsertResult upsertResult)
 	{
 		// Nothing to see?
 		if(upsertResult==null || upsertResult.success)
