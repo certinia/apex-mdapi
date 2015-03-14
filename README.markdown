@@ -234,6 +234,7 @@ Known Issues and Resolutions
 ----------------------------
 
 - If you recieve the error message *'Insufficient access; cannot execute Metadata operation with PAC enabled session id'* within Apex code within a managed package utilising this library. Please ensure to changed the API access from Restricted to Unrestricted on your Package definition. Many thanks to the great work from [vipulpahwa](https://github.com/vipulpahwa) and [Daniel Blackhall](https://github.com/seeflat) to getting to the bottom of this rather cryptic error message.
+- If you receive the error messag *'System.CalloutException: IO Exception: Read timed out'* then take a look at this excellent resolution to the problem [here](https://github.com/financialforcedev/apex-mdapi/issues/77).
 
 How to call the Salesforce Metadata API from Apex
 -------------------------------------------------
