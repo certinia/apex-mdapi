@@ -526,6 +526,7 @@ public with sharing class MetadataServiceExamples
 		customSite.siteAdmin = 'admin@mysiteorg.com';
 		customSite.siteTemplate = 'SiteTemplate';
 		customSite.siteType = 'Visualforce';
+		customSite.clickjackProtectionLevel = 'AllowAllFraming';
 	    MetadataService.MetadataPort service = createService();
 		List<MetadataService.SaveResult> results = 		
 			service.createMetadata(
@@ -981,8 +982,8 @@ public with sharing class MetadataServiceExamples
 		MetadataService.MetadataPort service = createService();		
 		MetadataService.AuraDefinitionBundle auraBundle = 
 			(MetadataService.AuraDefinitionBundle) service.readMetadata('AuraDefinitionBundle', 
-				new String[] { 'HelloWorld' }).getRecords()[0];
-		System.debug(auraBundle.markup);			
+				new String[] { 'HellWorld' }).getRecords()[0];
+		System.debug(EncodingUtil.base64Decode(auraBundle.markup).toString());			
 	}
 
 	public static void createLignthingComponent()
@@ -996,10 +997,9 @@ public with sharing class MetadataServiceExamples
 			    '<aura:attribute name="val1" type="String" default="Value"/>' +
 			    '<aura:attribute name="val2" type="String" />' +
 			    '<aura:handler name="init" value="{!this}" action="{!c.myAction}"/>' +
-					'<ui:outputText value=\'Hello world!\'/>' +
-					'<ui:outputText value=\'{!v.val1}\'/>' +
-					'<ui:outputText value=\'{!v.val2}\'/>' +
-				'</aura:handler>' +
+				'<ui:outputText value="Hello world!"/>' +
+				'<ui:outputText value="{!v.val1}"/>' +
+				'<ui:outputText value="{!v.val2}"/>' +
 			'</aura:component>'));
 		auraBundle.controllerContent = EncodingUtil.base64Encode(Blob.valueOf( 
 			'({' + 

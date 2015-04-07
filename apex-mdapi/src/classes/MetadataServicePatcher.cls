@@ -61,7 +61,7 @@ This patch script performs the following changes to the default WSDL2Apex tool o
  **/
 public with sharing class MetadataServicePatcher {
 
-	private static final String API_VERSION = '32.0';
+	private static final String API_VERSION = '33.0';
 	
 	// List of classes to modify so that they extend appropirte base class (parse WSDL in future?)
 	private static final Map<String, String> METADATA_TYPES = 
@@ -134,8 +134,6 @@ public with sharing class MetadataServicePatcher {
 			'AuthProvider' => 'Metadata',
 			'CustomSite' => 'Metadata',
 			'KnowledgeSettings' => 'Metadata',
-			'BaseSharingRule' => 'Metadata',
-			'SharingRules' => 'Metadata',
 			'SharingSet' => 'Metadata',
 			'SecuritySettings' => 'Metadata',
 			'IdeasSettings' => 'Metadata',
@@ -195,7 +193,17 @@ public with sharing class MetadataServicePatcher {
 			'Territory2Model' => 'Metadata',
 			'Territory2Settings' => 'Metadata',
 			'Territory2Type' => 'Metadata',
-			'XOrgHub' => 'Metadata'
+			'XOrgHub' => 'Metadata',
+			'ActionLinkGroupTemplate' => 'Metadata',
+			'LicenseDefinition' => 'Metadata',
+			'MarketingResourceType' => 'Metadata',
+			'MatchingRule' => 'Metadata',
+			'MatchingRules' => 'Metadata',
+			'NamedCredential' => 'Metadata',
+			'PersonalJourneySettings' => 'Metadata',
+			'SharingBaseRule' => 'Metadata',
+			'SharingCriteriaRule' => 'SharingBaseRule',
+			'SharingRules' => 'Metadata'
 			}; // TODO: Inheritance modifications for Sharing Rules, Role, Flow and Custom Shortcut
 	
 	public static void patch()
@@ -245,6 +253,9 @@ public with sharing class MetadataServicePatcher {
 			// Make WorkflowAction virtual and extend from Metadata?
 			else if(trimmedLine.startsWith('public class WorkflowAction '))
 				line = line.replace('public class WorkflowAction ', 'public virtual class WorkflowAction extends Metadata');				
+			// Make SharingBaseRule virtual and extend from Metadata?
+			else if(trimmedLine.startsWith('public class SharingBaseRule '))
+				line = line.replace('public class SharingBaseRule ', 'public virtual class SharingBaseRule extends Metadata');				
 			// Add interfaces to read?
 			else if(trimmedLine.startsWith('public class ReadResult'))
 			{			
