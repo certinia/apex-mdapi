@@ -1114,6 +1114,17 @@ public with sharing class MetadataServiceExamples
 		handleDeleteResults(results[0]);		
 	}
 
+	public static void readTranslation()
+	{
+	    // Read Translation
+	    MetadataService.MetadataPort service = createService();		
+	    MetadataService.Translations translations = 
+			(MetadataService.Translations) service.readMetadata('Translations', 
+				new String[] { 'nl_NL' }).getRecords()[0];	    		
+		for(MetadataService.CustomLabelTranslation customLabelTranslation : translations.customLabels)
+			System.debug(customLabelTranslation.label);
+	}
+
 	public class MetadataServiceExamplesException extends Exception { }
 
 	public static MetadataService.MetadataPort createService()
