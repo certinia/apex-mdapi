@@ -2470,10 +2470,20 @@ public class MetadataService {
     public class EmailFolder extends Folder {
         public String type = 'EmailFolder';
         public String fullName;
+        public String accessType;
+        public MetadataService.FolderShare[] folderShares;
+        public String name;
+        public String publicFolderAccess;
+        public MetadataService.SharedTo sharedTo;
+        private String[] accessType_type_info = new String[]{'accessType','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] folderShares_type_info = new String[]{'folderShares','http://soap.sforce.com/2006/04/metadata',null,'0','-1','false'};
+        private String[] name_type_info = new String[]{'name','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
+        private String[] publicFolderAccess_type_info = new String[]{'publicFolderAccess','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] sharedTo_type_info = new String[]{'sharedTo','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] type_att_info = new String[]{'xsi:type'};
         private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
-        private String[] field_order_type_info = new String[]{'fullName'};
+        private String[] field_order_type_info = new String[]{'fullName','accessType','folderShares','name','publicFolderAccess','sharedTo'};
     }
     public class Territory2Rule {
         public Boolean active;
@@ -7512,10 +7522,20 @@ public class MetadataService {
     public class ReportFolder extends Folder {
         public String type = 'ReportFolder';
         public String fullName;
+        public String accessType;
+        public MetadataService.FolderShare[] folderShares;
+        public String name;
+        public String publicFolderAccess;
+        public MetadataService.SharedTo sharedTo;
+        private String[] accessType_type_info = new String[]{'accessType','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] folderShares_type_info = new String[]{'folderShares','http://soap.sforce.com/2006/04/metadata',null,'0','-1','false'};
+        private String[] name_type_info = new String[]{'name','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
+        private String[] publicFolderAccess_type_info = new String[]{'publicFolderAccess','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] sharedTo_type_info = new String[]{'sharedTo','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] type_att_info = new String[]{'xsi:type'};
         private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
-        private String[] field_order_type_info = new String[]{'fullName'};
+        private String[] field_order_type_info = new String[]{'fullName','accessType','folderShares','name','publicFolderAccess','sharedTo'};
     }
     public class RelatedListItem {
         public String[] customButtons;
@@ -8266,10 +8286,20 @@ public class MetadataService {
     public class DashboardFolder extends Folder {
         public String type = 'DashboardFolder';
         public String fullName;
+        public String accessType;
+        public MetadataService.FolderShare[] folderShares;
+        public String name;
+        public String publicFolderAccess;
+        public MetadataService.SharedTo sharedTo;
+        private String[] accessType_type_info = new String[]{'accessType','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] folderShares_type_info = new String[]{'folderShares','http://soap.sforce.com/2006/04/metadata',null,'0','-1','false'};
+        private String[] name_type_info = new String[]{'name','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
+        private String[] publicFolderAccess_type_info = new String[]{'publicFolderAccess','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] sharedTo_type_info = new String[]{'sharedTo','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] type_att_info = new String[]{'xsi:type'};
         private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
-        private String[] field_order_type_info = new String[]{'fullName'};
+        private String[] field_order_type_info = new String[]{'fullName','accessType','folderShares','name','publicFolderAccess','sharedTo'};
     }
     public class PermissionSetApexPageAccess {
         public String apexPage;
@@ -8706,10 +8736,20 @@ public class MetadataService {
     public class DocumentFolder extends Folder {
         public String type = 'DocumentFolder';
         public String fullName;
+        public String accessType;
+        public MetadataService.FolderShare[] folderShares;
+        public String name;
+        public String publicFolderAccess;
+        public MetadataService.SharedTo sharedTo;
+        private String[] accessType_type_info = new String[]{'accessType','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] folderShares_type_info = new String[]{'folderShares','http://soap.sforce.com/2006/04/metadata',null,'0','-1','false'};
+        private String[] name_type_info = new String[]{'name','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
+        private String[] publicFolderAccess_type_info = new String[]{'publicFolderAccess','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] sharedTo_type_info = new String[]{'sharedTo','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] type_att_info = new String[]{'xsi:type'};
         private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
-        private String[] field_order_type_info = new String[]{'fullName'};
+        private String[] field_order_type_info = new String[]{'fullName','accessType','folderShares','name','publicFolderAccess','sharedTo'};
     }
     public class FlowConstant {
         public String dataType;

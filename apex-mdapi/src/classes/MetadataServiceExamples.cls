@@ -915,9 +915,9 @@ public with sharing class MetadataServiceExamples
 		MetadataService.ReportFolder folder = 
 			(MetadataService.ReportFolder) service.readMetadata('ReportFolder', 
 				new String[] { 'MyFolder' }).getRecords()[0];
-		MetadataService.SharedTo shareTo = folder.SharedTo;
-		for(String groupName : shareTo.group_x)
-			System.debug('Shared to Group ' + groupName);
+		System.debug('name ' + folder.name);			
+		System.debug('fullName ' + folder.fullName);			
+		System.debug('allInternalUsers ' + folder.sharedTo.allInternalUsers);
 	}
 
 	public static void readReport()

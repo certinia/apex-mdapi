@@ -211,7 +211,8 @@ public with sharing class MetadataServicePatcher {
 	// List of base types to prescan for merging into derived types
 	private static final Map<String, String> METADATA_BASE_TYPES = 
 		new Map<String, String> { 
-			'SharingBaseRule' => 'SharingBaseRule' };	
+			'SharingBaseRule' => 'SharingBaseRule',
+			'Folder' => 'Folder' };	
 	
 	public static void patch()
 	{
