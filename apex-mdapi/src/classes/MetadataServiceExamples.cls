@@ -1134,6 +1134,39 @@ public with sharing class MetadataServiceExamples
 				new String[] { 'Test__c.TestApproval' }).getRecords()[0];	    		
 	}
 
+	public static void createCustomPageWeblink()
+	{
+		MetadataService.MetadataPort service = createService();
+
+		MetadataService.CustomPageWebLink customPageWeblink = new MetadataService.CustomPageWebLink();
+
+		//no object name here, no spaces, single "_" allowed
+		customPageWeblink.fullName = 'CustomPageWeblink_Name';
+		customPageWeblink.availability = 'online';
+		customPageWeblink.displayType = 'link';
+		customPageWeblink.encodingKey = 'UTF-8';
+		customPageWeblink.hasMenubar = false;
+		customPageWeblink.hasScrollbars = false;
+		customPageWeblink.hasToolbar = false;
+		customPageWeblink.height = 600;
+		customPageWeblink.isResizable = false;
+		customPageWeblink.linkType = 'url';
+		//friendly name that is displayed on SFDc pages
+		customPageWeblink.masterLabel = 'Label';
+		customPageWeblink.openType = 'newWindow';
+		customPageWeblink.position = 'none';
+		customPageWeblink.protected_x = false;
+		customPageWeblink.showsLocation = false;
+		customPageWeblink.showsStatus = false;
+		customPageWeblink.url = 'http://www.google.com';
+
+		List<MetadataService.SaveResult> results = 
+			service.createMetadata(
+				new MetadataService.Metadata[] { customPageWeblink });
+
+		handleSaveResults(results[0]);
+	}	
+
 	public class MetadataServiceExamplesException extends Exception { }
 
 	public static MetadataService.MetadataPort createService()
