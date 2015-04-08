@@ -978,7 +978,7 @@ public with sharing class MetadataServiceExamples
 		handleSaveResults(results[0]);		
 	}
 
-	public static void readLignthingComponent()
+	public static void readLightningComponent()
 	{
 		MetadataService.MetadataPort service = createService();		
 		MetadataService.AuraDefinitionBundle auraBundle = 
@@ -987,7 +987,7 @@ public with sharing class MetadataServiceExamples
 		System.debug(EncodingUtil.base64Decode(auraBundle.markup).toString());			
 	}
 
-	public static void createLignthingComponent()
+	public static void createLightningComponent()
 	{
 		MetadataService.MetadataPort service = createService();		
 		MetadataService.AuraDefinitionBundle auraBundle = new MetadataService.AuraDefinitionBundle();
@@ -1123,6 +1123,15 @@ public with sharing class MetadataServiceExamples
 				new String[] { 'nl_NL' }).getRecords()[0];	    		
 		for(MetadataService.CustomLabelTranslation customLabelTranslation : translations.customLabels)
 			System.debug(customLabelTranslation.label);
+	}
+
+	public static void readApprovalProcess()
+	{
+	    // Read Translation
+	    MetadataService.MetadataPort service = createService();		
+	    MetadataService.ApprovalProcess approvalProcess = 
+			(MetadataService.ApprovalProcess) service.readMetadata('ApprovalProcess', 
+				new String[] { 'Test__c.TestApproval' }).getRecords()[0];	    		
 	}
 
 	public class MetadataServiceExamplesException extends Exception { }
