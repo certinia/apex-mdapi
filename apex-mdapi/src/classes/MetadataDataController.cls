@@ -26,6 +26,9 @@
 
 public with sharing class MetadataDataController 
 {
+	private static final Integer METADATA_API_VERSION = 
+		Integer.valueOf(new MetadataService.MetadataPort().endpoint_x.substringAfterLast('/'));
+	
 	public String Data {get; set;}
 	
 	public PageReference constructResponse()
@@ -36,7 +39,7 @@ public with sharing class MetadataDataController
 		{
 			// List available Metadata Types via the 'describeMetadata' API call
 			MetadataService.MetadataPort service = MetadataServiceExamples.createService();					
-			MetadataService.DescribeMetadataResult describeResult = service.describeMetadata(26);
+			MetadataService.DescribeMetadataResult describeResult = service.describeMetadata(METADATA_API_VERSION);
 			for(MetadataService.DescribeMetadataObject metadataObject : describeResult.metadataObjects)
 			{
 				nodes.add(new FolderNode(metadataObject.xmlName, metadataObject.xmlName, false, null));
@@ -55,7 +58,7 @@ public with sharing class MetadataDataController
 			MetadataService.ListMetadataQuery query = new MetadataService.ListMetadataQuery();
 			query.type_x = node;
 			queries.add(query);		
-			MetadataService.FileProperties[] fileProperties = service.listMetadata(queries, 26);
+			MetadataService.FileProperties[] fileProperties = service.listMetadata(queries, METADATA_API_VERSION);
 			
 			// Emit leaf nodes (ensure unique IDs)
 			Integer index = 0;

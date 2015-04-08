@@ -172,7 +172,8 @@ public with sharing class MetadataServiceExamples
 
 	public static void updateTabVisibility()
 	{
-		MetadataService.MetadataPort service = createService();				MetadataService.Profile admin = (MetadataService.Profile) service.readMetadata('Profile', new String[] { 'Admin' }).getRecords()[0];
+		MetadataService.MetadataPort service = createService();				
+		MetadataService.Profile admin = (MetadataService.Profile) service.readMetadata('Profile', new String[] { 'Admin' }).getRecords()[0];
 		MetadataService.ProfileTabVisibility tabVis = new MetadataService.ProfileTabVisibility();
 		tabVis.tab = 'Test_Tab__c';
 		tabVis.visibility = 'Hidden';
@@ -1055,6 +1056,62 @@ public with sharing class MetadataServiceExamples
 			service.upsertMetadata(
 				new MetadataService.Metadata[] { layout });		
 		handleUpsertResults(results[0]);		
+	}
+
+	public static void createSharingRule()
+	{
+		// Create Sharing Rule
+		MetadataService.MetadataPort service = createService();		
+		MetadataService.SharingRules testSharingRule = new MetadataService.SharingRules();
+		testSharingRule.fullName = 'Test__c';
+		testSharingRule.sharingCriteriaRules = new List<MetadataService.SharingCriteriaRule>();
+		MetadataService.SharingCriteriaRule sharingCriteriaRule = new MetadataService.SharingCriteriaRule();
+		sharingCriteriaRule.fullName = 'TestCriteria';
+		sharingCriteriaRule.accessLevel = 'Read';
+		sharingCriteriaRule.label = 'Test';
+		sharingCriteriaRule.sharedTo = new MetadataService.SharedTo();
+		sharingCriteriaRule.sharedTo.allPartnerUsers = '';		
+		sharingCriteriaRule.criteriaItems = new List<MetadataService.FilterItem>();
+		MetadataService.FilterItem cirteriaFilterItem = new MetadataService.FilterItem();
+		cirteriaFilterItem.field = 'RecordTypeId';
+		cirteriaFilterItem.operation = 'equals';
+		cirteriaFilterItem.value = 'Record Type A';
+		sharingCriteriaRule.criteriaItems.add(cirteriaFilterItem);
+		testSharingRule.sharingCriteriaRules.add(sharingCriteriaRule);
+		testSharingRule.sharingOwnerRules = new List<MetadataService.SharingOwnerRule>();
+		MetadataService.SharingOwnerRule sharingOwnerRule = new MetadataService.SharingOwnerRule();
+		sharingOwnerRule.fullName = 'TestOwner';
+		sharingOwnerRule.accessLevel = 'Read';
+		sharingOwnerRule.label = 'Test';
+		sharingOwnerRule.sharedTo = new MetadataService.SharedTo();
+		sharingOwnerRule.sharedTo.allPartnerUsers = '';
+		sharingOwnerRule.sharedFrom = new MetadataService.SharedTo();
+		sharingOwnerRule.sharedFrom.allInternalUsers = '';
+		testSharingRule.sharingOwnerRules.add(sharingOwnerRule);
+		List<MetadataService.SaveResult> results = 		
+			service.createMetadata(
+				new MetadataService.Metadata[] { testSharingRule });				
+		handleSaveResults(results[0]);
+	}
+
+	public static void readSharingRule() 
+	{
+	    // Read Sharing Rule
+	    MetadataService.MetadataPort service = createService();		
+	    MetadataService.SharingRules sharingRules = 
+			(MetadataService.SharingRules) service.readMetadata('SharingRules', 
+				new String[] { 'Test__c' }).getRecords()[0];	    
+		System.debug(sharingRules.sharingOwnerRules[0].fullName);
+	}
+
+	public static void deleteSharingRule()
+	{
+		// Delete Sharing Rule
+		MetadataService.MetadataPort service = createService();		
+		List<MetadataService.DeleteResult> results = 		
+			service.deleteMetadata(
+				'SharingRules', new String[] { 'Test__c' });		
+		handleDeleteResults(results[0]);		
 	}
 
 	public class MetadataServiceExamplesException extends Exception { }

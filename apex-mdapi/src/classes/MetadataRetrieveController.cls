@@ -29,6 +29,9 @@
  **/
 public with sharing class MetadataRetrieveController 
 {
+	private static final Integer METADATA_API_VERSION = 
+		Integer.valueOf(new MetadataService.MetadataPort().endpoint_x.substringAfterLast('/'));
+
 	public List<SelectOption> MetaDataTypes {get; set;}
 	public String MetaDataType {get; set;}		
 	public List<SelectOption> MetaDataItems {get; set;}
@@ -44,7 +47,7 @@ public with sharing class MetadataRetrieveController
 	{
 		// List available Metadata Types via the 'describeMetadata' API call
 		MetadataService.MetadataPort service = createService();					
-		MetadataService.DescribeMetadataResult describeResult = service.describeMetadata(26);
+		MetadataService.DescribeMetadataResult describeResult = service.describeMetadata(METADATA_API_VERSION);
 		List<String> metadataTypeNames = new List<String>();
 		for(MetadataService.DescribeMetadataObject metadataObject : describeResult.metadataObjects)
 		{
@@ -76,10 +79,11 @@ public with sharing class MetadataRetrieveController
 		MetadataService.MetadataPort service = createService();				
 		List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();		
 		MetadataService.ListMetadataQuery queryLayout = new MetadataService.ListMetadataQuery();
-		queryLayout.folder = MetaDataFolder;
+		if(MetaDataFolder!=null && MetaDataFolder.length()>0)
+			queryLayout.folder = MetaDataFolder;
 		queryLayout.type_x = MetaDataType;
 		queries.add(queryLayout);		
-		MetadataService.FileProperties[] fileProperties = service.listMetadata(queries, 25);
+		MetadataService.FileProperties[] fileProperties = service.listMetadata(queries, METADATA_API_VERSION);
 		
 		// Sort
 		List<String> fullNames = new List<String>();
@@ -106,7 +110,7 @@ public with sharing class MetadataRetrieveController
 		// Construct unmanaged package with list of desired components to retrieve in zip
 		MetadataService.MetadataPort service = createService();				
 		MetadataService.RetrieveRequest retrieveRequest = new MetadataService.RetrieveRequest();
-		retrieveRequest.apiVersion = 25;
+		retrieveRequest.apiVersion = METADATA_API_VERSION;
 		retrieveRequest.packageNames = null;
 		retrieveRequest.singlePackage = true;
 		retrieveRequest.specificFiles = null;
