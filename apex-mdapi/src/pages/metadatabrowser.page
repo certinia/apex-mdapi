@@ -51,7 +51,7 @@
 		        frame: true,
 		        title: 'Metadata Components',
 		        renderTo: '{!$Component.appcanvas}',
-		        width: 500,
+		        width: 1000,
 		        height: 500,
 		        dockedItems: [{
 		            xtype: 'toolbar',
