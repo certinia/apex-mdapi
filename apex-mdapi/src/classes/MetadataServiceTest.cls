@@ -65,6 +65,10 @@ private class MetadataServiceTest
                 response.put('response_x', new MetadataService.upsertMetadataResponse_element());
             else if(request instanceof  MetadataService.createMetadata_element)
                 response.put('response_x', new MetadataService.createMetadataResponse_element());
+            else if(request instanceof  MetadataService.deployRecentValidation_element)
+                response.put('response_x', new MetadataService.deployRecentValidationResponse_element());
+            else if(request instanceof MetadataService.describeValueType_element)
+                response.put('response_x', new MetadataService.describeValueTypeResponse_element());
 			return;
 		}
 	}    
@@ -113,6 +117,8 @@ private class MetadataServiceTest
         metaDataPort.deleteMetadata(null, null);
         metaDataPort.upsertMetadata(null);
         metaDataPort.createMetadata(null);
+        metaDataPort.deployRecentValidation(null);
+        metaDataPort.describeValueType(null);
     }
         
 	@IsTest
@@ -122,20 +128,15 @@ private class MetadataServiceTest
         new MetadataService();
         new MetadataService.listMetadataResponse_element();
         new MetadataService.WorkflowRule();
-        new MetadataService.AccountOwnerSharingRule();
         new MetadataService.RecordTypeTranslation();
         new MetadataService.checkDeployStatus_element();
         new MetadataService.CodeCoverageWarning();
         new MetadataService.FlowApexPluginCall();
         new MetadataService.FlowInputValidationRule();
         new MetadataService.FlowFormula();
-        new MetadataService.CustomObjectCriteriaBasedSharingRule();
         new MetadataService.PasswordPolicies();
         new MetadataService.QueueSobject();
-        new MetadataService.CaseSharingRules();
         new MetadataService.PicklistValueTranslation();
-        new MetadataService.OpportunityOwnerSharingRule();
-        new MetadataService.ContactOwnerSharingRule();
         new MetadataService.CustomDataType();
         new MetadataService.PrimaryTabComponents();
         new MetadataService.WorkflowEmailRecipient();
@@ -143,7 +144,6 @@ private class MetadataServiceTest
         new MetadataService.RecordType();
         new MetadataService.Scontrol();
         new MetadataService.DashboardComponent();
-        new MetadataService.ContactCriteriaBasedSharingRule();
         new MetadataService.FilterItem();
         new MetadataService.Profile();
         new MetadataService.ReportFilter();
@@ -159,7 +159,6 @@ private class MetadataServiceTest
         new MetadataService.DashboardComponentSection();
         new MetadataService.ReportTypeColumn();
         new MetadataService.CallOptions_element();
-        new MetadataService.CustomObjectOwnerSharingRule();
         new MetadataService.CustomFieldTranslation();
         new MetadataService.AnalyticSnapshot();
         new MetadataService.FlowRule();
@@ -167,7 +166,6 @@ private class MetadataServiceTest
         new MetadataService.CustomSite();
         new MetadataService.ReportBlockInfo();
         new MetadataService.describeMetadataResponse_element();
-        new MetadataService.CaseOwnerSharingRule();
         new MetadataService.ScontrolTranslation();
         new MetadataService.DeployMessage();
         new MetadataService.FlowSubflowInputAssignment();
@@ -177,7 +175,6 @@ private class MetadataServiceTest
         new MetadataService.CustomPageWebLink();
         new MetadataService.CodeCoverageResult();
         new MetadataService.ApexComponent();
-        new MetadataService.BaseSharingRule();
         new MetadataService.WorkflowKnowledgePublish();
         new MetadataService.NetworkAccess();
         new MetadataService.Workflow();
@@ -195,7 +192,6 @@ private class MetadataServiceTest
         new MetadataService.RetrieveResult();
         new MetadataService.SecuritySettings();
         new MetadataService.WorkflowTimeTrigger();
-        new MetadataService.CustomObjectSharingRules();
         new MetadataService.retrieve_element();
         new MetadataService.DescribeMetadataObject();
         new MetadataService.DashboardFilterOption();
@@ -203,9 +199,7 @@ private class MetadataServiceTest
         new MetadataService.WorkflowOutboundMessage();
         new MetadataService.RunTestSuccess();
         new MetadataService.Queue();
-        new MetadataService.LeadSharingRules();
         new MetadataService.ListViewFilter();
-        new MetadataService.CampaignOwnerSharingRule();
         new MetadataService.CustomField();
         new MetadataService.WorkflowTask();
         new MetadataService.deployResponse_element();
@@ -226,8 +220,6 @@ private class MetadataServiceTest
         new MetadataService.ListView();
         new MetadataService.FlowRecordCreate();
         new MetadataService.DashboardTableColumn();
-        new MetadataService.ContactSharingRules();
-        new MetadataService.AccountTerritorySharingRules();
         new MetadataService.AsyncResult();
         new MetadataService.ArticleTypeChannelDisplay();
         new MetadataService.checkRetrieveStatus_element();
@@ -243,7 +235,6 @@ private class MetadataServiceTest
 		new MetadataService.FlowRecordLookup();
         new MetadataService.FieldSet();
         new MetadataService.ProfileApexClassAccess();
-        new MetadataService.AccountCriteriaBasedSharingRule();
         new MetadataService.DebuggingHeader_element();
         new MetadataService.CustomDataTypeComponentTranslation();
         new MetadataService.FlowRecordDelete();
@@ -252,7 +243,6 @@ private class MetadataServiceTest
         new MetadataService.IpRange();
         new MetadataService.FlowApexPluginCallOutputParameter();
         new MetadataService.ReportBucketField();
-        new MetadataService.CaseCriteriaBasedSharingRule();
         new MetadataService.CustomLabel();
         new MetadataService.Attachment();
         new MetadataService.SharingRules();
@@ -279,10 +269,8 @@ private class MetadataServiceTest
         new MetadataService.WorkspaceMapping();
         new MetadataService.MetadataWithContent();
         new MetadataService.ValidationRuleTranslation();
-        new MetadataService.AccountTerritorySharingRule();
         new MetadataService.Metadata();
         new MetadataService.ReportBucketFieldValue();
-        new MetadataService.OpportunitySharingRules();
         new MetadataService.HomePageLayout();
         new MetadataService.FlowSubflow();
         new MetadataService.FlowScreenField();
@@ -322,17 +310,14 @@ private class MetadataServiceTest
         new MetadataService.ReportGrouping();
         new MetadataService.PermissionSetFieldPermissions();
         new MetadataService.AnalyticSnapshotMapping();
-        new MetadataService.LeadCriteriaBasedSharingRule();
         new MetadataService.SharingRecalculation();
         new MetadataService.ProfileLoginIpRange();
         new MetadataService.WebLinkTranslation();
         new MetadataService.ObjectRelationship();
         new MetadataService.ListPlacement();
         new MetadataService.SiteRedirectMapping();
-        new MetadataService.OwnerSharingRule();
         new MetadataService.WorkflowFieldUpdate();
         new MetadataService.LetterheadLine();
-        new MetadataService.OpportunityCriteriaBasedSharingRule();
         new MetadataService.CustomTab();
         new MetadataService.FlowChoiceUserInput();
         new MetadataService.Letterhead();
@@ -345,7 +330,6 @@ private class MetadataServiceTest
         new MetadataService.CustomLabelTranslation();
         new MetadataService.ReportChart();
         new MetadataService.checkRetrieveStatusResponse_element();
-        new MetadataService.LeadOwnerSharingRule();
         new MetadataService.ProfileFieldLevelSecurity();
         new MetadataService.SharingReason();
         new MetadataService.RunTestsResult();
@@ -364,14 +348,12 @@ private class MetadataServiceTest
         new MetadataService.CustomApplication();
         new MetadataService.ReportAggregate();
         new MetadataService.ApexClass();
-        new MetadataService.CampaignSharingRules();
         new MetadataService.DebuggingInfo_element();
         new MetadataService.Package_x();
         new MetadataService.SessionSettings();
         new MetadataService.Document();
         new MetadataService.Folder();
         new MetadataService.DeployResult();
-        new MetadataService.CampaignCriteriaBasedSharingRule();
         new MetadataService.LayoutItem();
         new MetadataService.ProfileApexPageAccess();
         new MetadataService.SharingReasonTranslation();
@@ -380,7 +362,6 @@ private class MetadataServiceTest
         new MetadataService.SearchLayouts();
         new MetadataService.LetterheadHeaderFooter();
         new MetadataService.HomePageComponent();
-        new MetadataService.AccountSharingRules();
         new MetadataService.MobileSettings();
         new MetadataService.EscalationRules();
         new MetadataService.KnowledgeAnswerSettings();
@@ -418,7 +399,6 @@ private class MetadataServiceTest
         new MetadataService.EmailToCaseRoutingAddress();
         new MetadataService.RuleEntry();
         new MetadataService.EntitlementSettings();
-        new MetadataService.CriteriaBasedSharingRule();
         new MetadataService.ApexPage();
         new MetadataService.WorkflowSend();
         new MetadataService.ChatterMobileSettings();
@@ -494,7 +474,6 @@ private class MetadataServiceTest
         new MetadataService.WorkflowFlowActionParameter();
         new MetadataService.ConnectedAppOauthConfig();
         new MetadataService.FlowLoop();
-        new MetadataService.UserSharingRules();
         new MetadataService.renameMetadata_element();
         new MetadataService.ForecastingTypeSettings();
         new MetadataService.PermissionSetApplicationVisibility();
@@ -522,7 +501,6 @@ private class MetadataServiceTest
         new MetadataService.PermissionSetRecordTypeVisibility();
         new MetadataService.OrderSettings();
         new MetadataService.ProfileUserPermission();
-        new MetadataService.UserCriteriaBasedSharingRule();
         new MetadataService.LookupFilterTranslation();
         new MetadataService.WorkflowFlowAction();
         new MetadataService.ConnectedApp();
@@ -620,8 +598,6 @@ private class MetadataServiceTest
         new MetadataService.readCustomPageWebLinkResponse_element();
         new MetadataService.ReadApexComponentResult();
         new MetadataService.readApexComponentResponse_element();
-        new MetadataService.ReadBaseSharingRuleResult();
-        new MetadataService.readBaseSharingRuleResponse_element();
         new MetadataService.ReadEntitlementTemplateResult();
         new MetadataService.readEntitlementTemplateResponse_element();
         new MetadataService.ReadFlexiPageResult();
@@ -743,7 +719,6 @@ private class MetadataServiceTest
         new MetadataService.ReadHomePageComponentResult();
         new MetadataService.readHomePageComponentResponse_element();
         new MetadataService.ReadResult();
-        new MetadataService.UserMembershipSharingRule();
         new MetadataService.BusinessHoursSettings();
         new MetadataService.FeedLayoutFilter();
         new MetadataService.ReportHistoricalSelector();
@@ -871,5 +846,48 @@ private class MetadataServiceTest
         new MetadataService.FeedItemSettings();
         new MetadataService.FlowBaseElement();
         new MetadataService.Territory2();        
+        new MetaDataService.deployRecentValidationResponse_element();
+        new MetaDataService.SharingCriteriaRule();
+        new MetaDataService.ActionLinkGroupTemplate();
+        new MetaDataService.MatchingRule();
+        new MetaDataService.describeValueType_element();
+        new MetaDataService.LicensedCustomPermissions();
+        new MetaDataService.MatchingRuleItem();
+        new MetaDataService.MarketingResourceType();
+        new MetaDataService.SharingBaseRule();
+        new MetaDataService.MatchingRules();
+        new MetaDataService.deployRecentValidation_element();
+        new MetaDataService.ActionLinkTemplate();
+        new MetaDataService.SharingTerritoryRule();
+        new MetaDataService.PersonalJourneySettings();
+        new MetaDataService.LicenseDefinition();
+        new MetaDataService.AccountSharingRuleSettings();
+        new MetaDataService.NamedCredential();
+        new MetaDataService.DescribeValueTypeResult();
+        new MetaDataService.ReadSharingTerritoryRuleResult();
+        new MetaDataService.readSharingTerritoryRuleResponse_element();
+        new MetadataService.ReadPersonalJourneySettingsResult();
+        new MetaDataService.readPersonalJourneySettingsResponse_element();
+        new MetaDataService.ReadMarketingResourceTypeResult();
+        new MetaDataService.readMarketingResourceTypeResponse_element();
+        new MetaDataService.ReadSharingCriteriaRuleResult();
+        new MetaDataService.readSharingCriteriaRuleResponse_element();
+        new MetaDataService.ReadLicenseDefinitionResult();
+        new MetaDataService.readLicenseDefinitionResponse_element();
+        new MetaDataService.ReadActionLinkGroupTemplateResult();
+        new MetaDataService.readActionLinkGroupTemplateResponse_element();
+        new MetaDataService.ReadNamedCredentialResult();
+        new MetaDataService.readNamedCredentialResponse_element();
+        new MetaDataService.ReadSharingOwnerRuleResult();
+        new MetaDataService.readSharingOwnerRuleResponse_element();
+        new MetaDataService.ReadSharingBaseRuleResult();
+        new MetaDataService.readSharingBaseRuleResponse_element();
+        new MetaDataService.ReadMatchingRulesResult();
+        new MetaDataService.readMatchingRulesResponse_element();
+        new MetaDataService.ReadMatchingRuleResult();
+        new MetaDataService.readMatchingRuleResponse_element();
+        new MetaDataService.SharingOwnerRule();
+        new MetaDataService.PicklistEntry();
+        new MetaDataService.ValueTypeField();        
     }
 }
