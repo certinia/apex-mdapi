@@ -281,8 +281,24 @@ public with sharing class MetadataServicePatcher {
 			else if(trimmedLine.contains('retrieve_x('))
 				line = line.replace('retrieve_x', 'retrieve');
 			// Make Metadata virtual?
-			else if(trimmedLine.startsWith('public class Metadata '))
+			else if(trimmedLine.startsWith('public class Metadata ')) {
 				line = line.replace('public class', 'public virtual class');				
+				newLines.add(line);
+				while(lineReader.hasNext())
+				{
+					line = (String) lineReader.next();
+					trimmedLine = line.trim();
+					// Skip these, not needed as duplciated in derived classes and cause JSON serialise issues for types
+					if(line.contains('fullName_type_info') ||
+					   line.contains('apex_schema_type_info') ||
+					   line.contains('field_order_type_info'))
+						continue;
+					newLines.add(line);
+					if(trimmedLine == '}')
+						break;
+				}				
+				continue;
+			}
 			// Make MetadataWithContent virtual?
 			else if(trimmedLine.startsWith('public class MetadataWithContent '))
 				line = line.replace('public class MetadataWithContent', 'public virtual class MetadataWithContent extends Metadata');
