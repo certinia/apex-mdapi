@@ -983,7 +983,7 @@ public with sharing class MetadataServiceExamples
 		MetadataService.MetadataPort service = createService();		
 		MetadataService.AuraDefinitionBundle auraBundle = 
 			(MetadataService.AuraDefinitionBundle) service.readMetadata('AuraDefinitionBundle', 
-				new String[] { 'HellWorld' }).getRecords()[0];
+				new String[] { 'HelloWorld' }).getRecords()[0];
 		System.debug(EncodingUtil.base64Decode(auraBundle.markup).toString());			
 	}
 
@@ -991,7 +991,7 @@ public with sharing class MetadataServiceExamples
 	{
 		MetadataService.MetadataPort service = createService();		
 		MetadataService.AuraDefinitionBundle auraBundle = new MetadataService.AuraDefinitionBundle();
-		auraBundle.fullName = 'HellWorld';
+		auraBundle.fullName = 'HelloWorld';
 		auraBundle.type_x = 'Component';
 		auraBundle.markup = EncodingUtil.base64Encode(Blob.valueOf(
 			'<aura:component>' + 
