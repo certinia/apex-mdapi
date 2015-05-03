@@ -1,0 +1,78 @@
+<apex:component controller="RemoteSiteHelperController" allowDML='true' access="global">
+	<apex:attribute name="rss_name" type="String" required="true" access="global" assignTo="{!rssName}" default="mdapi" description="The name of the remote site setting you want to create." />
+	<apex:attribute name="rss_description" type="String" required="true" access="global" default="mdapi" description="The description of the remote site setting you want to create." />
+	<apex:attribute name="page_overview" type="String" required="false" default="This tool does lots of fun things with the Metadata API." description="The text to be displayed to the user that will give an overview of the tool using the metadata api." />
+	<apex:attribute name="page_overviewLinkURL" type="String" required="false" default="http://google.com" description="Some link you want to point the user to."/>
+	<apex:attribute name="page_overviewLinkText" type="String" required="false" default="Use Google" description="The link text."/>
+	<apex:attribute name="page_SectionTitle" type="String" required="true" access="global" default="Tool using Metadata API" description="This is the section Title for the page." />
+	<apex:attribute name="page_SectionSubTitle" type="String" required="true" access="global" default="Welcome" description="This is the section sub title for the page." />
+
+	<script>
+		function createRemoteSite()
+		{ 
+			// Disable button 
+			document.getElementById('createremotesitebtn').disabled = true;
+			// Calls the Metdata API from JavaScript to create the Remote Site Setting to permit Apex callouts
+			var binding = new XMLHttpRequest();
+			var request = 
+				'<?xml version="1.0" encoding="utf-8"?>' + 
+				'<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'+
+					'<env:Header>' + 
+						'<urn:SessionHeader xmlns:urn="http://soap.sforce.com/2006/04/metadata">' + 
+							'<urn:sessionId>{!$Api.Session_ID}</urn:sessionId>' + 
+						'</urn:SessionHeader>' + 
+					'</env:Header>' + 
+					'<env:Body>' +
+						'<createMetadata xmlns="http://soap.sforce.com/2006/04/metadata">' + 
+							'<metadata xsi:type="RemoteSiteSetting">' + 
+								'<fullName>{!rss_name}</fullName>' + 
+								'<description>{!rss_description}</description>' + 
+								'<disableProtocolSecurity>false</disableProtocolSecurity>' + 
+								'<isActive>true</isActive>' + 
+								'<url>https://{!Host}</url>' +
+							'</metadata>' +
+						'</createMetadata>' +
+					'</env:Body>' + 
+				'</env:Envelope>';
+			binding.open('POST', 'https://{!Host}/services/Soap/m/31.0');
+			binding.setRequestHeader('SOAPAction','""');
+			binding.setRequestHeader('Content-Type', 'text/xml');
+			binding.onreadystatechange = 
+				function() { 
+					if(this.readyState==4) {
+						var parser = new DOMParser();
+						var doc  = parser.parseFromString(this.response, 'application/xml');
+						var errors = doc.getElementsByTagName('errors');
+						var messageText = '';
+						for(var errorIdx = 0; errorIdx < errors.length; errorIdx++)
+							messageText+= errors.item(errorIdx).getElementsByTagName('message').item(0).innerHTML + '\n';
+						displayMetadataResponse(messageText);
+					} 
+				}
+			binding.send(request);
+		}
+	</script>
+	
+	<apex:form id="myForm">
+		<apex:actionFunction name="displayMetadataResponse" action="{!displayMetadataResponse}" rerender="myForm">
+			<apex:param name="metadataResponse" assignTo="{!metadataResponse}" value="{!metadataResponse}"/>
+		</apex:actionFunction>
+
+		<apex:sectionHeader title="{!page_SectionTitle}" subtitle="{!page_SectionSubTitle}"/>
+		<apex:pageMessages />
+		<img src="http://andrewfawcett.files.wordpress.com/2013/07/blog_chart1.jpg" width="200" height="200" align="left"/>
+		<apex:outputPanel rendered="{!MetadataConnectionWarning}">
+			<h1>Important Post Install Step:</h1> 
+			<p>In order to utilise the features of this tool, you need to permit the tool access to the Salesforce Metadata API. This can be accomplished by adding a <a target="_new" href="http://na1.salesforce.com/help/doc/en/configuring_remoteproxy.htm">Remote Site Setting</a> with this Salesforce Server URL <b>https://{!Host}</b></p>
+			<p> Click the <b>Create Remote Site Setting</b> button to have the tool perform this step for you.</p>
+			<input id="createremotesitebtn" type="button" onclick="createRemoteSite();" value="Create Remote Site Setting"/>
+		</apex:outputPanel>
+		<p><b>Overview</b>: {!page_overview}</p>
+		<p><b>Link</b>: <a href="{!page_overviewLinkURL}" target="_new">{!page_overviewLinkText}</a></p>
+
+		<apex:outputPanel rendered="{!MetadataConnectionWarning}">
+			<p style="color:gray">DEBUG USE ONLY: {!metadataApiException}</p>
+		</apex:outputPanel>
+	</apex:form>
+
+</apex:component>
