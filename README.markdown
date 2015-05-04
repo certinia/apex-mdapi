@@ -253,6 +253,20 @@ One option is to download the Metadata WSDL from the Tools page under the Develo
 
 I've created this Github repo to capture a modified version of the generated Apex class around the Metadata API, which addresses the problems above so that you can download it and get started straight away.
 
+Remote Site Settings are a must; the tool can help!
+---------------------------------------------------
+A recent contribution has taken much of the work that was done in the [DLRS Tool](https://github.com/afawcett/declarative-lookup-rollup-summaries) for automating the creation of a remote site setting and turned it into a visualforce component that is easily extensible for anyone needed a remote site setting created. See the [RemoteSitePage.page](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/pages/RemoteSitePage.page) as well as the [RemoteSiteHelper.componente](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/components/RemoteSiteHelper.component) for full code. In short, this page will automatically detect if the salesforce instance you're using can access the metadata api; and if it cannot access, it gives you the ability to specify the remote site setting you want, and automatically populate the correct url. It also allows you to have a simple "welcome style" page that has some fanciness. Here are the component parameters:
+-rss_name="mdapi"
+-rss_description="SFDC to SFDC metadata api."
+-page_overview="This is an awesome overview of my tool."
+-page_overviewLinkURL="http://google.com"
+-page_overviewLinkText="Google This tool!"
+-page_SectionTitle="My Awesome Package Welcome Page"
+-page_SectionSubTitle="Welcome"
+
+Here is what the page will look like with the above configuration.
+![Demo Screenshot](https://raw.githubusercontent.com/financialforcedev/apex-mdapi/master/images/remotesitehelper.png)
+
 How to create your own MetadataService.cls
 ------------------------------------------
 
@@ -286,6 +300,8 @@ How to create your own MetadataService.cls
 
 Release History
 ---------------
+**Update: 4th May 2015:**
+- Created new Remote Site Helper Page.
 
 **Update: 7th April 2015:**
 - Updated to **Spring'15 Metadata API (v33.0)**
