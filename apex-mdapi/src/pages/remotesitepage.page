@@ -1,6 +1,5 @@
 <apex:page showHeader="true" sidebar="true" standardStylesheets="true">
-	<c:RemoteSiteHelper
-		rssName="mdapi"
+	<c:remotesitehelper rssName="mdapi"
 		rssDescription="SFDC to SFDC metadata api."
 		pageOverview="This is an awesome overview of my tool."
 		pageOverviewLinkURL="http://google.com"
