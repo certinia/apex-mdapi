@@ -1,11 +1,13 @@
 <apex:component controller="RemoteSiteHelperController" allowDML='true' access="global">
-	<apex:attribute name="rss_name" type="String" required="true" access="global" assignTo="{!rssName}" default="mdapi" description="The name of the remote site setting you want to create." />
-	<apex:attribute name="rss_description" type="String" required="true" access="global" default="mdapi" description="The description of the remote site setting you want to create." />
-	<apex:attribute name="page_overview" type="String" required="false" default="This tool does lots of fun things with the Metadata API." description="The text to be displayed to the user that will give an overview of the tool using the metadata api." />
-	<apex:attribute name="page_overviewLinkURL" type="String" required="false" default="http://google.com" description="Some link you want to point the user to."/>
-	<apex:attribute name="page_overviewLinkText" type="String" required="false" default="Use Google" description="The link text."/>
-	<apex:attribute name="page_SectionTitle" type="String" required="true" access="global" default="Tool using Metadata API" description="This is the section Title for the page." />
-	<apex:attribute name="page_SectionSubTitle" type="String" required="true" access="global" default="Welcome" description="This is the section sub title for the page." />
+	<apex:attribute name="rssName" type="String" required="true" access="global" assignTo="{!rssName}" default="mdapi" description="The name of the remote site setting you want to create." />
+	<apex:attribute name="rssDescription" type="String" required="true" access="global" default="mdapi" description="The description of the remote site setting you want to create." />
+	<apex:attribute name="pageOverview" type="String" required="false" default="This tool does lots of fun things with the Metadata API." description="The text to be displayed to the user that will give an overview of the tool using the metadata api." />
+	<apex:attribute name="pageOverviewLinkURL" type="String" required="false" default="http://google.com" description="Some link you want to point the user to."/>
+	<apex:attribute name="pageOverviewLinkText" type="String" required="false" default="Use Google" description="The link text."/>
+	<apex:attribute name="pageSectionTitle" type="String" required="true" access="global" default="Tool using Metadata API" description="This is the section Title for the page." />
+	<apex:attribute name="pageSectionSubTitle" type="String" required="true" access="global" default="Welcome" description="This is the section sub title for the page." />
+	<apex:attribute name="pageImageURL" type="String" required="true" access="global" default="http://andrewfawcett.files.wordpress.com/2013/07/blog_chart1.jpg" description="This is the url of the image to be displayed." />
+	
 
 	<script>
 		function createRemoteSite()
@@ -25,8 +27,8 @@
 					'<env:Body>' +
 						'<createMetadata xmlns="http://soap.sforce.com/2006/04/metadata">' + 
 							'<metadata xsi:type="RemoteSiteSetting">' + 
-								'<fullName>{!rss_name}</fullName>' + 
-								'<description>{!rss_description}</description>' + 
+								'<fullName>{!rssName}</fullName>' + 
+								'<description>{!rssDescription}</description>' + 
 								'<disableProtocolSecurity>false</disableProtocolSecurity>' + 
 								'<isActive>true</isActive>' + 
 								'<url>https://{!Host}</url>' +
@@ -58,17 +60,17 @@
 			<apex:param name="metadataResponse" assignTo="{!metadataResponse}" value="{!metadataResponse}"/>
 		</apex:actionFunction>
 
-		<apex:sectionHeader title="{!page_SectionTitle}" subtitle="{!page_SectionSubTitle}"/>
+		<apex:sectionHeader title="{!pageSectionTitle}" subtitle="{!pageSectionSubTitle}"/>
 		<apex:pageMessages />
-		<img src="http://andrewfawcett.files.wordpress.com/2013/07/blog_chart1.jpg" width="200" height="200" align="left"/>
+		<img src="{!pageImageURL}" width="200" height="200" align="left"/>
 		<apex:outputPanel rendered="{!MetadataConnectionWarning}">
 			<h1>Important Post Install Step:</h1> 
 			<p>In order to utilise the features of this tool, you need to permit the tool access to the Salesforce Metadata API. This can be accomplished by adding a <a target="_new" href="http://na1.salesforce.com/help/doc/en/configuring_remoteproxy.htm">Remote Site Setting</a> with this Salesforce Server URL <b>https://{!Host}</b></p>
 			<p> Click the <b>Create Remote Site Setting</b> button to have the tool perform this step for you.</p>
 			<input id="createremotesitebtn" type="button" onclick="createRemoteSite();" value="Create Remote Site Setting"/>
 		</apex:outputPanel>
-		<p><b>Overview</b>: {!page_overview}</p>
-		<p><b>Link</b>: <a href="{!page_overviewLinkURL}" target="_new">{!page_overviewLinkText}</a></p>
+		<p><b>Overview</b>: {!pageOverview}</p>
+		<p><b>Link</b>: <a href="{!pageOverviewLinkURL}" target="_new">{!pageOverviewLinkText}</a></p>
 
 		<apex:outputPanel rendered="{!MetadataConnectionWarning}">
 			<p style="color:gray">DEBUG USE ONLY: {!metadataApiException}</p>
