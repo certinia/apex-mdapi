@@ -6,7 +6,7 @@
 	<apex:attribute name="pageOverviewLinkText" type="String" required="false" default="Use Google" description="The link text."/>
 	<apex:attribute name="pageSectionTitle" type="String" required="true" access="global" default="Tool using Metadata API" description="This is the section Title for the page." />
 	<apex:attribute name="pageSectionSubTitle" type="String" required="true" access="global" default="Welcome" description="This is the section sub title for the page." />
-	<apex:attribute name="pageImageURL" type="String" required="true" access="global" default="http://andrewfawcett.files.wordpress.com/2013/07/blog_chart1.jpg" description="This is the url of the image to be displayed." />
+	<apex:attribute name="pageImageURL" type="String" required="false" access="global" default="http://andrewfawcett.files.wordpress.com/2013/07/blog_chart1.jpg" description="This is the url of the image to be displayed." />
 	
 
 	<script>
