@@ -1,5 +1,5 @@
 <apex:component controller="RemoteSiteHelperController" allowDML='true' access="global">
-	<apex:attribute name="rssName" type="String" required="true" access="global" assignTo="{!rssName}" default="mdapi" description="The name of the remote site setting you want to create." />
+	<apex:attribute name="rssName" type="String" required="true" access="global" assignTo="{!rssNameString}" default="mdapi" description="The name of the remote site setting you want to create." />
 	<apex:attribute name="rssDescription" type="String" required="true" access="global" default="mdapi" description="The description of the remote site setting you want to create." />
 	<apex:attribute name="pageOverview" type="String" required="false" default="This tool does lots of fun things with the Metadata API." description="The text to be displayed to the user that will give an overview of the tool using the metadata api." />
 	<apex:attribute name="pageOverviewLinkURL" type="String" required="false" default="http://google.com" description="Some link you want to point the user to."/>

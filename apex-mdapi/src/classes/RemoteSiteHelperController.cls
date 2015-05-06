@@ -1,7 +1,7 @@
 global class RemoteSiteHelperController {
 	
 	public String Host {get;set;}
-	global String rssName {get;set;}
+	global String rssNameString {get;set;}
 	public String MetadataResponse {get;set;}
 	public Boolean MetadataConnectionWarning {get;set;}
 	public String MetadataApiException {get;set;}
@@ -30,7 +30,7 @@ global class RemoteSiteHelperController {
 		// Display the response from the client side Metadata API callout
 		if(metadataResponse.length()==0)
 		{
-			String infoString = String.format('Remote Site Setting {0} has been created.',new String[]{rssName});
+			String infoString = String.format('Remote Site Setting {0} has been created.',new String[]{rssNameString});
 			ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, infoString));
 			MetadataConnectionWarning = false;
 		}
