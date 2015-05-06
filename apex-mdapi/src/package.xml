@@ -9,6 +9,7 @@
         <members>MetadataServicePatcher</members>
         <members>MetadataServiceTest</members>
         <members>RemoteSiteHelperController</members>
+        <members>RemoteSiteHelperTest</members>
         <name>ApexClass</name>
     </types>
     <types>
