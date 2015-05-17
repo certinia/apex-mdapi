@@ -8,12 +8,15 @@
         <members>MetadataServiceExamples</members>
         <members>MetadataServicePatcher</members>
         <members>MetadataServiceTest</members>
+        <members>RemoteSiteHelperController</members>
+        <members>RemoteSiteHelperTest</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>unzip</members>
         <members>zip</members>
         <members>zipEntry</members>
+        <members>remotesitehelper</members>
         <name>ApexComponent</name>
     </types>
     <types>
@@ -21,6 +24,7 @@
         <members>metadatadata</members>
         <members>metadatadeploy</members>
         <members>metadataretrieve</members>
+        <members>remotesitepage</members>
         <name>ApexPage</name>
     </types>
     <types>
