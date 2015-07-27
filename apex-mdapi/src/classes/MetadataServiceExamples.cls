@@ -1296,6 +1296,55 @@ public with sharing class MetadataServiceExamples
         handleSaveResults(results[0]);
     }
 
+    /**
+     * If you have subscribed to the paid feature add-on "Field Audit Trail" then you can define the
+     * History Retention Policy using the Metadata API.
+     *
+     * https://developer.salesforce.com/docs/atlas.en-us.field_history_retention.meta/field_history_retention/
+     * https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_historyretentionpolicy.htm
+     */
+    public static void updateHistoryRetentionPolicy() {
+
+        // Create service
+        MetadataService.MetadataPort service = createService();
+
+        // Retrieve the custom object metadata
+        MetadataService.CustomObject customObject = (MetadataService.CustomObject) service.readMetadata(
+            'CustomObject', new String[] { 'Account' }
+        ).getRecords()[0];
+
+        // Print the existing policy, if any defined
+        System.debug( customObject.historyRetentionPolicy );
+
+        // Define the retention policy
+        MetadataService.HistoryRetentionPolicy policy = new MetadataService.HistoryRetentionPolicy();
+        policy.archiveAfterMonths = 3;
+        policy.archiveRetentionYears = 5;
+        policy.gracePeriodDays = 0;
+
+        // Assign policy to the custom object
+        customObject.historyRetentionPolicy = policy;
+
+        // Update the metadata using API
+        List<MetadataService.SaveResult> saveResults = service.updateMetadata(
+            new MetadataService.Metadata[] {
+                customObject
+             }
+        );
+
+        // Inspect the save result for any errors
+        for ( MetadataService.SaveResult saveResult : saveResults ) {
+            if ( !saveResult.success ) {
+                System.debug( 'failure' );
+                for ( MetadataService.Error err : saveResult.errors ) {
+                   System.debug( System.LoggingLevel.ERROR, err.statusCode + ': ' + err.message );
+                }
+            }
+            System.debug( 'success' );
+        }
+
+    }
+
     public class MetadataServiceExamplesException extends Exception { }
 
     public static MetadataService.MetadataPort createService()
