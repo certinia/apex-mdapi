@@ -1249,6 +1249,7 @@ public class MetadataService {
         public Boolean deprecated;
         public String description;
         public String displayFormat;
+        public Boolean displayLocationInDecimal;
         public Boolean escapeMarkup;
         public String externalDeveloperName;
         public Boolean externalId;
@@ -1295,6 +1296,7 @@ public class MetadataService {
         private String[] deprecated_type_info = new String[]{'deprecated','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] description_type_info = new String[]{'description','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] displayFormat_type_info = new String[]{'displayFormat','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] displayLocationInDecimal_type_info = new String[]{'displayLocationInDecimal','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] escapeMarkup_type_info = new String[]{'escapeMarkup','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] externalDeveloperName_type_info = new String[]{'externalDeveloperName','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] externalId_type_info = new String[]{'externalId','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
@@ -1337,7 +1339,7 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] type_att_info = new String[]{'xsi:type'};
         private String[] fullName_type_info = new String[]{'fullName','http://www.w3.org/2001/XMLSchema','string','0','1','false'};
-        private String[] field_order_type_info = new String[]{'fullName', 'caseSensitive','customDataType','defaultValue','deleteConstraint','deprecated','description','displayFormat','escapeMarkup','externalDeveloperName','externalId','formula','formulaTreatBlanksAs','inlineHelpText','isFilteringDisabled','isNameField','isSortingDisabled','label','length','lookupFilter','maskChar','maskType','picklist','populateExistingRows','precision','referenceTargetField','referenceTo','relationshipLabel','relationshipName','relationshipOrder','reparentableMasterDetail','required','restrictedAdminField','scale','startingNumber','stripMarkup','summarizedField','summaryFilterItems','summaryForeignKey','summaryOperation','trackFeedHistory','trackHistory','trackTrending','type_x','unique','visibleLines','writeRequiresMasterRead'};
+        private String[] field_order_type_info = new String[]{'fullName', 'caseSensitive','customDataType','defaultValue','deleteConstraint','deprecated','description','displayFormat','displayLocationInDecimal','escapeMarkup','externalDeveloperName','externalId','formula','formulaTreatBlanksAs','inlineHelpText','isFilteringDisabled','isNameField','isSortingDisabled','label','length','lookupFilter','maskChar','maskType','picklist','populateExistingRows','precision','referenceTargetField','referenceTo','relationshipLabel','relationshipName','relationshipOrder','reparentableMasterDetail','required','restrictedAdminField','scale','startingNumber','stripMarkup','summarizedField','summaryFilterItems','summaryForeignKey','summaryOperation','trackFeedHistory','trackHistory','trackTrending','type_x','unique','visibleLines','writeRequiresMasterRead'};
     }
     public class PushNotification {
         public String[] fieldNames;
