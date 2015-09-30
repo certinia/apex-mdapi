@@ -43,7 +43,7 @@ As adminstrators leverage more and more of these solutions the topic of automati
 Strategies for calling from Apex
 --------------------------------
 
-Salesforce provides a great number of API's for developers to consume, both off and on platform (as Apex developers). If you happen to be off platform (say in Heroku) and developing code to help automate adminstration. Then you can utilise the Salesforce Metadata API (via the Salesforce WebService Connector) to help with this. It is a robust and readily available API for creating objects, fields, pages and many other component types.
+Salesforce provides a great number of API's for developers to consume, both off and on platform (as Apex developers). If you happen to be off platform (say in Heroku) and developing code to help automate administration. Then you can utilise the Salesforce Metadata API (via the Salesforce WebService Connector) to help with this. It is a robust and readily available API for creating objects, fields, pages and many other component types.
 
 While Salesforce offers on platform Apex developers a means to query some of this information (a subset of the Metadata API coverage) via Apex Describe, it does not as yet provide a means to manipulate this metadata from Apex natively. We are told this is in the pipeline, though I am personally not aware of when this will arrive.
 
