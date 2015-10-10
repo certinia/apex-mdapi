@@ -38,7 +38,7 @@ Background and Motivation
 
 There seems to be a growing number of Apex developers wanting to develop solutions or just handy utils that embrace the declarative nature of the platform. Including those in FinancialForce.com for that matter! Such solutions are dynamically adapting to custom fields or objects that need to be created by the administrator and/or customisations to objects in existing packages.
 
-As adminstrators leverage more and more of these solutions the topic of automation arises. Can the developers of these solutions help the adminstrator by implementing wizards or self configuring solutions without asking the adminstrator to create these manually and then have to reference them back into the solution?
+As administrators leverage more and more of these solutions the topic of automation arises. Can the developers of these solutions help the administrator by implementing wizards or self configuring solutions without asking the administrator to create these manually and then have to reference them back into the solution?
 
 Strategies for calling from Apex
 --------------------------------
