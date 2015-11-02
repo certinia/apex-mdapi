@@ -62,9 +62,11 @@ public with sharing class MetadataDataController
 				MetadataService.FileProperties[] fileProperties = service.listMetadata(queries, METADATA_API_VERSION);
 				
 				// Emit leaf nodes (ensure unique IDs)
-				Integer index = 0;
-				for(MetadataService.FileProperties fileProperty : fileProperties)
-					nodes.add(new LeafNode(fileProperty.fullName + ':' + index++, EncodingUtil.urlDecode(fileProperty.fullName, 'UTF-8'), false));
+				if(fileProperties!=null) {
+					Integer index = 0;
+					for(MetadataService.FileProperties fileProperty : fileProperties)
+						nodes.add(new LeafNode(fileProperty.fullName + ':' + index++, EncodingUtil.urlDecode(fileProperty.fullName, 'UTF-8'), false));					
+				}
 			}
 			Data = JSON.serialize(nodes);			
 		}

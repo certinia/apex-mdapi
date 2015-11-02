@@ -43,5 +43,5 @@
         <members>jszip</members>
         <name>StaticResource</name>
     </types>
-    <version>32.0</version>
+    <version>35.0</version>
 </Package>

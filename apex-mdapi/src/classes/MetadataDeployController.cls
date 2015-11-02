@@ -76,8 +76,7 @@ public with sharing class MetadataDeployController
         deployOptions.performRetrieve = false;
         deployOptions.purgeOnDelete = false;
         deployOptions.rollbackOnError = true;
-        deployOptions.runAllTests = false;
-        deployOptions.runTests = null;
+        deployOptions.testLevel = 'NoTestRun';
         deployOptions.singlePackage = true;		
 		AsyncResult = service.deploy(ZipData, DeployOptions);				
 		return null;

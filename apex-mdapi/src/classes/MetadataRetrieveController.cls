@@ -129,7 +129,7 @@ public with sharing class MetadataRetrieveController
 	{
 		// Check the status of the retrieve request
 		MetadataService.MetadataPort service = createService();
-		MetadataService.RetrieveResult retrieveResult = service.checkRetrieveStatus(AsyncResult.Id);
+		MetadataService.RetrieveResult retrieveResult = service.checkRetrieveStatus(AsyncResult.Id, true);
 		if(retrieveResult.done)
 		{
 			// Errors?

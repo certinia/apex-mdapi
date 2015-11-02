@@ -69,6 +69,8 @@ private class MetadataServiceTest
                 response.put('response_x', new MetadataService.deployRecentValidationResponse_element());
             else if(request instanceof MetadataService.describeValueType_element)
                 response.put('response_x', new MetadataService.describeValueTypeResponse_element());
+            else if(request instanceof MetadataService.checkRetrieveStatus_element)
+                response.put('response_x', new MetadataService.checkRetrieveStatusResponse_element());
 			return;
 		}
 	}    
@@ -97,7 +99,6 @@ private class MetadataServiceTest
         metaDataPort.checkDeployStatus(null, false);
         metaDataPort.listMetadata(null, null);
         metaDataPort.describeMetadata(null);
-        metaDataPort.checkRetrieveStatus(null);
         metaDataPort.deploy(null, null);
         metaDataPort.checkDeployStatus(null, false);
         metaDataPort.updateMetadata(null);
@@ -119,6 +120,7 @@ private class MetadataServiceTest
         metaDataPort.createMetadata(null);
         metaDataPort.deployRecentValidation(null);
         metaDataPort.describeValueType(null);
+        metaDataPort.checkRetrieveStatus(null, null);
     }
         
 	@IsTest
@@ -888,6 +890,30 @@ private class MetadataServiceTest
         new MetaDataService.readMatchingRuleResponse_element();
         new MetaDataService.SharingOwnerRule();
         new MetaDataService.PicklistEntry();
-        new MetaDataService.ValueTypeField();        
+        new MetaDataService.ValueTypeField();
+        new MetaDataService.DashboardGridComponent();
+        new MetaDataService.AllOrNoneHeader_element();
+        new MetaDataService.WeightedSourceCategory();
+        new MetaDataService.Territory2SettingsOpportunityFilter();
+        new MetaDataService.PathAssistantStep();
+        new MetaDataService.DashboardGridLayout();
+        new MetaDataService.PlatformActionList();
+        new MetaDataService.FeedFilterCriterion();
+        new MetaDataService.PathAssistant();
+        new MetaDataService.PlatformCachePartition();
+        new MetaDataService.FlowDefinition();
+        new MetaDataService.WaveTemplateBundle();
+        new MetaDataService.TransactionSecurityAction();
+        new MetaDataService.PlatformActionListItem();
+        new MetaDataService.PlatformCachePartitionType();
+        new MetaDataService.TransactionSecurityPolicy();
+        new MetaDataService.KnowledgeCommunitiesSettings();
+        new MetaDataService.PathAssistantSettings();
+        new MetaDataService.AnalyticsCloudComponentLayoutItem();
+        new MetaDataService.CustomFeedFilter();
+        new MetaDataService.LeadConvertSettings();
+        new MetaDataService.ForecastingCategoryMapping();
+        new MetaDataService.LiveChatSensitiveDataRule();
+        new MetaDataService.TransactionSecurityNotification();
     }
 }
