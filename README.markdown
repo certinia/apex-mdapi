@@ -324,6 +324,9 @@ private String[] field_order_type_info = new String[]{'archiveAfterMonths','arch
 
 Release History
 ---------------
+**Update: 2nd Nov 2015:**
+- Updated to Winter'16 v35.0 Metadata API
+
 **Update: 4th May 2015:**
 - Created new Remote Site Helper Page.
 
