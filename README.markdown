@@ -11,6 +11,7 @@ Documentation
 
 In addition to the documentation in this README, the following blogs also cover the library.
 
+- [Automating the Creation of Flow Screens with Apex Metadata API](http://andyinthecloud.com/2015/11/28/automating-the-creation-of-flow-screens-with-apex-metadata-api/)
 - [Apex Metadata API Q&A](http://andyinthecloud.com/2014/11/22/apex-metadata-api-qa/)
 - [Apex Metadata API Streamlined and Simplified for Summer’14](http://andyinthecloud.com/2014/08/14/apex-metadata-api-streamlined-and-simplified-for-summer14/)
 - [Post Install Apex Metadata API Configuration Solved!](http://andyinthecloud.com/2014/07/29/post-install-apex-metadata-api-configuration-solved/)
