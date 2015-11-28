@@ -205,14 +205,52 @@ public with sharing class MetadataServicePatcher {
 			'SharingBaseRule' => 'Metadata',
 			'SharingCriteriaRule' => 'SharingBaseRule',			
 			'SharingOwnerRule' => 'SharingBaseRule',			
-			'SharingTerritoryRule' => 'SharingBaseRule'
-			}; // TODO: Inheritance modifications for Role, Flow and Custom Shortcut
+			'SharingTerritoryRule' => 'SharingBaseRule',
+			'FlowElement' => 'FlowBaseElement',
+			'FlowNode' => 'FlowElement',
+			'FlowActionCall' => 'FlowNode',
+			'FlowApexPluginCall' => 'FlowNode',
+			'FlowAssignment' => 'FlowNode',
+			'FlowDecision' => 'FlowNode',
+			'FlowLoop' => 'FlowNode',
+			'FlowRecordCreate' => 'FlowNode',
+			'FlowRecordDelete' => 'FlowNode',
+			'FlowRecordLookup' => 'FlowNode',
+			'FlowRecordUpdate' => 'FlowNode',
+			'FlowScreen' => 'FlowNode',
+			'FlowStep' => 'FlowNode',
+			'FlowSubflow' => 'FlowNode',
+			'FlowWait' => 'FlowNode',
+			'FlowActionCall' => 'FlowNode',
+			'FlowChoice' => 'FlowElement',
+			'FlowConstant' => 'FlowElement',
+			'FlowDynamicChoiceSet' => 'FlowElement',
+			'FlowFormula' => 'FlowElement',
+			'FlowRule' => 'FlowElement',
+			'FlowScreenField' => 'FlowElement',
+			'FlowTextTemplate' => 'FlowElement',
+			'FlowVariable' => 'FlowElement',
+			'FlowWaitEvent' => 'FlowElement',
+			'FlowActionCallInputParameter' => 'FlowBaseElement',
+			'FlowActionCallOutputParameter' => 'FlowBaseElement',
+			'FlowApexPluginCallInputParameter' => 'FlowBaseElement',
+			'FlowApexPluginCallOutputParameter' => 'FlowBaseElement',
+			'FlowAssignmentItem' => 'FlowBaseElement',
+			'FlowChoiceUserInput' => 'FlowBaseElement',
+			'FlowCondition' => 'FlowBaseElement',
+			'FlowConnector' => 'FlowBaseElement',
+			'FlowInputFieldAssignment' => 'FlowBaseElement',
+			'FlowOutputFieldAssignment' => 'FlowBaseElement',
+			'FlowRecordFilter' => 'FlowBaseElement',
+			'FlowSubflowInputAssignment' => 'FlowBaseElement',
+			'FlowSubflowOutputAssignment' => 'FlowBaseElement',
+			'FlowWaitEventInputParameter' => 'FlowBaseElement',
+			'FlowWaitEventOutputParameter' => 'FlowBaseElement',
+			'MetadataWithContent' => 'Metadata'
+			}; // TODO: Inheritance modifications for Role and Custom Shortcut
 
 	// List of base types to prescan for merging into derived types
-	private static final Map<String, String> METADATA_BASE_TYPES = 
-		new Map<String, String> { 
-			'SharingBaseRule' => 'SharingBaseRule',
-			'Folder' => 'Folder' };	
+	private static final Set<String> METADATA_BASE_TYPES = new Set<String>(METADATA_TYPES.values());
 	
 	public static void patch()
 	{
@@ -236,13 +274,16 @@ public with sharing class MetadataServicePatcher {
 				List<String> parts = trimmedLine.split(' ');
 				String className = parts[2];
 				// Capture the body of this base type to later inject into another deriving type
-				if(METADATA_BASE_TYPES.containsKey(className)) {
+				if(METADATA_BASE_TYPES.contains(className)) {
 					List<String> baseTypeLines = new List<String>();
 					typeBodyByBaseClass.put(className, baseTypeLines);
 					// Move forward until field_order_type_info member
 					while(lineReader.hasNext())
 					{
 						line = (String) lineReader.next();
+						// Adjust class name?
+						if(line.contains('MetadataServiceImported'))
+							line = line.replace('MetadataServiceImported', 'MetadataService');						
 						// Recording content of type for inclusion in deriving types
 						baseTypeLines.add(line);							
 						// Stop here
@@ -299,15 +340,6 @@ public with sharing class MetadataServicePatcher {
 				}				
 				continue;
 			}
-			// Make MetadataWithContent virtual?
-			else if(trimmedLine.startsWith('public class MetadataWithContent '))
-				line = line.replace('public class MetadataWithContent', 'public virtual class MetadataWithContent extends Metadata');
-			// Make Folder virtual and extend from Metadata?
-			else if(trimmedLine.startsWith('public class Folder '))
-				line = line.replace('public class Folder ', 'public virtual class Folder extends Metadata');
-			// Make WorkflowAction virtual and extend from Metadata?
-			else if(trimmedLine.startsWith('public class WorkflowAction '))
-				line = line.replace('public class WorkflowAction ', 'public virtual class WorkflowAction extends Metadata');				
 			// Add interfaces to read?
 			else if(trimmedLine.startsWith('public class ReadResult'))
 			{			
@@ -319,25 +351,29 @@ public with sharing class MetadataServicePatcher {
 			    newlines.add('    }');
 			    for(String metadataType : METADATA_TYPES.keySet())
 			    {
-			    	String apexClassType = metadataType;
-			    	if(metadataType == 'Group_x')
-			    		apexClassType = 'Group';
-			    	else if(metadataType == 'Package_x')
-			    		apexClassType = 'Package';
-					newlines.add('    public class Read'+apexClassType+'Result implements IReadResult {');
-					newlines.add('        public MetadataService.'+metadataType+'[] records;');
-					newlines.add('        public MetadataService.Metadata[] getRecords() { return records; }');
-					newlines.add('        private String[] records_type_info = new String[]{\'records\',\'http://soap.sforce.com/2006/04/metadata\',null,\'0\',\'-1\',\'false\'};');
-					newlines.add('        private String[] apex_schema_type_info = new String[]{\'http://soap.sforce.com/2006/04/metadata\',\'true\',\'false\'};');
-					newlines.add('        private String[] field_order_type_info = new String[]{\'records\'};');
-					newlines.add('    }');
-					newlines.add('    public class read'+apexClassType+'Response_element implements IReadResponseElement {');
-					newlines.add('        public MetadataService.Read'+apexClassType+'Result result;');
-					newlines.add('        public IReadResult getResult() { return result; }');
-					newlines.add('        private String[] result_type_info = new String[]{\'result\',\'http://soap.sforce.com/2006/04/metadata\',null,\'1\',\'1\',\'false\'};');
-					newlines.add('        private String[] apex_schema_type_info = new String[]{\'http://soap.sforce.com/2006/04/metadata\',\'true\',\'false\'};');
-					newlines.add('        private String[] field_order_type_info = new String[]{\'result\'};');
-					newlines.add('    }');
+			    	// Only emit for types extending Metadata or MetadataWithContent
+			    	String baseClass = METADATA_TYPES.get(metadataType);
+			    	if(baseClass == 'Metadata' || baseClass=='MetadataWithContent') {
+				    	String apexClassType = metadataType;
+				    	if(metadataType == 'Group_x')
+				    		apexClassType = 'Group';
+				    	else if(metadataType == 'Package_x')
+				    		apexClassType = 'Package';
+						newlines.add('    public class Read'+apexClassType+'Result implements IReadResult {');
+						newlines.add('        public MetadataService.'+metadataType+'[] records;');
+						newlines.add('        public MetadataService.Metadata[] getRecords() { return records; }');
+						newlines.add('        private String[] records_type_info = new String[]{\'records\',\'http://soap.sforce.com/2006/04/metadata\',null,\'0\',\'-1\',\'false\'};');
+						newlines.add('        private String[] apex_schema_type_info = new String[]{\'http://soap.sforce.com/2006/04/metadata\',\'true\',\'false\'};');
+						newlines.add('        private String[] field_order_type_info = new String[]{\'records\'};');
+						newlines.add('    }');
+						newlines.add('    public class read'+apexClassType+'Response_element implements IReadResponseElement {');
+						newlines.add('        public MetadataService.Read'+apexClassType+'Result result;');
+						newlines.add('        public IReadResult getResult() { return result; }');
+						newlines.add('        private String[] result_type_info = new String[]{\'result\',\'http://soap.sforce.com/2006/04/metadata\',null,\'1\',\'1\',\'false\'};');
+						newlines.add('        private String[] apex_schema_type_info = new String[]{\'http://soap.sforce.com/2006/04/metadata\',\'true\',\'false\'};');
+						newlines.add('        private String[] field_order_type_info = new String[]{\'result\'};');
+						newlines.add('    }');
+			    	}
 			    }
 			}
 			// readMetadata method?
@@ -379,41 +415,70 @@ public with sharing class MetadataServicePatcher {
 			{			
 				List<String> parts = trimmedLine.split(' ');
 				String className = parts[2];
-				if(METADATA_TYPES.containsKey(className))
+				// Processing a base type?
+				if(METADATA_BASE_TYPES.contains(className)) {
+					String extendsClassName = METADATA_TYPES.get(className); 
+					line = line.replace('public class ' + className, 
+						extendsClassName!=null ?						
+							'public virtual class ' + className + ' extends ' + extendsClassName : 
+							'public virtual class ' + className);
+					newLines.add(line);
+					while(lineReader.hasNext())
+					{
+						line = (String) lineReader.next();
+						trimmedLine = line.trim();
+						// Skip these, not needed as duplciated in derived classes and cause JSON serialise issues for types
+						if(trimmedLine.startsWith('private String[]'))
+							continue;
+						newLines.add(line);
+						if(trimmedLine == '}')
+							break;
+					}
+					continue;				
+				}
+				// Processing a top level type which has a base type?
+				else if(METADATA_TYPES.containsKey(className))
 				{
 					// Adjust class to extend base class and add base class members (XML serialiser does not support inheritance)
 					String extendsClassName = METADATA_TYPES.get(className); 
 					line = line.replace('public class ' + className, 
-						METADATA_BASE_TYPES.containsKey(className) ?						
+						METADATA_BASE_TYPES.contains(className) ?						
 							'public virtual class ' + className + ' extends ' + extendsClassName : 
 							'public class ' + className + ' extends ' + extendsClassName);
 					newLines.add(line);
 					newLines.add('        public String type = \'' + className + '\';');
-					newLines.add('        public String fullName;');
-					if(extendsClassName.equals('MetadataWithContent'))
-						newLines.add('        public String content;');
-					// Merge base class members?
-					String fieldOrderTypeInfoFromBaseType = null;
-					if(typeBodyByBaseClass.containsKey(extendsClassName)) {
-						for(String baseClassLine : typeBodyByBaseClass.get(extendsClassName)) {
-							// Skip this base class member as the derived type will have one
+					// Keep going all the way down to the last base class
+					List<String> fieldOrderTypeInfoFromBaseType = new List<String>();
+					List<String> baseTypes = new List<String>();
+					String baseClassName = extendsClassName;
+					while (baseClassName!=null) {
+						baseTypes.add(baseClassName);
+						baseClassName = METADATA_TYPES.get(baseClassName);
+					}
+					// Merge base class members from the base class upwards
+					for(Integer idx = baseTypes.size()-1; ; idx--) {
+						baseClassName = baseTypes[idx];
+						for(String baseClassLine : typeBodyByBaseClass.get(baseClassName)) {
+							// Skip this base class member as the top level derived type will have one
 							if(baseClassLine.contains('apex_schema_type_info'))
 								continue;
-							// Adjust class name?
-							if(baseClassLine.contains('MetadataServiceImported'))
-								baseClassLine = baseClassLine.replace('MetadataServiceImported', 'MetadataService');							
 							// Extract the field order type info list to add to the dervived type one
 							if(baseClassLine.contains('field_order_type_info'))
 							{
 								// Extract the list of base type fields
-								fieldOrderTypeInfoFromBaseType = 
-									baseClassLine.substring(
-										baseClassLine.indexOf('\''),
-										baseClassLine.lastIndexOf('\'')+1);
+								if(baseClassLine.indexOf('\'')>0) {
+									fieldOrderTypeInfoFromBaseType.add( 
+										baseClassLine.substring(
+											baseClassLine.indexOf('\''),
+											baseClassLine.lastIndexOf('\'')+1));
+								}
+								// Skip it as the top level derived type will have one
 								continue;
 							}
 							newLines.add(baseClassLine);
 						}
+						if(idx==0)
+							break;
 					}
 					// Move forward until field_order_type_info member
 					while(lineReader.hasNext())
@@ -428,23 +493,13 @@ public with sharing class MetadataServicePatcher {
 						{
 							// Add type info descriptors and adjust field_order_type_info list
 							newLines.add('        private String[] type_att_info = new String[]{\'xsi:type\'};');
-							newLines.add('        private String[] fullName_type_info = new String[]{\'fullName\',\'http://www.w3.org/2001/XMLSchema\',\'string\',\'0\',\'1\',\'false\'};');
-							if(extendsClassName.equals('MetadataWithContent'))
-							{
-								newLines.add('        private String[] content_type_info = new String[]{\'content\',\'http://www.w3.org/2001/XMLSchema\',\'base64Binary\',\'0\',\'1\',\'false\'};');
-								line = line.replace('new String[]{', 'new String[]{\'fullName\', \'content\', ');
-							}
+							String newFieldOrderType = 
+								fieldOrderTypeInfoFromBaseType.size()>0 ?
+									String.join(fieldOrderTypeInfoFromBaseType, ',') : '';
+							if(line.endsWith('new String[]{};'))
+								line = line.replace('new String[]{', 'new String[]{' + newFieldOrderType);
 							else
-							{
-								String newFieldOrderType = 
-									fieldOrderTypeInfoFromBaseType!=null ?
-										'\'fullName\',' + fieldOrderTypeInfoFromBaseType :
-										'\'fullName\'';
-								if(line.endsWith('new String[]{};'))
-									line = line.replace('new String[]{', 'new String[]{' + newFieldOrderType);
-								else
-									line = line.replace('new String[]{', 'new String[]{' + newFieldOrderType + ', ');
-							}
+								line = line.replace('new String[]{', 'new String[]{' + newFieldOrderType + ', ');
 							newLines.add(line);
 							break;														
 						}

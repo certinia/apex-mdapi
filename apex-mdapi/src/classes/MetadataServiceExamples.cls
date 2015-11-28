@@ -1345,6 +1345,89 @@ public with sharing class MetadataServiceExamples
 
     }
 
+    public static void createFlow() {
+
+        MetadataService.MetadataPort service = createService();
+
+        // Create Flow
+        MetadataService.Flow flow = new MetadataService.Flow();
+        flow.fullName = 'NewFlow-1';
+        flow.description = 'New Flow';
+        flow.label = 'New Flow';
+        flow.processType = 'Flow';
+        MetadataService.FlowRecordCreate recordCreate = new MetadataService.FlowRecordCreate();
+        recordCreate.name = 'RecordCreate';
+        recordCreate.label = 'Record Create';
+        recordCreate.object_x = 'Account';
+        recordCreate.locationX = 10;
+        recordCreate.locationY = 10;
+        recordCreate.inputAssignments = new List<MetadataService.FlowInputFieldAssignment>();
+        recordCreate.inputAssignments.add(new MetadataService.FlowInputFieldAssignment());
+        recordCreate.inputAssignments[0].field = 'AccountNumber';
+        recordCreate.inputAssignments[0].value = new MetadataService.FlowElementReferenceOrValue();
+        recordCreate.inputAssignments[0].value.stringValue = '1234';
+        flow.recordCreates = new List<MetadataService.FlowRecordCreate> { recordCreate };
+        flow.startElementReference = 'RecordCreate';
+        handleSaveResults(service.createMetadata(new List<MetadataService.Metadata> { flow })[0]);
+    }
+
+    public static void readFlow()
+    {
+        MetadataService.MetadataPort service = createService();
+
+        // Read Flow
+        MetadataService.Flow flow =
+            (MetadataService.Flow) service.readMetadata('Flow',
+                new String[] { 'NewFlow-1' }).getRecords()[0];
+        System.debug('Description ' + flow.description);
+        System.debug('Name ' + flow.RecordCreates[0].name);
+        System.debug('Location X ' + flow.RecordCreates[0].locationX);
+        System.debug('Location Y ' + flow.RecordCreates[0].locationY);
+    }    
+
+    public static void updateFlow() {
+        
+        MetadataService.MetadataPort service = createService();
+
+        // Read Flow
+        MetadataService.Flow flow =
+            (MetadataService.Flow) service.readMetadata('Flow',
+                new String[] { 'NewFlow-1' }).getRecords()[0];
+
+        // Add a new step
+        MetadataService.FlowScreen flowScreen = new MetadataService.FlowScreen();
+        flowScreen.name = 'NewScreen';
+        flowScreen.label = 'New Screen';
+        flowScreen.locationX = 100;
+        flowScreen.locationY = 100;
+        flowScreen.allowBack = true;
+        flowScreen.allowFinish = true;
+        flowScreen.fields = new List<MetadataService.FlowScreenField>();
+        flowScreen.fields.add(new MetadataService.FlowScreenField());
+        flowScreen.fields[0].name = 'Test_Box';
+        flowScreen.fields[0].dataType = 'String';
+        flowScreen.fields[0].fieldText = 'Test Box';
+        flowScreen.fields[0].fieldType = 'InputField';
+        flowScreen.fields[0].isRequired = true;
+        flow.screens = new List<MetadataService.FlowScreen> { flowScreen };
+
+        // Link it with the previous one
+        flow.recordCreates[0].connector = new MetadataService.FlowConnector();
+        flow.recordCreates[0].connector.targetReference = 'NewScreen';
+
+        // Update
+        handleSaveResults(service.updateMetadata(new List<MetadataService.Metadata> { flow })[0]);
+    }
+
+    public static void deleteFlow() {
+
+        MetadataService.MetadataPort service = createService();
+
+        // Delete Flow
+        handleDeleteResults(
+            service.deleteMetadata('Flow', new String[] { 'NewFlow-1' })[0]);
+    }
+
     public class MetadataServiceExamplesException extends Exception { }
 
     public static MetadataService.MetadataPort createService()
