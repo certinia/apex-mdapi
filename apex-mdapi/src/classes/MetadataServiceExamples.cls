@@ -1428,6 +1428,89 @@ public with sharing class MetadataServiceExamples
             service.deleteMetadata('Flow', new String[] { 'NewFlow-1' })[0]);
     }
 
+
+    public static void createFlowAdvanced() {
+        
+        MetadataService.MetadataPort service = createService();
+
+        // Create Flow
+        MetadataService.Flow flow = new MetadataService.Flow();
+        flow.fullName = 'NewFlow-1';
+        flow.description = 'New Flow';
+        flow.label = 'New Flow';
+        flow.processType = 'Flow';
+        flow.startElementReference = 'NewScreen';        
+
+        // Add a new step
+        MetadataService.FlowScreen flowScreen = new MetadataService.FlowScreen();
+        flowScreen.name = 'NewScreen';
+        flowScreen.label = 'New Screen';
+        flowScreen.locationX = 100;
+        flowScreen.locationY = 100;
+        flowScreen.allowBack = true;
+        flowScreen.allowFinish = true;       
+        addFields(flowScreen, 
+            new List<SObjectField> { 
+                Account.AccountNumber, 
+                Account.Description, 
+                Account.Fax,
+                Account.IsPartner,
+                Account.AnnualRevenue });
+        flow.screens = new List<MetadataService.FlowScreen> { flowScreen };
+
+        // Create
+        handleSaveResults(service.createMetadata(new List<MetadataService.Metadata> { flow })[0]);
+    }
+
+    public static final Map<DisplayType, String> FLOWTYPEBYDISPLAYTYPE = 
+            new Map<DisplayType, String>{ 
+                DisplayType.anytype => 'String',
+                DisplayType.base64 => 'String',
+                DisplayType.Boolean => 'Boolean', 
+                DisplayType.Combobox => 'String',
+                DisplayType.Currency => 'Currency',
+                DisplayType.Date => 'Date',
+                DisplayType.DateTime => 'DateTime', 
+                DisplayType.Double => 'Number',
+                DisplayType.Email => 'String',
+                DisplayType.EncryptedString => 'String',
+                DisplayType.Id => 'String',
+                DisplayType.Integer => 'Number',
+                DisplayType.MultiPicklist => 'Multipicklist',
+                DisplayType.Percent => 'Number', 
+                DisplayType.Phone => 'String',
+                DisplayType.Picklist => 'Picklist',
+                DisplayType.Reference => 'Reference',
+                DisplayType.String => 'String',
+                DisplayType.TextArea => 'String',
+                DisplayType.Time => 'String',
+                DisplayType.URL => 'String'};
+
+    /**
+     * This is for demo purposes only, it requires more work and testing to refine
+     **/
+    public static void addFields(MetadataService.FlowScreen flowScreen, List<SObjectField> fieldsToAdd) {
+        for(SObjectField field : fieldsToAdd) {
+            // Construct a FlowScreenField based on the SObjectField metadata
+            DescribeFieldResult fieldDescribe = field.getDescribe();
+            // https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_visual_workflow.htm#FlowScreenField
+            MetadataService.FlowScreenField flowScreenField = new MetadataService.FlowScreenField();
+            flowScreenField.name = fieldDescribe.getName();
+            flowScreenField.dataType = FLOWTYPEBYDISPLAYTYPE.get(fieldDescribe.getType());
+            flowScreenField.fieldText = fieldDescribe.getLabel();
+            flowScreenField.fieldType = 'InputField';
+            flowScreenField.isRequired = flowScreenField.dataType == 'Boolean' ? true : fieldDescribe.isNillable();            
+            flowScreenField.helpText = fieldDescribe.getInlineHelpText();
+            if(flowScreenField.dataType == 'Number') {
+                flowScreenField.scale = fieldDescribe.getScale();
+            }
+            // Add to Screen field list
+            if(flowScreen.fields==null)
+                flowScreen.fields = new List<MetadataService.FlowScreenField>();
+            flowScreen.fields.add(flowScreenField);
+        }
+    }
+
     public class MetadataServiceExamplesException extends Exception { }
 
     public static MetadataService.MetadataPort createService()
