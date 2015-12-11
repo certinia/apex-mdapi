@@ -1511,6 +1511,16 @@ public with sharing class MetadataServiceExamples
         }
     }
 
+    public static void retrieveConnectedApp() {
+        // This only seems to work for Connected App's created in the org, not those packaged, see Workbench only created ones get listed
+        MetadataService.MetadataPort service = new MetadataService.MetadataPort();
+        service.SessionHeader = new MetadataService.SessionHeader_element();
+        service.SessionHeader.sessionId = UserInfo.getSessionId();
+        MetadataService.ConnectedApp connectedApp =
+                (MetadataService.ConnectedApp)service.readMetadata('ConnectedApp', new String[] {'Test' }).getRecords()[0];
+        system.debug('connectedApp = ' + connectedApp);        
+    }
+
     public class MetadataServiceExamplesException extends Exception { }
 
     public static MetadataService.MetadataPort createService()
