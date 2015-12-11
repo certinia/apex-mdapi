@@ -353,6 +353,11 @@ public with sharing class MetadataServicePatcher {
 			    {
 			    	// Only emit for types extending Metadata or MetadataWithContent
 			    	String baseClass = METADATA_TYPES.get(metadataType);
+			    	while(baseClass!=null) {
+			    		if(baseClass == 'Metadata' || baseClass=='MetadataWithContent')
+			    			break;
+			    		baseClass = METADATA_TYPES.get(baseClass);
+			    	}
 			    	if(baseClass == 'Metadata' || baseClass=='MetadataWithContent') {
 				    	String apexClassType = metadataType;
 				    	if(metadataType == 'Group_x')
