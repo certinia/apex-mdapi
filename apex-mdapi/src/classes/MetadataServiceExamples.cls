@@ -1454,7 +1454,6 @@ public with sharing class MetadataServiceExamples
                 Account.AccountNumber, 
                 Account.Description, 
                 Account.Fax,
-                Account.IsPartner,
                 Account.AnnualRevenue });
         flow.screens = new List<MetadataService.FlowScreen> { flowScreen };
 
