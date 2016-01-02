@@ -24,7 +24,7 @@ In addition to the documentation in this README, the following blogs also cover 
 
 This API mirrors as much as possible the API types and operations described in the standard documentation. The behaviour and functionality provided is also as described in the Salesforce documentation, in terms of what metadata is available and accessable via the specific operations.
 
-- [Salesforce Metadata API Developers Guide](http://www.salesforce.com/us/developer/docs/api_meta/index.htm)
+- [Salesforce Metadata API Developers Guide](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/)
 
 Showcase
 --------
