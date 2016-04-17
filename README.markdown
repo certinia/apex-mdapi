@@ -297,6 +297,7 @@ How to create your own MetadataService.cls
                - Open the MetadataServicePatched Document and copy the code          
                - Paste the code over the current or new MetadataService.cls class 
                    (recommend MavensMate for this as the file is some 8000+ lines long)
+               - Check for any left over references to MetadataServiceImported in MetadataService and change them to MetadataService
           - Update MetadataServiceTest.cls
                - See this for guidelines http://andyinthecloud.com/2013/05/11/code-coverage-for-wsdl2apex-generated-classes
                - Future releases of the patch script may also generate this class
