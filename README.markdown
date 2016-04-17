@@ -277,6 +277,10 @@ How to create your own MetadataService.cls
      - Generating a valid Apex MetadataService class
           - Download and edit the WSDL
                - Change the Port name from 'Metadata' to 'MetadataPort'
+               - Add displayLocationInDecimal to the CustomField definition.
+                 <xsd:element name="displayLocationInDecimal" minOccurs="0" type="xsd:boolean"/>
+               - Add gracePeriodDays to the HistoryRetentionPolicy definition.
+                 <xsd:element name="gracePeriodDays" type="xsd:int"/>
                - Locate the CustomMetadataValue complextype, change the type of the 'value' element to 'xsd:string'
                - Locate the FieldValue complextype, change the type of the 'value' element to 'xsd:string'
           - Generate Apex from this WSDL
@@ -298,33 +302,14 @@ How to create your own MetadataService.cls
                - Future releases of the patch script may also generate this class
           - Update all the Metadata files to the latest API
 
-Add Missing Fields from WSDL to MetadataService.cls
----------------------------------------------------
-After re-generating the `MetadataService.cls` from the latest WSDL and applying the patches described above, there are still a few fields missing from the WSDL as of the Summer '15 release that need to be added to the apex code manually. Ideally these will be included in the WSDL by Salesforce one day or added to the patcher class. Until then, please follow these instructions:
-
-* Add `displayLocationInDecimal` to the `CustomField` definition. This is important if you plan to retrieve metadata about a custom object that contains Geolocation custom fields. Without this definition then you may encounter a JSON parse response error.
-```
-public Boolean displayLocationInDecimal;
-private String[] displayLocationInDecimal_type_info = new String[]{'displayLocationInDecimal','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
-```
-* Add `'displayLocationInDecimal'` to the `field_order_type_info` array. Don't necessarily overwrite this array per the below snippet but rather add this field to the list. You don't want to overwrite because the newly generated MetadataService.cls class may have added/removed fields per newer versions of the API that this snippet is unaware of.
-```
-private String[] field_order_type_info = new String[]{'fullName', 'caseSensitive','customDataType','defaultValue','deleteConstraint','deprecated','description','displayFormat','displayLocationInDecimal','escapeMarkup','externalDeveloperName','externalId','formula','formulaTreatBlanksAs','inlineHelpText','isFilteringDisabled','isNameField','isSortingDisabled','label','length','lookupFilter','maskChar','maskType','picklist','populateExistingRows','precision','referenceTargetField','referenceTo','relationshipLabel','relationshipName','relationshipOrder','reparentableMasterDetail','required','restrictedAdminField','scale','startingNumber','stripMarkup','summarizedField','summaryFilterItems','summaryForeignKey','summaryOperation','trackFeedHistory','trackHistory','trackTrending','type_x','unique','visibleLines','writeRequiresMasterRead'};
-```
-* Add `gracePeriodDays` to the `HistoryRetentionPolicy` definition.
-```
-public Integer gracePeriodDays;
-private String[] gracePeriodDays_type_info = new String[]{'gracePeriodDays','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
-```
-* Add `'gracePeriodDays'` to the `field_order_type_info` array.  Don't necessarily overwrite this array per the below snippet but rather add this field to the list. You don't want to overwrite because the newly generated MetadataService.cls class may have added/removed fields per newer versions of the API that this snippet is unaware of.
-```
-private String[] field_order_type_info = new String[]{'archiveAfterMonths','archiveRetentionYears','gracePeriodDays','description'};
-```
-
 **NOTE:** You can review the changes made to the standard Saleforce generated Web Service Apex class for the Metadata API, by reading the comments at the top of the [MetadataServicePatcher.cls](https://github.com/financialforcedev/apex-mdapi/blob/master/apex-mdapi/src/classes/MetadataServicePatcher.cls) class.
 
 Release History
 ---------------
+
+**Update: 17th April 2016:**
+- Updated to Spring'16 v36.0 Metadata API
+
 **Update: 2nd Nov 2015:**
 - Updated to Winter'16 v35.0 Metadata API
 
