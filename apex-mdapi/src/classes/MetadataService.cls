@@ -2602,10 +2602,10 @@ public class MetadataService {
     }
     public virtual class Folder extends Metadata {
         public String accessType;
-        public MetadataServiceImported.FolderShare[] folderShares;
+        public MetadataService.FolderShare[] folderShares;
         public String name;
         public String publicFolderAccess;
-        public MetadataServiceImported.SharedTo sharedTo;
+        public MetadataService.SharedTo sharedTo;
     }
     public class Branding {
         public String loginFooterText;
@@ -2873,10 +2873,10 @@ public class MetadataService {
     }
     public virtual class SharingBaseRule extends Metadata {
         public String accessLevel;
-        public MetadataServiceImported.AccountSharingRuleSettings accountSettings;
+        public MetadataService.AccountSharingRuleSettings accountSettings;
         public String description;
         public String label;
-        public MetadataServiceImported.SharedTo sharedTo;
+        public MetadataService.SharedTo sharedTo;
     }
     public class AuthProvider extends Metadata {
         public String type = 'AuthProvider';
@@ -9979,7 +9979,7 @@ public class MetadataService {
         private String[] field_order_type_info = new String[]{'chatterAnswersReputationLevels','ideaReputationLevels'};
     }
     public virtual class FlowBaseElement {
-        public MetadataServiceImported.FlowMetadataValue[] processMetadataValues;
+        public MetadataService.FlowMetadataValue[] processMetadataValues;
     }
     public class SidebarComponent {
         public String componentType;
