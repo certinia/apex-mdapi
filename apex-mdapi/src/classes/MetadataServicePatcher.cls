@@ -61,7 +61,7 @@ This patch script performs the following changes to the default WSDL2Apex tool o
  **/
 public with sharing class MetadataServicePatcher {
 
-	private static final String API_VERSION = '35.0';
+	private static final String API_VERSION = '36.0';
 	
 	// List of classes to modify so that they extend appropirte base class (parse WSDL in future?)
 	private static final Map<String, String> METADATA_TYPES = 
@@ -246,7 +246,15 @@ public with sharing class MetadataServicePatcher {
 			'FlowSubflowOutputAssignment' => 'FlowBaseElement',
 			'FlowWaitEventInputParameter' => 'FlowBaseElement',
 			'FlowWaitEventOutputParameter' => 'FlowBaseElement',
-			'MetadataWithContent' => 'Metadata'
+			'MetadataWithContent' => 'Metadata',
+			'DelegateGroup' => 'Metadata',
+			'EventDelivery' => 'Metadata',
+			'EventSubscription' => 'Metadata',
+			'EventType' => 'Metadata',
+			'Certificate' => 'MetadataWithContent',
+			'ModerationRule' => 'Metadata',
+			'WaveApplication' => 'Metadata',
+			'WaveDataset' => 'Metadata'
 			}; // TODO: Inheritance modifications for Role and Custom Shortcut
 
 	// List of base types to prescan for merging into derived types

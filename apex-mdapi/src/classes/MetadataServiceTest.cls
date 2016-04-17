@@ -914,6 +914,14 @@ private class MetadataServiceTest
         new MetaDataService.ForecastingCategoryMapping();
         new MetaDataService.LiveChatSensitiveDataRule();
         new MetaDataService.TransactionSecurityNotification();
+        new MetadataService.DelegateGroup();
+        new MetadataService.EventDelivery();
+        new MetadataService.EventSubscription();
+        new MetadataService.EventType();
+        new MetadataService.Certificate();
+        new MetadataService.ModerationRule();
+        new MetadataService.WaveApplication();
+        new MetadataService.WaveDataset();
     }
 
     @IsTest
@@ -1056,6 +1064,14 @@ private class MetadataServiceTest
         new MetadataService.ReadLetterheadResult().getRecords();
         new MetadataService.ReadFlowResult().getRecords();
         new MetadataService.ReadFlowResult().getRecords();
+        new MetadataService.ReadDelegateGroupResult().getRecords();
+        new MetadataService.ReadEventDeliveryResult().getRecords();
+        new MetadataService.ReadEventSubscriptionResult().getRecords();
+        new MetadataService.ReadEventTypeResult().getRecords();
+        new MetadataService.ReadCertificateResult().getRecords();
+        new MetadataService.ReadModerationRuleResult().getRecords();
+        new MetadataService.ReadWaveApplicationResult().getRecords();
+        new MetadataService.ReadWaveDatasetResult().getRecords();
     }
 
     @IsTest
@@ -1198,5 +1214,13 @@ private class MetadataServiceTest
         new MetadataService.readSharingOwnerRuleResponse_element().getResult();
         new MetadataService.readSharingTerritoryRuleResponse_element().getResult();
         new MetadataService.readMetadataWithContentResponse_element().getResult();
+        new MetadataService.readDelegateGroupResponse_element().getResult();
+        new MetadataService.readEventDeliveryResponse_element().getResult();
+        new MetadataService.readEventSubscriptionResponse_element().getResult();
+        new MetadataService.readEventTypeResponse_element().getResult();
+        new MetadataService.readCertificateResponse_element().getResult();
+        new MetadataService.readModerationRuleResponse_element().getResult();
+        new MetadataService.readWaveApplicationResponse_element().getResult();
+        new MetadataService.readWaveDatasetResponse_element().getResult();
     }    
 }
