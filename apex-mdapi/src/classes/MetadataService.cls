@@ -3980,15 +3980,19 @@ public class MetadataService {
         private String[] type_att_info = new String[]{'xsi:type'};
         private String[] field_order_type_info = new String[]{'processMetadataValues','description','name','label','locationX','locationY', 'assignNextValueToReference','collectionReference','iterationOrder','nextValueConnector','noMoreValuesConnector'};
     }
-    public class FlowDefinition {
+    public class FlowDefinition extends MetadataService.Metadata {
         public Integer activeVersionNumber;
         public String description;
         public String masterLabel;
+        public String fullName;
+        public String type = 'FlowDefinition';
+        private String[] type_att_info = new String[]{'xsi:type'};
+        private String[] fullName_type_info = new String[]{'fullName','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] activeVersionNumber_type_info = new String[]{'activeVersionNumber','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] description_type_info = new String[]{'description','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] masterLabel_type_info = new String[]{'masterLabel','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'activeVersionNumber','description','masterLabel'};
+        private String[] field_order_type_info = new String[]{'fullName','activeVersionNumber','description','masterLabel'};
     }
     public class ReputationLevelDefinitions {
         public MetadataService.ReputationLevel[] level;
@@ -7064,6 +7068,20 @@ public class MetadataService {
     }
     public class readLetterheadResponse_element implements IReadResponseElement {
         public MetadataService.ReadLetterheadResult result;
+        public IReadResult getResult() { return result; }
+        private String[] result_type_info = new String[]{'result','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
+        private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
+        private String[] field_order_type_info = new String[]{'result'};
+    }
+    public class ReadFlowDefinitionResult implements IReadResult {
+        public MetadataService.FlowDefinition[] records;
+        public MetadataService.Metadata[] getRecords() { return records; }
+        private String[] records_type_info = new String[]{'records','http://soap.sforce.com/2006/04/metadata',null,'0','-1','false'};
+        private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
+        private String[] field_order_type_info = new String[]{'records'};
+    }
+    public class readFlowDefinitionResponse_element implements IReadResponseElement {
+        public MetadataService.ReadFlowDefinitionResult result;
         public IReadResult getResult() { return result; }
         private String[] result_type_info = new String[]{'result','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
