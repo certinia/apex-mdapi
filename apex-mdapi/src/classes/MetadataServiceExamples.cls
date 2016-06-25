@@ -1520,6 +1520,37 @@ public with sharing class MetadataServiceExamples
         system.debug('connectedApp = ' + connectedApp);        
     }
 
+    public static void dumpOrgSettings() {
+        MetadataService.MetadataPort service = createService();
+        List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();
+        MetadataService.ListMetadataQuery querySettings = new MetadataService.ListMetadataQuery();
+        querySettings.type_x = 'Settings';
+        queries.add(querySettings);
+        MetadataService.FileProperties[] fileProperties = service.listMetadata(queries, 37);
+        for(MetadataService.FileProperties fileProperty : fileProperties)
+            System.debug(fileProperty.fullName);
+    }
+
+    /**
+     * Error occured processing component OrgPreference. create() not supported for OrgPreferenceSettings (FIELD_INTEGRITY_EXCEPTION). :-(
+     **/
+    /*
+    public static void enableChatter() {
+        MetadataService.MetadataPort service = createService();
+        MetadataService.OrgPreferenceSettings orgSettings = new MetadataService.OrgPreferenceSettings();
+        orgSettings.preferences = new List<MetadataService.OrganizationSettingsDetail>();
+        MetadataService.OrganizationSettingsDetail chatterPref = new MetadataService.OrganizationSettingsDetail();
+        chatterPref.settingName = 'ChatterEnabled';
+        chatterPref.settingValue = true;
+        orgSettings.preferences.add(chatterPref);
+        List<MetadataService.SaveResult> results =
+            service.createMetadata(
+                new MetadataService.Metadata[] { orgSettings });
+        handleSaveResults(results[0]);
+
+    }
+    */
+
     public class MetadataServiceExamplesException extends Exception { }
 
     public static MetadataService.MetadataPort createService()
