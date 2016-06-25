@@ -922,6 +922,14 @@ private class MetadataServiceTest
         new MetadataService.ModerationRule();
         new MetadataService.WaveApplication();
         new MetadataService.WaveDataset();
+        new MetadataService.WaveDashboard();
+        new MetaDataService.WaveDataflow();
+        new MetaDataService.WaveLens();
+        new MetaDataService.OrgPreferenceSettings();
+        new MetaDataService.SearchSettings();
+        new MetadataService.GlobalPicklist();
+        new MetadataService.GlobalPicklistValue();
+        new MetadataService.PicklistValue();
     }
 
     @IsTest
@@ -1222,5 +1230,12 @@ private class MetadataServiceTest
         new MetadataService.readModerationRuleResponse_element().getResult();
         new MetadataService.readWaveApplicationResponse_element().getResult();
         new MetadataService.readWaveDatasetResponse_element().getResult();
+        new MetaDataService.readWaveDataflowResponse_element().getResult();
+        new MetaDataService.readWaveLensResponse_element().getResult();
+        new MetaDataService.readOrgPreferenceSettingsResponse_element().getResult();
+        new MetaDataService.readSearchSettingsResponse_element().getResult();
+        new MetadataService.readGlobalPicklistResponse_element().getResult();
+        new MetadataService.readGlobalPicklistValueResponse_element().getResult();
+        new MetadataService.readPicklistValueResponse_element().getResult();     
     }    
 }

@@ -61,7 +61,7 @@ This patch script performs the following changes to the default WSDL2Apex tool o
  **/
 public with sharing class MetadataServicePatcher {
 
-	private static final String API_VERSION = '36.0';
+	private static final String API_VERSION = '37.0';
 	
 	// List of classes to modify so that they extend appropirte base class (parse WSDL in future?)
 	private static final Map<String, String> METADATA_TYPES = 
@@ -254,7 +254,15 @@ public with sharing class MetadataServicePatcher {
 			'Certificate' => 'MetadataWithContent',
 			'ModerationRule' => 'Metadata',
 			'WaveApplication' => 'Metadata',
-			'WaveDataset' => 'Metadata'
+			'WaveDataset' => 'Metadata',
+			'WaveDashboard' => 'MetadataWithContent',
+			'WaveDataflow' => 'MetadataWithContent',
+			'WaveLens' => 'MetadataWithContent',
+			'OrgPreferenceSettings' => 'Metadata',
+			'SearchSettings' => 'Metadata',
+			'GlobalPicklist' => 'Metadata',
+			'GlobalPicklistValue' => 'Metadata',
+			'PicklistValue' => 'GlobalPicklistValue'
 			}; // TODO: Inheritance modifications for Role and Custom Shortcut
 
 	// List of base types to prescan for merging into derived types
