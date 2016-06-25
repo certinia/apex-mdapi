@@ -308,6 +308,9 @@ How to create your own MetadataService.cls
 Release History
 ---------------
 
+**Update: 25th June 2016:**
+- Updated to Summer'16 v37.0 Metadata API
+
 **Update: 17th April 2016:**
 - Updated to Spring'16 v36.0 Metadata API
 
