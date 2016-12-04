@@ -1557,12 +1557,12 @@ public with sharing class MetadataServiceExamples
 	    apexReport.description = reportToClone.description;
 	    apexReport.format = reportToClone.format;
 	    apexReport.filter = reportToClone.filter;
-	        apexReport.showDetails = reportToClone.showDetails;
-	        apexReport.sortColumn = reportToClone.sortColumn;
-	        apexReport.sortOrder = reportToClone.sortOrder;
-	        apexReport.groupingsAcross = reportToClone.groupingsAcross;
-	        apexReport.groupingsDown = reportToClone.groupingsDown;
-	        apexReport.chart = reportToClone.chart;
+	    apexReport.showDetails = reportToClone.showDetails;
+	    apexReport.sortColumn = reportToClone.sortColumn;
+	    apexReport.sortOrder = reportToClone.sortOrder;
+	    apexReport.groupingsAcross = reportToClone.groupingsAcross;
+	    apexReport.groupingsDown = reportToClone.groupingsDown;
+	    apexReport.chart = reportToClone.chart;
 	    apexReport.timeFrameFilter = reportToClone.timeFrameFilter;
 	    apexReport.columns = reportToClone.columns;
 	
@@ -1572,6 +1572,34 @@ public with sharing class MetadataServiceExamples
 	    // Handle results
 	    handleSaveResults(results[0]);
 	}
+	
+    public static void updateDashboard()
+    {
+        MetadataService.MetadataPort service = createService();
+
+        // Read Dashboard
+        MetadataService.Dashboard dashboard =
+            (MetadataService.Dashboard) service.readMetadata('Dashboard',
+                new String[] { 'MyDashboards/MyDashboard' }).getRecords()[0];
+        System.debug('Name ' + dashboard.fullName);
+                
+        // Update Dashboard
+        dashboard.title = 'My updated dashboard';
+        dashboard.leftSection.components = new List<MetadataService.DashboardComponent>();
+        MetadataService.DashboardComponent newComponent = new MetadataService.DashboardComponent();
+        newComponent.autoselectColumnsFromReport = true;
+        newComponent.componentType = 'Table';
+        newComponent.displayUnits = 'Auto';
+        newComponent.drillEnabled = false;
+        newComponent.drillToDetailEnabled = false;
+        newComponent.indicatorHighColor = '#54C254';
+        newComponent.indicatorLowColor = '#C2C254';
+        newComponent.indicatorMiddleColor = '#C2C254';
+        newComponent.report = 'MyFolder/Accounts';
+        newComponent.sortBy = 'RowLabelAscending';
+        dashboard.leftSection.components.add(newComponent);
+        handleSaveResults(service.updateMetadata(new List<MetadataService.Metadata> { dashboard })[0]);
+    }    	
 	
     /**
      * Error occured processing component OrgPreference. create() not supported for OrgPreferenceSettings (FIELD_INTEGRITY_EXCEPTION). :-(
