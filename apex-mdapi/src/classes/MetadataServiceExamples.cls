@@ -657,6 +657,7 @@ public with sharing class MetadataServiceExamples
         customSite.siteTemplate = 'SiteTemplate';
         customSite.siteType = 'Visualforce';
         customSite.clickjackProtectionLevel = 'AllowAllFraming';
+        customSite.requireHttps = true;
         MetadataService.MetadataPort service = createService();
         List<MetadataService.SaveResult> results =
             service.createMetadata(
