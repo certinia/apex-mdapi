@@ -763,18 +763,6 @@ public class MetadataService {
         private String[] type_att_info = new String[]{'xsi:type'};
         private String[] field_order_type_info = new String[]{'fullName', 'doesSendEmailToMembers','email','name','queueSobject'};
     }
-    public class CleanDataService {
-        public MetadataService.CleanRule[] cleanRules;
-        public String description;
-        public String masterLabel;
-        public String matchEngine;
-        private String[] cleanRules_type_info = new String[]{'cleanRules','http://soap.sforce.com/2006/04/metadata',null,'0','-1','false'};
-        private String[] description_type_info = new String[]{'description','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] masterLabel_type_info = new String[]{'masterLabel','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] matchEngine_type_info = new String[]{'matchEngine','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'cleanRules','description','masterLabel','matchEngine'};
-    }
     public class HomePageLayout extends Metadata {
         public String type = 'HomePageLayout';
         public String fullName;
@@ -3916,18 +3904,6 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'apexClass','enabled'};
     }
-    public class CampaignInfluenceModel {
-        public Boolean isDefaultModel;
-        public Boolean isModelLocked;
-        public String modelDescription;
-        public String name;
-        private String[] isDefaultModel_type_info = new String[]{'isDefaultModel','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] isModelLocked_type_info = new String[]{'isModelLocked','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] modelDescription_type_info = new String[]{'modelDescription','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
-        private String[] name_type_info = new String[]{'name','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'isDefaultModel','isModelLocked','modelDescription','name'};
-    }
     public class CustomTab extends Metadata {
         public String type = 'CustomTab';
         public String fullName;
@@ -4423,14 +4399,6 @@ public class MetadataService {
         private String[] templateType_type_info = new String[]{'templateType','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] field_order_type_info = new String[]{'assetIcon','assetVersion','description','label','templateType'};
-    }
-    public class CommunityThemeSetting {
-        public String themeLayout;
-        public String themeLayoutType;
-        private String[] themeLayout_type_info = new String[]{'themeLayout','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] themeLayoutType_type_info = new String[]{'themeLayoutType','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'themeLayout','themeLayoutType'};
     }
     public class LayoutColumn {
         public MetadataService.LayoutItem[] layoutItems;
@@ -10687,32 +10655,6 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] type_att_info = new String[]{'xsi:type'};
         private String[] field_order_type_info = new String[]{'processMetadataValues','description','name','label','locationX','locationY', 'connector','faultConnector','filters','inputAssignments','inputReference','object_x'};
-    }
-    public class CleanRule {
-        public Boolean bulkEnabled;
-        public Boolean bypassTriggers;
-        public Boolean bypassWorkflow;
-        public String description;
-        public String developerName;
-        public MetadataService.FieldMapping[] fieldMappings;
-        public String masterLabel;
-        public String matchRule;
-        public String sourceSobjectType;
-        public String status;
-        public String targetSobjectType;
-        private String[] bulkEnabled_type_info = new String[]{'bulkEnabled','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] bypassTriggers_type_info = new String[]{'bypassTriggers','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] bypassWorkflow_type_info = new String[]{'bypassWorkflow','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] description_type_info = new String[]{'description','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] developerName_type_info = new String[]{'developerName','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] fieldMappings_type_info = new String[]{'fieldMappings','http://soap.sforce.com/2006/04/metadata',null,'0','-1','false'};
-        private String[] masterLabel_type_info = new String[]{'masterLabel','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] matchRule_type_info = new String[]{'matchRule','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] sourceSobjectType_type_info = new String[]{'sourceSobjectType','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] status_type_info = new String[]{'status','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] targetSobjectType_type_info = new String[]{'targetSobjectType','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
-        private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'bulkEnabled','bypassTriggers','bypassWorkflow','description','developerName','fieldMappings','masterLabel','matchRule','sourceSobjectType','status','targetSobjectType'};
     }
     public class DashboardComponent {
         public Boolean autoselectColumnsFromReport;

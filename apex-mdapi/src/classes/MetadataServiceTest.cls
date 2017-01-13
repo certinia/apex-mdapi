@@ -933,7 +933,6 @@ private class MetadataServiceTest
         new MetadataService.EmbeddedServiceLiveAgent();
         new MetadataService.GlobalValueSet();
         new MetadataService.OrganizationSettingsDetail();
-        new MetadataService.CleanRule();
         new MetadataService.DuplicateRuleFilterItem();
         new MetadataService.ContentAsset();
         new MetadataService.EmbeddedServiceConfig();
@@ -966,7 +965,6 @@ private class MetadataServiceTest
         new MetadataService.ObjectMapping();
         new MetadataService.TabLimitConfig();
         new MetadataService.FieldMapping();
-        new MetadataService.CampaignInfluenceModel();
         new MetadataService.ValueTranslation();
         new MetadataService.StandardValueSet();
         new MetadataService.FlowScreenRule();
@@ -978,7 +976,6 @@ private class MetadataServiceTest
         new MetadataService.ContentAssetLink();
         new MetadataService.ApexTestSuite();
         new MetadataService.QuickActionSendEmailOptions();
-        new MetadataService.CleanDataService();
         new MetadataService.ValueSettings();
         new MetadataService.FieldMappingField();
         new MetadataService.CustomExperienceTabSet();
