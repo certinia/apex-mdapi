@@ -81,8 +81,10 @@ private class MetadataServiceTest
         System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
         // Only required to workaround a current code coverage bug in the platform
         MetadataService metaDataService = new MetadataService();
-        // Invoke operations         
+        // Invoke operations     
+        Test.startTest();    
         MetadataService.MetadataPort metaDataPort = new MetadataService.MetadataPort();
+        Test.stopTest();
 	}
 	
 	@IsTest
@@ -92,7 +94,8 @@ private class MetadataServiceTest
         System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
         // Only required to workaround a current code coverage bug in the platform
         MetadataService metaDataService = new MetadataService();
-        // Invoke operations         
+        // Invoke operations    
+        Test.startTest();     
         MetadataService.MetadataPort metaDataPort = new MetadataService.MetadataPort();
         metaDataPort.retrieve(null);
         metaDataPort.checkDeployStatus(null, false);
@@ -103,6 +106,7 @@ private class MetadataServiceTest
         metaDataPort.updateMetadata(null);
         metaDataPort.renameMetadata(null, null, null);
         metaDataPort.cancelDeploy(null);
+        Test.stopTest();
     }
 
     @IsTest
@@ -112,7 +116,8 @@ private class MetadataServiceTest
         System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
         // Only required to workaround a current code coverage bug in the platform
         MetadataService metaDataService = new MetadataService();
-        // Invoke operations         
+        // Invoke operations     
+        Test.startTest();    
         MetadataService.MetadataPort metaDataPort = new MetadataService.MetadataPort();
         metaDataPort.deleteMetadata(null, null);
         metaDataPort.upsertMetadata(null);
@@ -120,12 +125,14 @@ private class MetadataServiceTest
         metaDataPort.deployRecentValidation(null);
         metaDataPort.describeValueType(null);
         metaDataPort.checkRetrieveStatus(null, null);
+        Test.stopTest();
     }
         
 	@IsTest
     private static void coverGeneratedCodeTypes()
     {    	       
         // Reference types
+        Test.startTest();
         new MetadataService();
         new MetadataService.listMetadataResponse_element();
         new MetadataService.WorkflowRule();
@@ -980,10 +987,12 @@ private class MetadataServiceTest
         new MetadataService.FieldMappingField();
         new MetadataService.CustomExperienceTabSet();
         new MetadataService.KnowledgeSuggestedArticlesSettings();
+        Test.stopTest();
     }
 
     @IsTest
     private static void elfMissingGetRecordsTest() { // elf patch
+        Test.startTest();
         new MetadataService.ReadFlowResult().getRecords();
         new MetadataService.ReadWorkflowResult().getRecords();
         new MetadataService.ReadWorkflowRuleResult().getRecords();
@@ -1143,10 +1152,12 @@ private class MetadataServiceTest
         new MetadataService.ReadWaveLensResult().getRecords();
         new MetadataService.ReadWaveDataflowResult().getRecords();
         new MetadataService.ReadWaveDashboardResult().getRecords();
+        Test.stopTest();
     }
 
     @IsTest
     private static void elfMissingGetResultTest() { // elf patch
+        Test.startTest();
         new MetadataService.readWorkflowRuleResponse_element().getResult();
         new MetadataService.readSamlSsoConfigResponse_element().getResult();
         new MetadataService.readCustomLabelResponse_element().getResult();
@@ -1307,5 +1318,6 @@ private class MetadataServiceTest
         new MetadataService.readStandardValueSetResponse_element().getResult();
         new MetadataService.readGlobalValueSetResponse_element().getResult();
         new MetadataService.readWaveDashboardResponse_element().getResult();
+        Test.stopTest();
     }    
 }
