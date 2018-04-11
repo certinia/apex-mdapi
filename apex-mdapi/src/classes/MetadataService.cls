@@ -1262,9 +1262,15 @@ public class MetadataService {
         public String principalType;
         public String protocol;
         public String username;
+        public Boolean allowMergeFieldsInHeader;
+        public Boolean allowMergeFieldsInBody;
+        public Boolean generateAuthorizationHeader;
         private String[] authProvider_type_info = new String[]{'authProvider','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] allowMergeFieldsInHeader_type_info = new String[]{'allowMergeFieldsInHeader','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] allowMergeFieldsInBody_type_info = new String[]{'allowMergeFieldsInBody','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};        
         private String[] certificate_type_info = new String[]{'certificate','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] endpoint_type_info = new String[]{'endpoint','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] generateAuthorizationHeader_type_info = new String[]{'generateAuthorizationHeader','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] label_type_info = new String[]{'label','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
         private String[] oauthRefreshToken_type_info = new String[]{'oauthRefreshToken','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] oauthScope_type_info = new String[]{'oauthScope','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
@@ -1275,7 +1281,7 @@ public class MetadataService {
         private String[] username_type_info = new String[]{'username','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] type_att_info = new String[]{'xsi:type'};
-        private String[] field_order_type_info = new String[]{'fullName', 'authProvider','certificate','endpoint','label','oauthRefreshToken','oauthScope','oauthToken','password','principalType','protocol','username'};
+        private String[] field_order_type_info = new String[]{'fullName', 'authProvider', 'allowMergeFieldsInBody', 'certificate','endpoint', 'generateAuthorizationHeader', 'label','oauthRefreshToken','oauthScope','oauthToken','password','principalType','protocol','username'};
     }
     public class QuickAction extends Metadata {
         public String type = 'QuickAction';
@@ -11292,7 +11298,7 @@ public class MetadataService {
         private String[] field_order_type_info = new String[]{'active','adjustmentsSettings','displayedCategoryApiNames','forecastRangeSettings','forecastedCategoryApiNames','isAmount','isAvailable','isQuantity','managerAdjustableCategoryApiNames','masterLabel','name','opportunityListFieldsLabelMappings','opportunityListFieldsSelectedSettings','opportunityListFieldsUnselectedSettings','ownerAdjustableCategoryApiNames','quotasSettings'};
     }
     public class MetadataPort {
-        public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/38.0';
+        public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/41.0';
         public Map<String,String> inputHttpHeaders_x;
         public Map<String,String> outputHttpHeaders_x;
         public String clientCertName_x;
