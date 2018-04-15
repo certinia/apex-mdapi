@@ -1413,13 +1413,15 @@ public class MetadataService {
         public String description;
         public Boolean isActive;
         public String fullName;
+        public String label;
         private String[] fullName_type_info = new String[]{'fullName','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] color_type_info = new String[]{'color','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
         private String[] default_x_type_info = new String[]{'default','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
         private String[] description_type_info = new String[]{'description','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
         private String[] isActive_type_info = new String[]{'isActive','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
+        private String[] label_type_info = new String[]{'label','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
-        private String[] field_order_type_info = new String[]{'color','default_x','description','isActive','fullName'};
+        private String[] field_order_type_info = new String[]{'color','default_x','description','isActive','fullName','label'};
     }
     public class ListView extends Metadata {
         public String type = 'ListView';
@@ -9459,6 +9461,7 @@ public class MetadataService {
         public Boolean enableSearch;
         public Boolean enableSharing;
         public Boolean enableStreamingApi;
+        public String eventType;
         public String externalDataSource;
         public String externalName;
         public String externalRepository;
@@ -9505,6 +9508,7 @@ public class MetadataService {
         private String[] enableSearch_type_info = new String[]{'enableSearch','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] enableSharing_type_info = new String[]{'enableSharing','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] enableStreamingApi_type_info = new String[]{'enableStreamingApi','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] eventType_type_info = new String[]{'eventType','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] externalDataSource_type_info = new String[]{'externalDataSource','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] externalName_type_info = new String[]{'externalName','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
         private String[] externalRepository_type_info = new String[]{'externalRepository','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
@@ -9531,7 +9535,7 @@ public class MetadataService {
         private String[] webLinks_type_info = new String[]{'webLinks','http://soap.sforce.com/2006/04/metadata',null,'0','-1','false'};
         private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
         private String[] type_att_info = new String[]{'xsi:type'};
-        private String[] field_order_type_info = new String[]{'fullName', 'actionOverrides','allowInChatterGroups','articleTypeChannelDisplay','businessProcesses','compactLayoutAssignment','compactLayouts','customHelp','customHelpPage','customSettingsType','deploymentStatus','deprecated','description','enableActivities','enableBulkApi','enableDivisions','enableEnhancedLookup','enableFeeds','enableHistory','enableReports','enableSearch','enableSharing','enableStreamingApi','externalDataSource','externalName','externalRepository','externalSharingModel','fieldSets','fields','gender','historyRetentionPolicy','household','label','listViews','nameField','pluralLabel','recordTypeTrackFeedHistory','recordTypeTrackHistory','recordTypes','searchLayouts','sharingModel','sharingReasons','sharingRecalculations','startsWith','validationRules','visibility','webLinks'};
+        private String[] field_order_type_info = new String[]{'fullName', 'actionOverrides','allowInChatterGroups','articleTypeChannelDisplay','businessProcesses','compactLayoutAssignment','compactLayouts','customHelp','customHelpPage','customSettingsType','deploymentStatus','deprecated','description','enableActivities','enableBulkApi','enableDivisions','enableEnhancedLookup','enableFeeds','enableHistory','enableReports','enableSearch','enableSharing','enableStreamingApi','eventType','externalDataSource','externalName','externalRepository','externalSharingModel','fieldSets','fields','gender','historyRetentionPolicy','household','label','listViews','nameField','pluralLabel','recordTypeTrackFeedHistory','recordTypeTrackHistory','recordTypes','searchLayouts','sharingModel','sharingReasons','sharingRecalculations','startsWith','validationRules','visibility','webLinks'};
     }
     public class DuplicateRuleFilter {
         public String booleanFilter;
