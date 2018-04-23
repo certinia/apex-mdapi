@@ -293,6 +293,8 @@ public with sharing class MetadataServiceExamples
             System.debug(fileProperty.fullName);
     }
 
+	/*
+	* Piclkist in CustomField has been deprecated use valueSet instead
     public static void createPicklistField()
     {
         MetadataService.MetadataPort service = createService();
@@ -334,7 +336,7 @@ public with sharing class MetadataServiceExamples
             service.updateMetadata(
                 new MetadataService.Metadata[] { customField });
         handleSaveResults(results[0]);
-    }
+    }*/
 
     /**
      * Example of how to retrieve dependent picklist values
@@ -938,7 +940,7 @@ public with sharing class MetadataServiceExamples
                 new MetadataService.Metadata[] { layout })[0]);
     }
 
-    public static void updatePicklist()
+    /*public static void updatePicklist()
     {
         MetadataService.MetadataPort service = createService();
 
@@ -961,7 +963,7 @@ public with sharing class MetadataServiceExamples
         handleSaveResults(
             service.updateMetadata(
                 new MetadataService.Metadata[] { customField })[0]);
-    }
+    }*/
 
     public static void copyLayoutSection()
     {
