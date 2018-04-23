@@ -352,7 +352,7 @@ public with sharing class MetadataServiceExamples
      *
      * https://github.com/financialforcedev/apex-mdapi/issues/93
      * https://help.salesforce.com/HTViewHelpDoc?id=fields_defining_field_dependencies.htm
-     */
+     
     public static void getDependentPicklistValues()
     {
         // Create service
@@ -381,7 +381,7 @@ public with sharing class MetadataServiceExamples
 
         System.debug( 'Filtered, Dependent Values = ' + filteredDependentValues );
 
-    }
+    }*/
 
     /**
      * Example of how to retrieve the dependent picklist values that are both:
@@ -398,7 +398,7 @@ public with sharing class MetadataServiceExamples
      *
      * https://github.com/financialforcedev/apex-mdapi/issues/93
      * https://help.salesforce.com/HTViewHelpDoc?id=fields_defining_field_dependencies.htm
-     */
+     
     public static void getDependentPicklistValuesByRecordType()
     {
         // Create service
@@ -465,7 +465,7 @@ public with sharing class MetadataServiceExamples
 
         System.debug( 'Filtered, Dependent Values = ' + filteredDependentValues );
 
-    }
+    }*/
 
     public static void createAddressSettings()
     {
