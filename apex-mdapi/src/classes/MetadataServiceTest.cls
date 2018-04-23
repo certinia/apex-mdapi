@@ -1152,6 +1152,24 @@ private class MetadataServiceTest
         new MetadataService.ReadWaveLensResult().getRecords();
         new MetadataService.ReadWaveDataflowResult().getRecords();
         new MetadataService.ReadWaveDashboardResult().getRecords();
+		new MetadataService.ReadEmailServicesFunctionResult().getRecords();
+		new MetadataService.ReadEmbeddedServiceBrandingResult().getRecords();
+		new MetadataService.ReadEmbeddedServiceConfigResult().getRecords();
+		new MetadataService.ReadEmbeddedServiceLiveAgentResult().getRecords();
+		new MetadataService.ReadCaseSubjectParticleResult().getRecords();
+		new MetadataService.ReadNetworkBrandingResult().getRecords();
+		new MetadataService.ReadSocialCustomerServiceSettingsResult().getRecords();
+		new MetadataService.ReadTopicsForObjectsResult().getRecords();
+		new MetadataService.ReadBrandingSetResult().getRecords();
+		new MetadataService.ReadProfilePasswordPolicyResult().getRecords();
+		new MetadataService.ReadProfileSessionSettingResult().getRecords();
+		new MetadataService.ReadCspTrustedSiteResult().getRecords();
+		new MetadataService.ReadEclairGeoDataResult().getRecords();
+		new MetadataService.ReadExternalServiceRegistrationResult().getRecords();
+		new MetadataService.ReadFileUploadAndDownloadSecuritySettingsResult().getRecords();
+		new MetadataService.ReadLeadConvertSettingsResult().getRecords();
+		new MetadataService.ReadUserCriteriaResult().getRecords();
+		new MetadataService.ReadWavexmdResult().getRecords();
         Test.stopTest();
     }
 
@@ -1318,6 +1336,24 @@ private class MetadataServiceTest
         new MetadataService.readStandardValueSetResponse_element().getResult();
         new MetadataService.readGlobalValueSetResponse_element().getResult();
         new MetadataService.readWaveDashboardResponse_element().getResult();
+        new MetadataService.readEmailServicesFunctionResponse_element().getResult();
+        new MetadataService.readEmbeddedServiceBrandingResponse_element().getResult();
+        new MetadataService.readEmbeddedServiceConfigResponse_element().getResult();
+        new MetadataService.readEmbeddedServiceLiveAgentResponse_element().getResult();
+        new MetadataService.readCaseSubjectParticleResponse_element().getResult();
+        new MetadataService.readNetworkBrandingResponse_element().getResult();
+        new MetadataService.readSocialCustomerServiceSettingsResponse_element().getResult();
+        new MetadataService.readTopicsForObjectsResponse_element().getResult();
+        new MetadataService.readBrandingSetResponse_element().getResult();
+        new MetadataService.readProfilePasswordPolicyResponse_element().getResult();
+        new MetadataService.readProfileSessionSettingResponse_element().getResult();
+        new MetadataService.readCspTrustedSiteResponse_element().getResult();
+        new MetadataService.readEclairGeoDataResponse_element().getResult();
+        new MetadataService.readExternalServiceRegistrationResponse_element().getResult();
+        new MetadataService.readFileUploadAndDownloadSecuritySettingsResponse_element().getResult();
+        new MetadataService.readLeadConvertSettingsResponse_element().getResult();
+        new MetadataService.readUserCriteriaResponse_element().getResult();
+        new MetadataService.readWavexmdResponse_element().getResult();
         Test.stopTest();
     }    
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Metadata Deploy Demo</label>
     <apiVersion>38.0</apiVersion>
+    <label>Metadata Deploy Demo</label>
 </ApexPage>

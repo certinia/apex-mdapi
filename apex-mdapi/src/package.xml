@@ -13,10 +13,10 @@
         <name>ApexClass</name>
     </types>
     <types>
+        <members>remotesitehelper</members>
         <members>unzip</members>
         <members>zip</members>
         <members>zipEntry</members>
-        <members>remotesitehelper</members>
         <name>ApexComponent</name>
     </types>
     <types>
@@ -43,5 +43,5 @@
         <members>jszip</members>
         <name>StaticResource</name>
     </types>
-    <version>38.0</version>
+    <version>42.0</version>
 </Package>
