@@ -11845,6 +11845,18 @@ public class MetadataService {
         private String[] type_att_info = new String[]{'xsi:type'};
         private String[] field_order_type_info = new String[]{'processMetadataValues','description','name', 'dataType','expression','scale'};
     }
+    public class Picklist {
+        public String controllingField;
+        public MetadataService.PicklistValue[] picklistValues;
+        public Boolean restrictedPicklist;
+        public Boolean sorted;
+        private String[] controllingField_type_info = new String[]{'controllingField','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] picklistValues_type_info = new String[]{'picklistValues','http://soap.sforce.com/2006/04/metadata',null,'0','-1','false'};
+        private String[] restrictedPicklist_type_info = new String[]{'restrictedPicklist','http://soap.sforce.com/2006/04/metadata',null,'0','1','false'};
+        private String[] sorted_type_info = new String[]{'sorted','http://soap.sforce.com/2006/04/metadata',null,'1','1','false'};
+        private String[] apex_schema_type_info = new String[]{'http://soap.sforce.com/2006/04/metadata','true','false'};
+        private String[] field_order_type_info = new String[]{'controllingField','picklistValues','restrictedPicklist','sorted'};
+    }
     public class deploy_element {
         public String ZipFile;
         public MetadataService.DeployOptions DeployOptions;

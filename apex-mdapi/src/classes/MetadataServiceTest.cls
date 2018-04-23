@@ -256,7 +256,7 @@ private class MetadataServiceTest
         new MetadataService.SharingRules();
         new MetadataService.CustomConsoleComponents();
         new MetadataService.Portal();
-        new MetadataService.DomainWhitelist();
+        //new MetadataService.DomainWhitelist();
         new MetadataService.ChartSummary();
         new MetadataService.RunTestFailure();
         new MetadataService.Territory();
@@ -292,12 +292,12 @@ private class MetadataServiceTest
         new MetadataService.DeployOptions();
         new MetadataService.FlowAssignment();
         new MetadataService.ProfileApplicationVisibility();
-        new MetadataService.CustomApplicationComponents();
+        //new MetadataService.CustomApplicationComponents();
         new MetadataService.FlowElementReferenceOrValue();
         new MetadataService.EntitlementTemplate();
         new MetadataService.ProfileTabVisibility();
         new MetadataService.ActionOverride();
-        new MetadataService.WorkspaceMappings();
+        //new MetadataService.WorkspaceMappings();
         new MetadataService.WorkflowAction();
         new MetadataService.DashboardFolder();
         new MetadataService.PermissionSetApexPageAccess();
@@ -436,7 +436,7 @@ private class MetadataServiceTest
 		new MetadataService.AdjustmentsSettings();                               
 		new MetadataService.ForecastingSettings();                                
 		new MetadataService.QuickActionListItem();           
-		new MetadataService.Branding();          
+		//new MetadataService.Branding();          
 		new MetadataService.QuickActionLayoutItem();                     
 		new MetadataService.OpportunityListFieldsSelectedSettings();        
 		new MetadataService.ApprovalStepRejectBehavior();
@@ -468,13 +468,13 @@ private class MetadataServiceTest
 		new MetadataService.NextAutomatedApprover();
 		new MetadataService.ApprovalProcess();
 		new MetadataService.QuickActionLayout();
-		new MetadataService.PushNotifications();
+		//new MetadataService.PushNotifications();
 		new MetadataService.ForecastRangeSettings();
 		new MetadataService.IdeaReputationLevel();
 		new MetadataService.NetworkTabSet();
 		new MetadataService.SkillProfileAssignments();
 		new MetadataService.CustomShortcut();
-		new MetadataService.PagesToOpen();
+		//new MetadataService.PagesToOpen();
 		new MetadataService.AgentConfigUserAssignments();
 		new MetadataService.NetworkMemberGroup();
 		new MetadataService.FindSimilarOppFilter();
