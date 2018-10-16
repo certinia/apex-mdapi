@@ -256,7 +256,7 @@ private class MetadataServiceTest
         new MetadataService.SharingRules();
         new MetadataService.CustomConsoleComponents();
         new MetadataService.Portal();
-        new MetadataService.DomainWhitelist();
+        //new MetadataService.DomainWhitelist();
         new MetadataService.ChartSummary();
         new MetadataService.RunTestFailure();
         new MetadataService.Territory();
@@ -292,12 +292,12 @@ private class MetadataServiceTest
         new MetadataService.DeployOptions();
         new MetadataService.FlowAssignment();
         new MetadataService.ProfileApplicationVisibility();
-        new MetadataService.CustomApplicationComponents();
+        //new MetadataService.CustomApplicationComponents();
         new MetadataService.FlowElementReferenceOrValue();
         new MetadataService.EntitlementTemplate();
         new MetadataService.ProfileTabVisibility();
         new MetadataService.ActionOverride();
-        new MetadataService.WorkspaceMappings();
+        //new MetadataService.WorkspaceMappings();
         new MetadataService.WorkflowAction();
         new MetadataService.DashboardFolder();
         new MetadataService.PermissionSetApexPageAccess();
@@ -436,7 +436,7 @@ private class MetadataServiceTest
 		new MetadataService.AdjustmentsSettings();                               
 		new MetadataService.ForecastingSettings();                                
 		new MetadataService.QuickActionListItem();           
-		new MetadataService.Branding();          
+		//new MetadataService.Branding();          
 		new MetadataService.QuickActionLayoutItem();                     
 		new MetadataService.OpportunityListFieldsSelectedSettings();        
 		new MetadataService.ApprovalStepRejectBehavior();
@@ -468,13 +468,13 @@ private class MetadataServiceTest
 		new MetadataService.NextAutomatedApprover();
 		new MetadataService.ApprovalProcess();
 		new MetadataService.QuickActionLayout();
-		new MetadataService.PushNotifications();
+		//new MetadataService.PushNotifications();
 		new MetadataService.ForecastRangeSettings();
 		new MetadataService.IdeaReputationLevel();
 		new MetadataService.NetworkTabSet();
 		new MetadataService.SkillProfileAssignments();
 		new MetadataService.CustomShortcut();
-		new MetadataService.PagesToOpen();
+		//new MetadataService.PagesToOpen();
 		new MetadataService.AgentConfigUserAssignments();
 		new MetadataService.NetworkMemberGroup();
 		new MetadataService.FindSimilarOppFilter();
@@ -1152,6 +1152,24 @@ private class MetadataServiceTest
         new MetadataService.ReadWaveLensResult().getRecords();
         new MetadataService.ReadWaveDataflowResult().getRecords();
         new MetadataService.ReadWaveDashboardResult().getRecords();
+		new MetadataService.ReadEmailServicesFunctionResult().getRecords();
+		new MetadataService.ReadEmbeddedServiceBrandingResult().getRecords();
+		new MetadataService.ReadEmbeddedServiceConfigResult().getRecords();
+		new MetadataService.ReadEmbeddedServiceLiveAgentResult().getRecords();
+		new MetadataService.ReadCaseSubjectParticleResult().getRecords();
+		new MetadataService.ReadNetworkBrandingResult().getRecords();
+		new MetadataService.ReadSocialCustomerServiceSettingsResult().getRecords();
+		new MetadataService.ReadTopicsForObjectsResult().getRecords();
+		new MetadataService.ReadBrandingSetResult().getRecords();
+		new MetadataService.ReadProfilePasswordPolicyResult().getRecords();
+		new MetadataService.ReadProfileSessionSettingResult().getRecords();
+		new MetadataService.ReadCspTrustedSiteResult().getRecords();
+		new MetadataService.ReadEclairGeoDataResult().getRecords();
+		new MetadataService.ReadExternalServiceRegistrationResult().getRecords();
+		new MetadataService.ReadFileUploadAndDownloadSecuritySettingsResult().getRecords();
+		new MetadataService.ReadLeadConvertSettingsResult().getRecords();
+		new MetadataService.ReadUserCriteriaResult().getRecords();
+		new MetadataService.ReadWavexmdResult().getRecords();
         Test.stopTest();
     }
 
@@ -1318,6 +1336,24 @@ private class MetadataServiceTest
         new MetadataService.readStandardValueSetResponse_element().getResult();
         new MetadataService.readGlobalValueSetResponse_element().getResult();
         new MetadataService.readWaveDashboardResponse_element().getResult();
+        new MetadataService.readEmailServicesFunctionResponse_element().getResult();
+        new MetadataService.readEmbeddedServiceBrandingResponse_element().getResult();
+        new MetadataService.readEmbeddedServiceConfigResponse_element().getResult();
+        new MetadataService.readEmbeddedServiceLiveAgentResponse_element().getResult();
+        new MetadataService.readCaseSubjectParticleResponse_element().getResult();
+        new MetadataService.readNetworkBrandingResponse_element().getResult();
+        new MetadataService.readSocialCustomerServiceSettingsResponse_element().getResult();
+        new MetadataService.readTopicsForObjectsResponse_element().getResult();
+        new MetadataService.readBrandingSetResponse_element().getResult();
+        new MetadataService.readProfilePasswordPolicyResponse_element().getResult();
+        new MetadataService.readProfileSessionSettingResponse_element().getResult();
+        new MetadataService.readCspTrustedSiteResponse_element().getResult();
+        new MetadataService.readEclairGeoDataResponse_element().getResult();
+        new MetadataService.readExternalServiceRegistrationResponse_element().getResult();
+        new MetadataService.readFileUploadAndDownloadSecuritySettingsResponse_element().getResult();
+        new MetadataService.readLeadConvertSettingsResponse_element().getResult();
+        new MetadataService.readUserCriteriaResponse_element().getResult();
+        new MetadataService.readWavexmdResponse_element().getResult();
         Test.stopTest();
     }    
 }

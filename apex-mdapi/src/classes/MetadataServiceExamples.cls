@@ -293,6 +293,8 @@ public with sharing class MetadataServiceExamples
             System.debug(fileProperty.fullName);
     }
 
+	/*
+	* Piclkist in CustomField has been deprecated use valueSet instead
     public static void createPicklistField()
     {
         MetadataService.MetadataPort service = createService();
@@ -334,7 +336,7 @@ public with sharing class MetadataServiceExamples
             service.updateMetadata(
                 new MetadataService.Metadata[] { customField });
         handleSaveResults(results[0]);
-    }
+    }*/
 
     /**
      * Example of how to retrieve dependent picklist values
@@ -350,7 +352,7 @@ public with sharing class MetadataServiceExamples
      *
      * https://github.com/financialforcedev/apex-mdapi/issues/93
      * https://help.salesforce.com/HTViewHelpDoc?id=fields_defining_field_dependencies.htm
-     */
+     
     public static void getDependentPicklistValues()
     {
         // Create service
@@ -379,7 +381,7 @@ public with sharing class MetadataServiceExamples
 
         System.debug( 'Filtered, Dependent Values = ' + filteredDependentValues );
 
-    }
+    }*/
 
     /**
      * Example of how to retrieve the dependent picklist values that are both:
@@ -396,7 +398,7 @@ public with sharing class MetadataServiceExamples
      *
      * https://github.com/financialforcedev/apex-mdapi/issues/93
      * https://help.salesforce.com/HTViewHelpDoc?id=fields_defining_field_dependencies.htm
-     */
+     
     public static void getDependentPicklistValuesByRecordType()
     {
         // Create service
@@ -463,7 +465,7 @@ public with sharing class MetadataServiceExamples
 
         System.debug( 'Filtered, Dependent Values = ' + filteredDependentValues );
 
-    }
+    }*/
 
     public static void createAddressSettings()
     {
@@ -938,7 +940,7 @@ public with sharing class MetadataServiceExamples
                 new MetadataService.Metadata[] { layout })[0]);
     }
 
-    public static void updatePicklist()
+    /*public static void updatePicklist()
     {
         MetadataService.MetadataPort service = createService();
 
@@ -961,7 +963,7 @@ public with sharing class MetadataServiceExamples
         handleSaveResults(
             service.updateMetadata(
                 new MetadataService.Metadata[] { customField })[0]);
-    }
+    }*/
 
     public static void copyLayoutSection()
     {
