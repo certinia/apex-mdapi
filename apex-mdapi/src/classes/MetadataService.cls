@@ -6039,6 +6039,7 @@ public class MetadataService {
         public String mobileStartUrl;
         public MetadataService.ConnectedAppOauthConfig oauthConfig;
         public String plugin;
+        public String[] profileName;
         public MetadataService.ConnectedAppSamlConfig samlConfig;
         public String startUrl;
         private String[] attributes_type_info = new String[]{'attributes',SOAP_M_URI,null,'0','-1','false'};
@@ -6055,11 +6056,12 @@ public class MetadataService {
         private String[] mobileStartUrl_type_info = new String[]{'mobileStartUrl',SOAP_M_URI,null,'0','1','false'};
         private String[] oauthConfig_type_info = new String[]{'oauthConfig',SOAP_M_URI,null,'0','1','false'};
         private String[] plugin_type_info = new String[]{'plugin',SOAP_M_URI,null,'0','1','false'};
+        private String[] profileName_type_info = new String[]{'profileName',SOAP_M_URI,null,'0','1','false'};
         private String[] samlConfig_type_info = new String[]{'samlConfig',SOAP_M_URI,null,'0','1','false'};
         private String[] startUrl_type_info = new String[]{'startUrl',SOAP_M_URI,null,'0','1','false'};
         private String[] apex_schema_type_info = new String[]{SOAP_M_URI,'true','false'};
         private String[] type_att_info = new String[]{'xsi:type'};
-        private String[] field_order_type_info = new String[]{'fullName', 'attributes','canvasConfig','contactEmail','contactPhone','description','iconUrl','infoUrl','ipRanges','label','logoUrl','mobileAppConfig','mobileStartUrl','oauthConfig','plugin','samlConfig','startUrl'};
+        private String[] field_order_type_info = new String[]{'fullName', 'attributes','canvasConfig','contactEmail','contactPhone','description','iconUrl','infoUrl','ipRanges','label','logoUrl','mobileAppConfig','mobileStartUrl','oauthConfig','plugin','profileName','samlConfig','startUrl'};
     }
     public class describeMetadata_element {
         public Double asOfVersion;
@@ -11702,16 +11704,18 @@ public class MetadataService {
         public String certificate;
         public String consumerKey;
         public String consumerSecret;
+        public Boolean isAdminApproved;
         public String[] scopes;
         public String singleLogoutUrl;
         private String[] callbackUrl_type_info = new String[]{'callbackUrl',SOAP_M_URI,null,'1','1','false'};
         private String[] certificate_type_info = new String[]{'certificate',SOAP_M_URI,null,'0','1','false'};
         private String[] consumerKey_type_info = new String[]{'consumerKey',SOAP_M_URI,null,'0','1','false'};
         private String[] consumerSecret_type_info = new String[]{'consumerSecret',SOAP_M_URI,null,'0','1','false'};
+        private String[] isAdminApproved_type_info = new String[]{'isAdminApproved',SOAP_M_URI,null,'0','1','false'};
         private String[] scopes_type_info = new String[]{'scopes',SOAP_M_URI,null,'0','-1','false'};
         private String[] singleLogoutUrl_type_info = new String[]{'singleLogoutUrl',SOAP_M_URI,null,'0','1','false'};
         private String[] apex_schema_type_info = new String[]{SOAP_M_URI,'true','false'};
-        private String[] field_order_type_info = new String[]{'callbackUrl','certificate','consumerKey','consumerSecret','scopes','singleLogoutUrl'};
+        private String[] field_order_type_info = new String[]{'callbackUrl','certificate','consumerKey','consumerSecret','scopes','isAdminApproved','singleLogoutUrl'};
     }
     public class ObjectSearchSetting {
         public Boolean enhancedLookupEnabled;
@@ -13190,7 +13194,7 @@ public class MetadataService {
         private String[] field_order_type_info = new String[]{'active','adjustmentsSettings','displayedCategoryApiNames','forecastRangeSettings','forecastedCategoryApiNames','forecastingDateType','hasProductFamily','isAmount','isAvailable','isQuantity','managerAdjustableCategoryApiNames','masterLabel','name','opportunityListFieldsLabelMappings','opportunityListFieldsSelectedSettings','opportunityListFieldsUnselectedSettings','opportunitySplitName','ownerAdjustableCategoryApiNames','quotasSettings','territory2ModelName'};
     }
     public class MetadataPort {
-        public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/42.0';
+        public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/46.0';
         public Map<String,String> inputHttpHeaders_x;
         public Map<String,String> outputHttpHeaders_x;
         public String clientCertName_x;
