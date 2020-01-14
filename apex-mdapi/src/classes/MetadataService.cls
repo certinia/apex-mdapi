@@ -3583,6 +3583,22 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{SOAP_M_URI,'true','false'};
         private String[] field_order_type_info = new String[]{'editable','field','readable'};
     }
+    public class PermissionSetCustomMetadataTypeAccess {
+        public Boolean enabled;
+        public String name;
+        private String[] enabled_type_info = new String[]{'enabled',SOAP_M_URI,null,'1','1','false'};
+        private String[] name_type_info = new String[]{'name',SOAP_M_URI,null,'1','1','false'};
+        private String[] apex_schema_type_info = new String[]{SOAP_M_URI,'true','false'};
+        private String[] field_order_type_info = new String[]{'editable','field','readable'};
+    }
+    public class PermissionSetFlowAccess {
+        public Boolean enabled;
+        public String flow;
+        private String[] enabled_type_info = new String[]{'enabled',SOAP_M_URI,null,'1','1','false'};
+        private String[] flow_type_info = new String[]{'flow',SOAP_M_URI,null,'1','1','false'};
+        private String[] apex_schema_type_info = new String[]{SOAP_M_URI,'true','false'};
+        private String[] field_order_type_info = new String[]{'editable','field','readable'};
+    }
     public class RetrieveRequest {
         public Double apiVersion;
         public String[] packageNames;
@@ -4406,6 +4422,8 @@ public class MetadataService {
         public String description;
         public MetadataService.PermissionSetExternalDataSourceAccess[] externalDataSourceAccesses;
         public MetadataService.PermissionSetFieldPermissions[] fieldPermissions;
+        public MetadataService.PermissionSetFlowAccess[] flowAccesses;
+        public MetadataService.PermissionSetCustomMetadataTypeAccess[] customMetadataTypeAccesses;
         public Boolean hasActivationRequired;
         public String label;
         public String license;
@@ -4427,6 +4445,8 @@ public class MetadataService {
         private String[] pageAccesses_type_info = new String[]{'pageAccesses',SOAP_M_URI,null,'0','-1','false'};
         private String[] recordTypeVisibilities_type_info = new String[]{'recordTypeVisibilities',SOAP_M_URI,null,'0','-1','false'};
         private String[] tabSettings_type_info = new String[]{'tabSettings',SOAP_M_URI,null,'0','-1','false'};
+        private String[] flowAccesses_type_info = new String[]{'flowAccesses',SOAP_M_URI,null,'0','-1','false'};
+        private String[] customMetadataTypeAccesses_type_info = new String[]{'customMetadataTypeAccesses',SOAP_M_URI,null,'0','-1','false'};
         private String[] userPermissions_type_info = new String[]{'userPermissions',SOAP_M_URI,null,'0','-1','false'};
         private String[] apex_schema_type_info = new String[]{SOAP_M_URI,'true','false'};
         private String[] type_att_info = new String[]{'xsi:type'};
@@ -13190,7 +13210,7 @@ public class MetadataService {
         private String[] field_order_type_info = new String[]{'active','adjustmentsSettings','displayedCategoryApiNames','forecastRangeSettings','forecastedCategoryApiNames','forecastingDateType','hasProductFamily','isAmount','isAvailable','isQuantity','managerAdjustableCategoryApiNames','masterLabel','name','opportunityListFieldsLabelMappings','opportunityListFieldsSelectedSettings','opportunityListFieldsUnselectedSettings','opportunitySplitName','ownerAdjustableCategoryApiNames','quotasSettings','territory2ModelName'};
     }
     public class MetadataPort {
-        public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/42.0';
+        public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/48.0';
         public Map<String,String> inputHttpHeaders_x;
         public Map<String,String> outputHttpHeaders_x;
         public String clientCertName_x;
