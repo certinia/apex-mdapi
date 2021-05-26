@@ -293,6 +293,40 @@ public with sharing class MetadataServiceExamples
             System.debug(fileProperty.fullName);
     }
 
+    public static  void addValueInPicklistField() 
+    {
+        MetadataService.MetadataPort service = createService('sss');
+        String picklistapiname = 'Lead.LeadSource';
+
+        MetadataService.CustomField customField = (MetadataService.CustomField) service.readMetadata('CustomField', new String[] { picklistapiname}).getRecords()[0];
+
+        List<MetadataService.CustomValue> newValues = new List<MetadataService.CustomValue>();
+
+        MetadataService.CustomValue customValue1 = new MetadataService.CustomValue();
+        customValue1.fullName = 'Lead Source 1'; //API name of picklist value
+        customValue1.description = 'Lead Source 1';
+        customValue1.label = 'Lead Label 1';
+        customValue1.default_x = false;
+        customValue1.isActive = true;
+        newValues.add(customValue1);
+
+        customField.valueSet.valueSetDefinition.value.addAll(newValues);
+
+        // Update
+        List<MetadataService.SaveResult> lstResults = service.updateMetadata( new MetadataService.Metadata[] { customField });
+
+        for (MetadataService.SaveResult objResult : lstResults) {
+            if (objResult.success) {
+                System.debug('Successfully updated');
+            }
+             else {
+                if(objResult.errors.size() > 0){
+                    System.debug('eror : ' + objResult.errors[0].message);
+                }
+            }
+        }
+    }
+	
 	/*
 	* Piclkist in CustomField has been deprecated use valueSet instead
     public static void createPicklistField()
