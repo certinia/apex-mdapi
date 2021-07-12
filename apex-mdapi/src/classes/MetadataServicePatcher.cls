@@ -28,7 +28,7 @@
 This patch script performs the following changes to the default WSDL2Apex tool output
 
 - Modify the end point to be dynamic
-   - public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/m/28.0';
+   - public String endpoint_x = URL.getOrgDomain().toExternalForm() + '/services/Soap/m/28.0';
 - Make 'Metadata' inner class 'virtual'
 - Make 'MetadataWithContent' inner class 'virtual'
 - Review WSDL for types that extend 'tns:Metadata' and update related Apex classes to also extend Metadata
@@ -351,7 +351,7 @@ public with sharing class MetadataServicePatcher {
 				line = line.replace('MetadataServiceImported', 'MetadataService');			
 			// Adjust end point logic?
 			if(trimmedLine.startsWith('public String endpoint_x'))
-				line = '        public String endpoint_x = URL.getSalesforceBaseUrl().toExternalForm() + \'/services/Soap/m/' + API_VERSION + '\';';
+				line = '        public String endpoint_x = URL.getOrgDomain().toExternalForm() + \'/services/Soap/m/' + API_VERSION + '\';';
 			// Adjust update_x method name?
 			else if(trimmedLine.contains('update_x('))
 				line = line.replace('update_x', 'updateMetadata');			
