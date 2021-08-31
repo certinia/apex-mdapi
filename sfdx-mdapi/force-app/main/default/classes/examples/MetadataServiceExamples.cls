@@ -34,7 +34,7 @@ public with sharing class MetadataServiceExamples
 {
     public static void createObject()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomObject customObject = new MetadataService.CustomObject();
         customObject.fullName = 'Test__c';
         customObject.label = 'Test';
@@ -52,7 +52,7 @@ public with sharing class MetadataServiceExamples
 
     public static void upsertObject()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomObject customObject = new MetadataService.CustomObject();
         customObject.fullName = 'Test__c';
         customObject.label = 'Test';
@@ -70,7 +70,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createLookupField()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomField customField = new MetadataService.CustomField();
         customField.fullName = 'Test__c.LookupField__c';
         customField.label = 'Lookup Field';
@@ -86,7 +86,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createExternalField()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomField customField = new MetadataService.CustomField();
         customField.fullName = 'Test__c.ExternalField__c';
         customField.label = 'External Field';
@@ -101,7 +101,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createLongTextAreaField()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomField customField = new MetadataService.CustomField();
         customField.fullName = 'Test__c.LongTextAreaField__c';
         customField.label = 'Long Text Area Field';
@@ -116,7 +116,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createField()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomField customField = new MetadataService.CustomField();
         customField.fullName = 'Test__c.TestField__c';
         customField.label = 'Test Field';
@@ -130,7 +130,7 @@ public with sharing class MetadataServiceExamples
 
     public static void deleteField()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.DeleteResult> results =
             service.deleteMetadata(
                 'CustomField', new String[] { 'Test__c.TestField__c' });
@@ -139,7 +139,7 @@ public with sharing class MetadataServiceExamples
 
     public static void updateField()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomField customField = new MetadataService.CustomField();
         customField.fullName = 'Test__c.TestField__c';
         customField.label='New Test Field Label';
@@ -156,7 +156,7 @@ public with sharing class MetadataServiceExamples
      **/
     public static void updateFieldLevelSecurity()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.Profile admin = new MetadataService.Profile();
         admin.fullName = 'Admin';
         admin.custom = false;
@@ -172,7 +172,7 @@ public with sharing class MetadataServiceExamples
 
     public static void updateTabVisibility()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.Profile admin = (MetadataService.Profile) service.readMetadata('Profile', new String[] { 'Admin' }).getRecords()[0];
         MetadataService.ProfileTabVisibility tabVis = new MetadataService.ProfileTabVisibility();
         tabVis.tab = 'Test_Tab__c';
@@ -186,7 +186,7 @@ public with sharing class MetadataServiceExamples
 
     public static void updateCustomApplication()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomApplication customApp = (MetadataService.CustomApplication) service.readMetadata('CustomApplication', new String[] { 'Test_Application' }).getRecords()[0];
         customApp.defaultLandingTab = 'Test_Tab__c';
         List<MetadataService.SaveResult> results =
@@ -198,7 +198,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createPage()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.ApexPage apexPage = new MetadataService.ApexPage();
         apexPage.apiVersion = 25;
         apexPage.fullName = 'test';
@@ -212,7 +212,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createStaticResource()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.StaticResource staticResource = new MetadataService.StaticResource();
         staticResource.fullName = 'test';
         staticResource.contentType = 'text';
@@ -226,7 +226,7 @@ public with sharing class MetadataServiceExamples
 
     public static void updateStaticResource()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.StaticResource staticResource = new MetadataService.StaticResource();
         staticResource.fullName = 'test';
         staticResource.contentType = 'text';
@@ -240,7 +240,7 @@ public with sharing class MetadataServiceExamples
 
     public static void deleteStaticResource()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.DeleteResult> results =
             service.deleteMetadata(
                 'StaticResource', new String[] { 'test' });
@@ -249,7 +249,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createWebLink()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.WebLink webLink = new MetadataService.WebLink();
         webLink.fullName = 'Test__c.googleButton';
         webLink.availability = 'online';
@@ -277,7 +277,7 @@ public with sharing class MetadataServiceExamples
 
     public static void listMetadata()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();
         MetadataService.ListMetadataQuery queryWorkflow = new MetadataService.ListMetadataQuery();
         queryWorkflow.type_x = 'Workflow';
@@ -297,7 +297,7 @@ public with sharing class MetadataServiceExamples
 	* Piclkist in CustomField has been deprecated use valueSet instead
     public static void createPicklistField()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomField customField = new MetadataService.CustomField();
         customField.fullName = 'Lead.picklist__c';
         customField.label = 'picklist';
@@ -317,7 +317,7 @@ public with sharing class MetadataServiceExamples
 
     public static void updatePicklistField()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomField customField = new MetadataService.CustomField();
         customField.fullName = 'Lead.picklist__c';
         customField.label = 'picklist';
@@ -356,7 +356,7 @@ public with sharing class MetadataServiceExamples
     public static void getDependentPicklistValues()
     {
         // Create service
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Read Custom Field (dependent picklist)
         MetadataService.CustomField customField = (MetadataService.CustomField) service.readMetadata(
@@ -402,7 +402,7 @@ public with sharing class MetadataServiceExamples
     public static void getDependentPicklistValuesByRecordType()
     {
         // Create service
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Read Custom Field (dependent picklist)
         MetadataService.CustomField customField = (MetadataService.CustomField) service.readMetadata(
@@ -469,7 +469,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createAddressSettings()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.AddressSettings addressSettings = new MetadataService.AddressSettings();
         addressSettings.fullName = 'Address';
         addressSettings.countriesAndStates = new MetadataService.CountriesAndStates();
@@ -498,7 +498,7 @@ public with sharing class MetadataServiceExamples
 
     public static void updateCaseSettings()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CaseSettings caseSettings = new MetadataService.CaseSettings();
         caseSettings.fullName = 'Case';
         caseSettings.notifyOwnerOnCaseComment = true;
@@ -547,7 +547,7 @@ public with sharing class MetadataServiceExamples
             '</apex:page>'));
 
         // Create components in the correct order
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.SaveResult> results =
             service.createMetadata(
                 new MetadataService.Metadata[] { customObject });
@@ -572,7 +572,7 @@ public with sharing class MetadataServiceExamples
         recordType.businessProcess = null;
         recordType.description = 'My new record type';
 
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.SaveResult> results =
             service.createMetadata(
                 new MetadataService.Metadata[] { recordType });
@@ -588,7 +588,7 @@ public with sharing class MetadataServiceExamples
         MetadataService.RecordType recordType = new MetadataService.RecordType();
         recordType.active = true;
         recordType.fullName = 'Test__c.RecordTypeA';
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.DeleteResult> results =
             service.deleteMetadata(
                 'RecordType', new String[] { 'Test__c.RecordTypeA' });
@@ -607,7 +607,7 @@ public with sharing class MetadataServiceExamples
         installedPackageB.fullName = 'packageb';
 
         // Install the packages
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.SaveResult> results =
             service.createMetadata(
                 new MetadataService.Metadata[] { installedPackageA, installedPackageB });
@@ -618,7 +618,7 @@ public with sharing class MetadataServiceExamples
     public static void uninstallPackages()
     {
         // Uninstall packages
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.DeleteResult> results =
             service.deleteMetadata(
                 'InstalledPackage', new String[] { 'packagea', 'packageb' });
@@ -660,7 +660,7 @@ public with sharing class MetadataServiceExamples
         customSite.siteType = 'Visualforce';
         customSite.clickjackProtectionLevel = 'AllowAllFraming';
         customSite.requireHttps = true;
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.SaveResult> results =
             service.createMetadata(
                 new MetadataService.Metadata[] { customSite });
@@ -706,7 +706,7 @@ public with sharing class MetadataServiceExamples
         customField2.writeRequiresMasterRead = false;
 
         // Create components in the correct order
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.SaveResult> results =
             service.createMetadata(
                 new MetadataService.Metadata[] { customObject });
@@ -720,7 +720,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createFieldSet()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // FieldSet
         MetadataService.FieldSet fieldSet = new MetadataService.FieldSet();
@@ -743,7 +743,7 @@ public with sharing class MetadataServiceExamples
 
     public static void updateFieldSet()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // FieldSet
         MetadataService.FieldSet fieldSet = new MetadataService.FieldSet();
@@ -771,7 +771,7 @@ public with sharing class MetadataServiceExamples
 
     public static void addActionOverride()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomObject customObject = new MetadataService.CustomObject();
         customObject.fullName = 'Test__c';
         customObject.label = 'Test';
@@ -796,7 +796,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createListView()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.ListView listView = new MetadataService.ListView();
         listView.fullName = 'Test__c.MyListView';
         listView.label = 'My List View';
@@ -810,7 +810,7 @@ public with sharing class MetadataServiceExamples
 
     public static void deleteListView()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.DeleteResult> results =
             service.deleteMetadata(
                 'ListView', new String[] { 'Test__c.MyListView' });
@@ -819,7 +819,7 @@ public with sharing class MetadataServiceExamples
 
     public static void listListViews()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();
         MetadataService.ListMetadataQuery listView = new MetadataService.ListMetadataQuery();
         listView.type_x = 'ListView';
@@ -831,7 +831,7 @@ public with sharing class MetadataServiceExamples
 
     public static void readListView()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Read List View definition
         MetadataService.ListView listView =
@@ -847,7 +847,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createApprovalProcess()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.ApprovalProcess approvalProcess = new MetadataService.ApprovalProcess();
         approvalProcess.fullName = 'Test__c.TestApproval';
         approvalProcess.label = 'Test Approval';
@@ -870,7 +870,7 @@ public with sharing class MetadataServiceExamples
 
     public static void readAndUpdateLayout()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Create Button
         MetadataService.WebLink webLink = new MetadataService.WebLink();
@@ -915,7 +915,7 @@ public with sharing class MetadataServiceExamples
 
     public static void addFieldToLayout()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Read the Layout
         MetadataService.Layout layout =
@@ -942,7 +942,7 @@ public with sharing class MetadataServiceExamples
 
     /*public static void updatePicklist()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Read Custom Field
         MetadataService.CustomField customField =
@@ -967,7 +967,7 @@ public with sharing class MetadataServiceExamples
 
     public static void copyLayoutSection()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Read the source Layout
         MetadataService.Layout sourceLayout =
@@ -991,7 +991,7 @@ public with sharing class MetadataServiceExamples
 
     public static void readWorkflowAlert()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Read Workflow Alert
         MetadataService.WorkflowAlert wfa =
@@ -1003,7 +1003,7 @@ public with sharing class MetadataServiceExamples
 
     public static void readCustomObject()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         MetadataService.CustomObject customObject =
             (MetadataService.CustomObject) service.readMetadata('CustomObject',
@@ -1015,7 +1015,7 @@ public with sharing class MetadataServiceExamples
     public static void addComponentsToHomePageLayout()
     {
         // Retrieve Home Page Layout
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.HomePageLayout homePageLayout =
             (MetadataService.HomePageLayout) service.readMetadata('HomePageLayout',
                 new String[] { 'DE Default' }).getRecords()[0];
@@ -1043,7 +1043,7 @@ public with sharing class MetadataServiceExamples
     public static void readFolder()
     {
         // Retrieve Folder
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.ReportFolder folder =
             (MetadataService.ReportFolder) service.readMetadata('ReportFolder',
                 new String[] { 'MyFolder' }).getRecords()[0];
@@ -1054,7 +1054,7 @@ public with sharing class MetadataServiceExamples
 
     public static void readReport()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.Report report =
             (MetadataService.Report) service.readMetadata('Report',
                 new String[] { 'MyFolder/MyReport' }).getRecords()[0];
@@ -1063,7 +1063,7 @@ public with sharing class MetadataServiceExamples
 
     public static void readPermissionSet()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.PermissionSet ps =
             (MetadataService.PermissionSet) service.readMetadata('PermissionSet',
                 new String[] { 'Test' }).getRecords()[0];
@@ -1072,7 +1072,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createLayout()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.Layout layout = new MetadataService.Layout();
         layout.fullName = 'Test__c-My Layout';
         layout.layoutSections = new List<MetadataService.LayoutSection>();
@@ -1112,7 +1112,7 @@ public with sharing class MetadataServiceExamples
 
     public static void readLightningComponent()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.AuraDefinitionBundle auraBundle =
             (MetadataService.AuraDefinitionBundle) service.readMetadata('AuraDefinitionBundle',
                 new String[] { 'HelloWorld' }).getRecords()[0];
@@ -1121,7 +1121,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createLightningComponent()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.AuraDefinitionBundle auraBundle = new MetadataService.AuraDefinitionBundle();
         auraBundle.fullName = 'HelloWorld';
         auraBundle.type_x = 'Component';
@@ -1149,7 +1149,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createFormulaField()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.CustomField customField = new MetadataService.CustomField();
         customField.fullName = 'Test__c.TestFormulaField__c';
         customField.label = 'Test Formula Field';
@@ -1163,7 +1163,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createLayoutManaged()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.Layout layout = new MetadataService.Layout();
         layout.fullName = 'packageb__Sales_Invoice__c-Test';
         layout.layoutSections = new List<MetadataService.LayoutSection>();
@@ -1193,7 +1193,7 @@ public with sharing class MetadataServiceExamples
     public static void createSharingRule()
     {
         // Create Sharing Rule
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.SharingRules testSharingRule = new MetadataService.SharingRules();
         testSharingRule.fullName = 'Test__c';
         testSharingRule.sharingCriteriaRules = new List<MetadataService.SharingCriteriaRule>();
@@ -1229,7 +1229,7 @@ public with sharing class MetadataServiceExamples
     public static void readSharingRule()
     {
         // Read Sharing Rule
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.SharingRules sharingRules =
             (MetadataService.SharingRules) service.readMetadata('SharingRules',
                 new String[] { 'Test__c' }).getRecords()[0];
@@ -1239,7 +1239,7 @@ public with sharing class MetadataServiceExamples
     public static void deleteSharingRule()
     {
         // Delete Sharing Rule
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.DeleteResult> results =
             service.deleteMetadata(
                 'SharingRules', new String[] { 'Test__c' });
@@ -1249,7 +1249,7 @@ public with sharing class MetadataServiceExamples
     public static void readTranslation()
     {
         // Read Translation
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.Translations translations =
             (MetadataService.Translations) service.readMetadata('Translations',
                 new String[] { 'nl_NL' }).getRecords()[0];
@@ -1260,7 +1260,7 @@ public with sharing class MetadataServiceExamples
     public static void readApprovalProcess()
     {
         // Read Translation
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.ApprovalProcess approvalProcess =
             (MetadataService.ApprovalProcess) service.readMetadata('ApprovalProcess',
                 new String[] { 'Test__c.TestApproval' }).getRecords()[0];
@@ -1268,7 +1268,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createCustomPageWeblink()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         MetadataService.CustomPageWebLink customPageWeblink = new MetadataService.CustomPageWebLink();
 
@@ -1309,7 +1309,7 @@ public with sharing class MetadataServiceExamples
     public static void updateHistoryRetentionPolicy() {
 
         // Create service
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Retrieve the custom object metadata
         MetadataService.CustomObject customObject = (MetadataService.CustomObject) service.readMetadata(
@@ -1350,7 +1350,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createFlow() {
 
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Create Flow
         MetadataService.Flow flow = new MetadataService.Flow();
@@ -1376,7 +1376,7 @@ public with sharing class MetadataServiceExamples
 
     public static void readFlow()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Read Flow
         MetadataService.Flow flow =
@@ -1390,7 +1390,7 @@ public with sharing class MetadataServiceExamples
 
     public static void updateFlow() {
         
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Read Flow
         MetadataService.Flow flow =
@@ -1424,7 +1424,7 @@ public with sharing class MetadataServiceExamples
 
     public static void deleteFlow() {
 
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Delete Flow
         handleDeleteResults(
@@ -1434,7 +1434,7 @@ public with sharing class MetadataServiceExamples
 
     public static void createFlowAdvanced() {
         
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Create Flow
         MetadataService.Flow flow = new MetadataService.Flow();
@@ -1515,7 +1515,7 @@ public with sharing class MetadataServiceExamples
 
     public static void retrieveConnectedApp() {
         // This only seems to work for Connected App's created in the org, not those packaged, see Workbench only created ones get listed
-        MetadataService.MetadataPort service = new MetadataService.MetadataPort();
+        MetadataPort service = new MetadataPort();
         service.SessionHeader = new MetadataService.SessionHeader_element();
         service.SessionHeader.sessionId = UserInfo.getSessionId();
         MetadataService.ConnectedApp connectedApp =
@@ -1524,7 +1524,7 @@ public with sharing class MetadataServiceExamples
     }
 
     public static void dumpOrgSettings() {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();
         MetadataService.ListMetadataQuery querySettings = new MetadataService.ListMetadataQuery();
         querySettings.type_x = 'Settings';
@@ -1543,7 +1543,7 @@ public with sharing class MetadataServiceExamples
 	 * @param tReportApiName: api name of the (target) cloned report 
 	 */
 	public static void cloneReport(String sFolderApiName, String sReportApiName, String tFolderApiName, String tReportApiName) {
-	    MetadataService.MetadataPort service = new MetadataService.MetadataPort();
+	    MetadataPort service = new MetadataPort();
 	    service.SessionHeader = new MetadataService.SessionHeader_element();
 	    service.SessionHeader.sessionId = UserInfo.getSessionId();
 	
@@ -1577,7 +1577,7 @@ public with sharing class MetadataServiceExamples
 	
     public static void updateDashboard()
     {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
 
         // Read Dashboard
         MetadataService.Dashboard dashboard =
@@ -1608,7 +1608,7 @@ public with sharing class MetadataServiceExamples
      **/
     /*
     public static void enableChatter() {
-        MetadataService.MetadataPort service = createService();
+        MetadataPort service = createService();
         MetadataService.OrgPreferenceSettings orgSettings = new MetadataService.OrgPreferenceSettings();
         orgSettings.preferences = new List<MetadataService.OrganizationSettingsDetail>();
         MetadataService.OrganizationSettingsDetail chatterPref = new MetadataService.OrganizationSettingsDetail();
@@ -1625,9 +1625,9 @@ public with sharing class MetadataServiceExamples
 
     public class MetadataServiceExamplesException extends Exception { }
 
-    public static MetadataService.MetadataPort createService()
+    public static MetadataPort createService()
     {
-        MetadataService.MetadataPort service = new MetadataService.MetadataPort();
+        MetadataPort service = new MetadataPort();
         service.SessionHeader = new MetadataService.SessionHeader_element();
         service.SessionHeader.sessionId = UserInfo.getSessionId();
         return service;

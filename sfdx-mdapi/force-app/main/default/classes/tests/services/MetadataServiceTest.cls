@@ -83,7 +83,7 @@ private class MetadataServiceTest
         MetadataService metaDataService = new MetadataService();
         // Invoke operations     
         Test.startTest();    
-        MetadataService.MetadataPort metaDataPort = new MetadataService.MetadataPort();
+        MetadataPort metaDataPort = new MetadataPort();
         Test.stopTest();
 	}
 	
@@ -96,7 +96,7 @@ private class MetadataServiceTest
         MetadataService metaDataService = new MetadataService();
         // Invoke operations    
         Test.startTest();     
-        MetadataService.MetadataPort metaDataPort = new MetadataService.MetadataPort();
+        MetadataPort metaDataPort = new MetadataPort();
         metaDataPort.retrieve(null);
         metaDataPort.checkDeployStatus(null, false);
         metaDataPort.listMetadata(null, null);
@@ -118,7 +118,7 @@ private class MetadataServiceTest
         MetadataService metaDataService = new MetadataService();
         // Invoke operations     
         Test.startTest();    
-        MetadataService.MetadataPort metaDataPort = new MetadataService.MetadataPort();
+        MetadataPort metaDataPort = new MetadataPort();
         metaDataPort.deleteMetadata(null, null);
         metaDataPort.upsertMetadata(null);
         metaDataPort.createMetadata(null);

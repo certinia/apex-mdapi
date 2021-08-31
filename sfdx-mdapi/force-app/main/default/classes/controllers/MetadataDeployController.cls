@@ -67,7 +67,7 @@ public with sharing class MetadataDeployController
 		ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deploying...'));
 
 		// Deploy zip file posted back from the page action function				
-		MetadataService.MetadataPort service = createService();
+		MetadataPort service = createService();
 		MetadataService.DeployOptions deployOptions = new MetadataService.DeployOptions();
         deployOptions.allowMissingFiles = false;
         deployOptions.autoUpdatePackage = false;
@@ -85,7 +85,7 @@ public with sharing class MetadataDeployController
 	public PageReference checkAsyncRequest()
 	{	
 		// Check the status of the retrieve request
-		MetadataService.MetadataPort service = createService();
+		MetadataPort service = createService();
 		MetadataService.DeployResult deployResult = service.checkDeployStatus(AsyncResult.Id, true);
 		if(deployResult.done)
 		{
@@ -109,9 +109,9 @@ public with sharing class MetadataDeployController
 		return null;
 	}
 	
-	private static MetadataService.MetadataPort createService()
+	private static MetadataPort createService()
 	{ 
-		MetadataService.MetadataPort service = new MetadataService.MetadataPort();
+		MetadataPort service = new MetadataPort();
 		service.SessionHeader = new MetadataService.SessionHeader_element();
 		service.SessionHeader.sessionId = UserInfo.getSessionId();
 		return service;		

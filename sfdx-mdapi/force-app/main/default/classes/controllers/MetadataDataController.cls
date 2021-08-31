@@ -27,22 +27,19 @@
 public with sharing class MetadataDataController 
 {
 	private static final Integer METADATA_API_VERSION = 
-		Integer.valueOf(new MetadataService.MetadataPort().endpoint_x.substringAfterLast('/'));
+		Integer.valueOf(new MetadataPort().endpoint_x.substringAfterLast('/'));
 	
 	public String Data {get; set;}
 	
-	public PageReference constructResponse()
-	{
+	public PageReference constructResponse() {
 		try {
+			MetadataPort service = MetadataPort.createService();
 			List<Node> nodes = new List<Node>();
 			String node = ApexPages.currentPage().getParameters().get('node');
-			if(node=='root')
-			{
+			if(node=='root') {
 				// List available Metadata Types via the 'describeMetadata' API call
-				MetadataService.MetadataPort service = MetadataServiceExamples.createService();					
 				MetadataService.DescribeMetadataResult describeResult = service.describeMetadata(METADATA_API_VERSION);
-				for(MetadataService.DescribeMetadataObject metadataObject : describeResult.metadataObjects)
-				{
+				for(MetadataService.DescribeMetadataObject metadataObject : describeResult.metadataObjects) {
 					nodes.add(new FolderNode(metadataObject.xmlName, metadataObject.xmlName, false, null));
 					// Include child Metadata Types (such as CustomField, ValidationRule etc..)
 					if(metadataObject.childXmlNames!=null)
@@ -50,27 +47,23 @@ public with sharing class MetadataDataController
 							if(childXmlName!=null)
 								nodes.add(new FolderNode(childXmlName, childXmlName, false, null));
 				}
-			}			
-			else
-			{
+			} else {
 				// List Metadata for the given type via the listMetadata API call
-				MetadataService.MetadataPort service = MetadataServiceExamples.createService();		
 				List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();		
 				MetadataService.ListMetadataQuery query = new MetadataService.ListMetadataQuery();
 				query.type_x = node;
-				queries.add(query);		
+				queries.add(query);
 				MetadataService.FileProperties[] fileProperties = service.listMetadata(queries, METADATA_API_VERSION);
 				
 				// Emit leaf nodes (ensure unique IDs)
 				if(fileProperties!=null) {
 					Integer index = 0;
 					for(MetadataService.FileProperties fileProperty : fileProperties)
-						nodes.add(new LeafNode(fileProperty.fullName + ':' + index++, EncodingUtil.urlDecode(fileProperty.fullName, 'UTF-8'), false));					
+						nodes.add(new LeafNode(fileProperty.fullName + ':' + index++, EncodingUtil.urlDecode(fileProperty.fullName, 'UTF-8'), false));
 				}
 			}
 			Data = JSON.serialize(nodes);			
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Data = JSON.serialize(new List<Node> { new FolderNode('error', e.getMessage(), false, null) });	
 		}
 		return null;	
