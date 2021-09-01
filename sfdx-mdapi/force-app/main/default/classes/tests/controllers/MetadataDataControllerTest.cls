@@ -8,7 +8,7 @@ private class MetadataDataControllerTest {
 		metadataObject.xmlName = 'MetadataName';
 		metadataObject.childXmlNames = new String[] {'Child1', 'Child2'};
 		describeResult.metadataObjects = new MetadataService.DescribeMetadataObject[] {metadataObject};
-		MetadataPortStub stub = MetadataPortStub.newInstance().withResultDescribeMetadata(describeResult);
+		MetadataAPIStub stub = MetadataAPIStub.newInstance().withResultDescribeMetadata(describeResult);
 
 		ApexPages.currentPage().getParameters().put('node', root);
 		Test.startTest();
@@ -30,7 +30,7 @@ private class MetadataDataControllerTest {
 		MetadataService.FileProperties fileProperty = new MetadataService.FileProperties();
 		fileProperty.fullName = 'ClassName';
 		MetadataService.FileProperties[] properties = new MetadataService.FileProperties[] {fileProperty};
-		MetadataPortStub stub = MetadataPortStub.newInstance().withResultListMetadata(properties);
+		MetadataAPIStub stub = MetadataAPIStub.newInstance().withResultListMetadata(properties);
 
 		ApexPages.currentPage().getParameters().put('node', root);
 		Test.startTest();

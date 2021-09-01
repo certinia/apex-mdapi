@@ -66,7 +66,7 @@ public with sharing class MetadataDeployController {
 		ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deploying...'));
 
 		// Deploy zip file posted back from the page action function				
-		MetadataPort service = MetadataPort.createService();
+		MetadataAPI service = MetadataAPI.getInstance();
 		MetadataService.DeployOptions deployOptions = new MetadataService.DeployOptions();
 		deployOptions.allowMissingFiles = false;
 		deployOptions.autoUpdatePackage = false;
@@ -83,7 +83,7 @@ public with sharing class MetadataDeployController {
 	
 	public PageReference checkAsyncRequest() {
 		// Check the status of the retrieve request
-		MetadataPort service = MetadataPort.createService();
+		MetadataAPI service = MetadataAPI.getInstance();
 		MetadataService.DeployResult deployResult = service.checkDeployStatus(AsyncResult.Id, true);
 		if (!deployResult.done) {
 			ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deploying...'));

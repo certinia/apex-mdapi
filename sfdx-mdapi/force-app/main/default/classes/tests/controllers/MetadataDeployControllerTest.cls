@@ -5,7 +5,7 @@ private class MetadataDeployControllerTest {
 	static testMethod void deployZipTest() {
 		MetadataService.AsyncResult result = new MetadataService.AsyncResult();
 		result.id = 'foo id';
-		MetadataPortStub.newInstance().withResultDeploy(result);
+		MetadataAPIStub.newInstance().withResultDeploy(result);
 		Test.startTest();
 		MetadataDeployController controller = new MetadataDeployController();
 		PageReference resultPage = controller.deployZip();
@@ -19,7 +19,7 @@ private class MetadataDeployControllerTest {
 		MetadataService.DeployResult deployStatus = new MetadataService.DeployResult();
 		deployStatus.done = done;
 		deployStatus.details = details;
-		MetadataPortStub.newInstance().withResultCheckDeployStatus(deployStatus);
+		MetadataAPIStub.newInstance().withResultCheckDeployStatus(deployStatus);
 		Test.startTest();
 		MetadataDeployController controller = new MetadataDeployController();
 		MetadataService.AsyncResult asyncResult = new MetadataService.AsyncResult();

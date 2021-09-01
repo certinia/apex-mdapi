@@ -1,5 +1,5 @@
 @IsTest
-public class MetadataPortStub implements StubProvider {
+public class MetadataAPIStub implements StubProvider {
 
 	private MetadataService.DescribeMetadataResult describeResult;
 	private MetadataService.FileProperties[] listMetadata;
@@ -7,9 +7,9 @@ public class MetadataPortStub implements StubProvider {
 	private MetadataService.DeployResult deployStatus;
 	private MetadataService.RetrieveResult retrieveStatus;
 
-	public static MetadataPortStub newInstance() {
-		MetadataPortStub stub = new MetadataPortStub();
-		MetadataPort.service = (MetadataPort) Test.createStub(MetadataPort.class, stub);
+	public static MetadataAPIStub newInstance() {
+		MetadataAPIStub stub = new MetadataAPIStub();
+		MetadataAPI.api = (MetadataAPI) Test.createStub(MetadataAPI.class, stub);
 		return stub;
 	}
 
@@ -29,32 +29,32 @@ public class MetadataPortStub implements StubProvider {
 		return null;
 	}
 
-	public MetadataPortStub withResultDescribeMetadata(MetadataService.DescribeMetadataResult describeResult) {
+	public MetadataAPIStub withResultDescribeMetadata(MetadataService.DescribeMetadataResult describeResult) {
 		this.describeResult = describeResult;
 		return this;
 	}
 
-	public MetadataPortStub withResultListMetadata(MetadataService.FileProperties[] listMetadata) {
+	public MetadataAPIStub withResultListMetadata(MetadataService.FileProperties[] listMetadata) {
 		this.listMetadata = listMetadata;
 		return this;
 	}
 
-	public MetadataPortStub withResultDeploy(MetadataService.AsyncResult asyncResult) {
+	public MetadataAPIStub withResultDeploy(MetadataService.AsyncResult asyncResult) {
 		this.asyncResult = asyncResult;
 		return this;
 	}
 
-	public MetadataPortStub withResultCheckDeployStatus(MetadataService.DeployResult deployStatus) {
+	public MetadataAPIStub withResultCheckDeployStatus(MetadataService.DeployResult deployStatus) {
 		this.deployStatus = deployStatus;
 		return this;
 	}
 
-	public MetadataPortStub withResultRetrieve(MetadataService.AsyncResult asyncResult) {
+	public MetadataAPIStub withResultRetrieve(MetadataService.AsyncResult asyncResult) {
 		this.asyncResult = asyncResult;
 		return this;
 	}
 
-	public MetadataPortStub withResultCheckRetrieveStatus(MetadataService.RetrieveResult retrieveStatus) {
+	public MetadataAPIStub withResultCheckRetrieveStatus(MetadataService.RetrieveResult retrieveStatus) {
 		this.retrieveStatus = retrieveStatus;
 		return this;
 	}

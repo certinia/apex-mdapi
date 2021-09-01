@@ -27,13 +27,13 @@
 public with sharing class MetadataDataController 
 {
 	private static final Integer METADATA_API_VERSION = 
-		Integer.valueOf(new MetadataPort().endpoint_x.substringAfterLast('/'));
+		Integer.valueOf(new MetadataAPI().endpoint_x.substringAfterLast('/'));
 	
 	public String Data {get; set;}
 	
 	public PageReference constructResponse() {
 		try {
-			MetadataPort service = MetadataPort.createService();
+			MetadataAPI service = MetadataAPI.getInstance();
 			List<Node> nodes = new List<Node>();
 			String node = ApexPages.currentPage().getParameters().get('node');
 			if(node=='root') {

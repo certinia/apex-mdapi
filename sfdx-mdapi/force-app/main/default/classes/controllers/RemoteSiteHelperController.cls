@@ -45,7 +45,7 @@ global class RemoteSiteHelperController {
 	global static Boolean checkMetadataAPIConnection()
 	{
 		try {
-			MetadataPort service = new MetadataPort();
+			MetadataAPI service = new MetadataAPI();
 			service.SessionHeader = new MetadataService.SessionHeader_element();
 			service.SessionHeader.sessionId = UserInfo.getSessionId();
 			List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();		

@@ -83,7 +83,7 @@ private class MetadataServiceTest
         MetadataService metaDataService = new MetadataService();
         // Invoke operations     
         Test.startTest();    
-        MetadataPort metaDataPort = new MetadataPort();
+        MetadataAPI MetadataAPI = new MetadataAPI();
         Test.stopTest();
 	}
 	
@@ -96,16 +96,16 @@ private class MetadataServiceTest
         MetadataService metaDataService = new MetadataService();
         // Invoke operations    
         Test.startTest();     
-        MetadataPort metaDataPort = new MetadataPort();
-        metaDataPort.retrieve(null);
-        metaDataPort.checkDeployStatus(null, false);
-        metaDataPort.listMetadata(null, null);
-        metaDataPort.describeMetadata(null);
-        metaDataPort.deploy(null, null);
-        metaDataPort.checkDeployStatus(null, false);
-        metaDataPort.updateMetadata(null);
-        metaDataPort.renameMetadata(null, null, null);
-        metaDataPort.cancelDeploy(null);
+        MetadataAPI MetadataAPI = new MetadataAPI();
+        MetadataAPI.retrieve(null);
+        MetadataAPI.checkDeployStatus(null, false);
+        MetadataAPI.listMetadata(null, null);
+        MetadataAPI.describeMetadata(null);
+        MetadataAPI.deploy(null, null);
+        MetadataAPI.checkDeployStatus(null, false);
+        MetadataAPI.updateMetadata(null);
+        MetadataAPI.renameMetadata(null, null, null);
+        MetadataAPI.cancelDeploy(null);
         Test.stopTest();
     }
 
@@ -118,13 +118,13 @@ private class MetadataServiceTest
         MetadataService metaDataService = new MetadataService();
         // Invoke operations     
         Test.startTest();    
-        MetadataPort metaDataPort = new MetadataPort();
-        metaDataPort.deleteMetadata(null, null);
-        metaDataPort.upsertMetadata(null);
-        metaDataPort.createMetadata(null);
-        metaDataPort.deployRecentValidation(null);
-        metaDataPort.describeValueType(null);
-        metaDataPort.checkRetrieveStatus(null, null);
+        MetadataAPI MetadataAPI = new MetadataAPI();
+        MetadataAPI.deleteMetadata(null, null);
+        MetadataAPI.upsertMetadata(null);
+        MetadataAPI.createMetadata(null);
+        MetadataAPI.deployRecentValidation(null);
+        MetadataAPI.describeValueType(null);
+        MetadataAPI.checkRetrieveStatus(null, null);
         Test.stopTest();
     }
         

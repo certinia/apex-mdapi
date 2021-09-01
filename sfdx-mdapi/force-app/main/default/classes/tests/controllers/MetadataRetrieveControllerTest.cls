@@ -14,7 +14,7 @@ private class MetadataRetrieveControllerTest {
 		fileProperty.fullName = 'Account';
 		MetadataService.FileProperties[] fileProperties = new MetadataService.FileProperties[] {fileProperty};
 
-		MetadataPortStub.newInstance().withResultDescribeMetadata(describeResult).withResultListMetadata(fileProperties);
+		MetadataAPIStub.newInstance().withResultDescribeMetadata(describeResult).withResultListMetadata(fileProperties);
 
 		Test.startTest();
 		MetadataRetrieveController controller = new MetadataRetrieveController();
@@ -30,7 +30,7 @@ private class MetadataRetrieveControllerTest {
 
 	static testMethod void retrieveMetadataItemTest() {
 		MetadataService.AsyncResult asyncResult = new MetadataService.AsyncResult();
-		MetadataPortStub.newInstance().withResultRetrieve(asyncResult);
+		MetadataAPIStub.newInstance().withResultRetrieve(asyncResult);
 		Test.startTest();
 		MetadataRetrieveController controller = new MetadataRetrieveController();
 		PageReference resultPage = controller.retrieveMetadataItem();
@@ -43,7 +43,7 @@ private class MetadataRetrieveControllerTest {
 		retrieveStatus.done = done;
 		retrieveStatus.status = status;
 		retrieveStatus.errorMessage = errorMessage;
-		MetadataPortStub.newInstance().withResultCheckRetrieveStatus(retrieveStatus);
+		MetadataAPIStub.newInstance().withResultCheckRetrieveStatus(retrieveStatus);
 		Test.startTest();
 		MetadataService.AsyncResult asyncResult = new MetadataService.AsyncResult();
 		asyncResult.id = 'foo Id';
