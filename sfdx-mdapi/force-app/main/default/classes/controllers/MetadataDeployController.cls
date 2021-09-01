@@ -24,10 +24,10 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **/
 
-public with sharing class MetadataDeployController 
-{
-	public String ZipData { get; set; }	
-	
+public with sharing class MetadataDeployController {
+
+	public String ZipData { get; set; }
+	@TestVisible
 	public MetadataService.AsyncResult AsyncResult {get; private set;}
 	
 	public String getPackageXml()
@@ -62,58 +62,47 @@ public with sharing class MetadataDeployController
 			'}';
 	}
 	
-	public PageReference deployZip()
-	{
+	public PageReference deployZip() {
 		ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deploying...'));
 
 		// Deploy zip file posted back from the page action function				
-		MetadataPort service = createService();
+		MetadataPort service = MetadataPort.createService();
 		MetadataService.DeployOptions deployOptions = new MetadataService.DeployOptions();
-        deployOptions.allowMissingFiles = false;
-        deployOptions.autoUpdatePackage = false;
-        deployOptions.checkOnly = false;
-        deployOptions.ignoreWarnings = false;
-        deployOptions.performRetrieve = false;
-        deployOptions.purgeOnDelete = false;
-        deployOptions.rollbackOnError = true;
-        deployOptions.testLevel = 'NoTestRun';
-        deployOptions.singlePackage = true;		
-		AsyncResult = service.deploy(ZipData, DeployOptions);				
+		deployOptions.allowMissingFiles = false;
+		deployOptions.autoUpdatePackage = false;
+		deployOptions.checkOnly = false;
+		deployOptions.ignoreWarnings = false;
+		deployOptions.performRetrieve = false;
+		deployOptions.purgeOnDelete = false;
+		deployOptions.rollbackOnError = true;
+		deployOptions.testLevel = 'NoTestRun';
+		deployOptions.singlePackage = true;
+		AsyncResult = service.deploy(ZipData, DeployOptions);
 		return null;
 	}	
 	
-	public PageReference checkAsyncRequest()
-	{	
+	public PageReference checkAsyncRequest() {
 		// Check the status of the retrieve request
-		MetadataPort service = createService();
+		MetadataPort service = MetadataPort.createService();
 		MetadataService.DeployResult deployResult = service.checkDeployStatus(AsyncResult.Id, true);
-		if(deployResult.done)
-		{
-			ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deployment complete'));
-
-			// Deployment errors?
-			if(deployResult.details!=null && deployResult.details.componentFailures!=null)
-				for(MetadataService.DeployMessage deployMessage : deployResult.details.componentFailures)
-					if(deployMessage.problem!=null)
-						ApexPages.addMessage(
-							new ApexPages.Message(ApexPages.Severity.Error, 
-								deployMessage.fileName + 
-									' (Line: ' + deployMessage.lineNumber + ': Column:' + deployMessage.columnNumber + ') : ' + 
-										deployMessage.problem));
-			AsyncResult = null;
-		}
-		else
-		{
+		if (!deployResult.done) {
 			ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deploying...'));
-		}	
+			return null;
+		}
+
+		AsyncResult = null;
+		ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Deployment complete'));
+
+		// Deployment errors?
+		if (deployResult.details == null || deployResult.details.componentFailures == null || deployResult.details.componentFailures.isEmpty())
+			return null;
+
+		for (MetadataService.DeployMessage deployMessage : deployResult.details.componentFailures) {
+			if(deployMessage.problem == null)
+				continue;
+			String message = deployMessage.fileName + ' (Line: ' + deployMessage.lineNumber + ': Column:' + deployMessage.columnNumber + ') : ' + deployMessage.problem;
+			ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, message));
+		}
 		return null;
 	}
-	
-	private static MetadataPort createService()
-	{ 
-		MetadataPort service = new MetadataPort();
-		service.SessionHeader = new MetadataService.SessionHeader_element();
-		service.SessionHeader.sessionId = UserInfo.getSessionId();
-		return service;		
-	}		
 }
