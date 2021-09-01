@@ -5,6 +5,7 @@ public class MetadataPortStub implements StubProvider {
 	private MetadataService.FileProperties[] listMetadata;
 	private MetadataService.AsyncResult asyncResult;
 	private MetadataService.DeployResult deployStatus;
+	private MetadataService.RetrieveResult retrieveStatus;
 
 	public static MetadataPortStub newInstance() {
 		MetadataPortStub stub = new MetadataPortStub();
@@ -21,6 +22,10 @@ public class MetadataPortStub implements StubProvider {
 			return this.asyncResult;
 		if (stubbedMethodName == 'checkDeployStatus')
 			return this.deployStatus;
+		if (stubbedMethodName == 'checkRetrieveStatus')
+			return this.retrieveStatus;
+		if (stubbedMethodName == 'retrieve')
+			return this.asyncResult;
 		return null;
 	}
 
@@ -41,6 +46,16 @@ public class MetadataPortStub implements StubProvider {
 
 	public MetadataPortStub withResultCheckDeployStatus(MetadataService.DeployResult deployStatus) {
 		this.deployStatus = deployStatus;
+		return this;
+	}
+
+	public MetadataPortStub withResultRetrieve(MetadataService.AsyncResult asyncResult) {
+		this.asyncResult = asyncResult;
+		return this;
+	}
+
+	public MetadataPortStub withResultCheckRetrieveStatus(MetadataService.RetrieveResult retrieveStatus) {
+		this.retrieveStatus = retrieveStatus;
 		return this;
 	}
 }

@@ -39,6 +39,7 @@ public with sharing class MetadataRetrieveController
 	public String MetaDataItem {get; set;}	
 	public String MetadataFileName {get; set;}
 	public String MetadataFileData {get; set;}
+	@TestVisible
 	public MetadataService.AsyncResult AsyncResult {get; private set;}
 	public String MetaDataRetrieveZip { get; private set; }	
 	public List<MetadataFile> MetadataFiles { get; set; }		
@@ -46,7 +47,7 @@ public with sharing class MetadataRetrieveController
 	public PageReference init()
 	{
 		// List available Metadata Types via the 'describeMetadata' API call
-		MetadataPort service = createService();					
+		MetadataPort service = MetadataPort.createService();					
 		MetadataService.DescribeMetadataResult describeResult = service.describeMetadata(METADATA_API_VERSION);
 		List<String> metadataTypeNames = new List<String>();
 		for(MetadataService.DescribeMetadataObject metadataObject : describeResult.metadataObjects)
@@ -76,7 +77,7 @@ public with sharing class MetadataRetrieveController
 	{
 		// List Metadata items for the selected Metadata Type
 		MetaDataItems = new List<SelectOption>();		
-		MetadataPort service = createService();				
+		MetadataPort service = MetadataPort.createService();
 		List<MetadataService.ListMetadataQuery> queries = new List<MetadataService.ListMetadataQuery>();		
 		MetadataService.ListMetadataQuery queryLayout = new MetadataService.ListMetadataQuery();
 		if(MetaDataFolder!=null && MetaDataFolder.length()>0)
@@ -108,7 +109,7 @@ public with sharing class MetadataRetrieveController
 		MetadataFiles = null;
 		 
 		// Construct unmanaged package with list of desired components to retrieve in zip
-		MetadataPort service = createService();				
+		MetadataPort service = MetadataPort.createService();				
 		MetadataService.RetrieveRequest retrieveRequest = new MetadataService.RetrieveRequest();
 		retrieveRequest.apiVersion = METADATA_API_VERSION;
 		retrieveRequest.packageNames = null;
@@ -128,7 +129,7 @@ public with sharing class MetadataRetrieveController
 	public PageReference checkAsyncRequest()
 	{
 		// Check the status of the retrieve request
-		MetadataPort service = createService();
+		MetadataPort service = MetadataPort.createService();
 		MetadataService.RetrieveResult retrieveResult = service.checkRetrieveStatus(AsyncResult.Id, true);
 		if(retrieveResult.done)
 		{
@@ -173,14 +174,6 @@ public with sharing class MetadataRetrieveController
 		MetaDataRetrieveZip = null;		
 		return null;
 	}
-	
-	private static MetadataPort createService()
-	{ 
-		MetadataPort service = new MetadataPort();
-		service.SessionHeader = new MetadataService.SessionHeader_element();
-		service.SessionHeader.sessionId = UserInfo.getSessionId();
-		return service;		
-	}	
 	
 	/**
 	 * Simple container class for retrieve metadata file, may as well leverage the Metadata API class for this
