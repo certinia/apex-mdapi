@@ -30,9 +30,13 @@ private class MetadataDeployControllerTest {
 		System.assertEquals(null, resultPage);
 	}
 
-	static testMethod void checkAsyncRequestDoneErrorsTest() {
+	static testMethod void checkAsyncRequestNotDoneTest() {
+		checkAsyncRequestTest(false, null);
+	}
+
+	static void checkAsyncRequestDoneErrorsTest(String problem) {
 		MetadataService.DeployMessage deployMessage = new MetadataService.DeployMessage();
-		deployMessage.problem = 'problem';
+		deployMessage.problem = problem;
 		deployMessage.fileName = 'Filename';
 		deployMessage.lineNumber = 451;
 		deployMessage.columnNumber = 10;
@@ -40,10 +44,23 @@ private class MetadataDeployControllerTest {
 
 		MetadataService.DeployDetails details = new MetadataService.DeployDetails();
 		details.componentFailures =  deployMessages;
-				checkAsyncRequestTest(true, details);
+		checkAsyncRequestTest(true, details);
+	}
+
+
+	static testMethod void checkAsyncRequestDoneErrorsProblemNullTest() {
+		checkAsyncRequestDoneErrorsTest(null);
 				System.assert(ApexPages.hasMessages(), 'There is no messages');
 		System.assertEquals(1, ApexPages.getMessages().size(), 'There are more than 1 message added.' + ApexPages.getMessages());
 		ApexPages.Message message = ApexPages.getMessages()[0];
+		System.assertEquals(ApexPages.Severity.INFO, message.getSeverity(), 'Severity does not match');
+	}
+
+	static testMethod void checkAsyncRequestDoneErrorsProblemNotNullTest() {
+		checkAsyncRequestDoneErrorsTest('Problem Message');
+		System.assert(ApexPages.hasMessages(), 'There is no messages');
+		System.assertEquals(2, ApexPages.getMessages().size(), 'There are more than 1 message added.' + ApexPages.getMessages());
+		ApexPages.Message message = ApexPages.getMessages()[1];
 		System.assertEquals(ApexPages.Severity.ERROR, message.getSeverity(), 'Severity does not match');
 	}
 
@@ -69,5 +86,13 @@ private class MetadataDeployControllerTest {
 		String xml = controller.getHelloWorldMetadata();
 		Test.stopTest();
 		System.assertNotEquals(null, xml);
+	}
+
+	static testMethod void getHelloWorldTest() {
+		Test.startTest();
+		MetadataDeployController controller = new MetadataDeployController();
+		String data = controller.getHelloWorld();
+		Test.stopTest();
+		System.assertNotEquals(null, data);
 	}
 }
