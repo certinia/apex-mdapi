@@ -1,0 +1,1 @@
+sfdx force:org:create -a mdapi.scratch -v mdapi.devhub -f config/project-scratch-def.json -d 30
