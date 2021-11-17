@@ -1,5 +1,5 @@
 global class RemoteSiteHelperController {
-	
+	//Editing in master branch
 	public String Host {get;set;}
 	global String rssNameString {get;set;}
 	public String MetadataResponse {get;set;}
