@@ -127,6 +127,23 @@ private class MetadataServiceTest
         metaDataPort.checkRetrieveStatus(null, null);
         Test.stopTest();
     }
+     @IsTest
+    private static void coverGeneratedCodeFileBasedOperations3()
+    {       
+        try{
+              // Null Web Service mock implementation
+        System.Test.setMock(WebServiceMock.class, new WebServiceMockImpl());
+        // Only required to workaround a current code coverage bug in the platform
+        MetadataService metaDataService = new MetadataService();
+        // Invoke operations     
+        Test.startTest();    
+        MetadataService.MetadataPort metaDataPort = new MetadataService.MetadataPort();
+    	metaDataPort.readMetadata(null,null);
+        Test.stopTest();
+        }catch(Exception e) { 
+        	System.debug(e.getMessage());	
+        }
+    }
         
 	@IsTest
     private static void coverGeneratedCodeTypes()
@@ -1355,5 +1372,121 @@ private class MetadataServiceTest
         new MetadataService.readUserCriteriaResponse_element().getResult();
         new MetadataService.readWavexmdResponse_element().getResult();
         Test.stopTest();
-    }    
+    }
+    
+    @isTest 
+    private static void uncoveredLines() {
+         Test.startTest(); 
+         new MetadataService();
+         new MetadataService.DashboardComponentSortInfo(); 
+         new MetadataService.FlowChoiceUserInputTranslation(); 
+         new MetadataService.TopicsForObjects(); 
+         new MetadataService.PermissionSetGroup(); 
+         new MetadataService.WaveXmdMeasure(); 
+         new MetadataService.CommunityTemplatePageSetting(); 
+         new MetadataService.CommunityCustomThemeLayoutType(); 
+         new MetadataService.EclairGeoData(); 
+         new MetadataService.CleanRule(); 
+         new MetadataService.FlowInputValidationRuleTranslation(); 
+         new MetadataService.RecommendationDefinitionDetail(); 
+         new MetadataService.CommunityTemplateDefinition(); 
+         new MetadataService.FlowScreenFieldOutputParameter(); 
+         new MetadataService.AppProfileActionOverride(); 
+         new MetadataService.EclairMap(); 
+         new MetadataService.FieldServiceSettings(); 
+         new MetadataService.RecommendationAudienceDetail(); 
+         new MetadataService.ProfilePasswordPolicy(); 
+         new MetadataService.EmbeddedServiceBranding(); 
+         new MetadataService.RoleAndSubordinates();
+         new MetadataService.AppActionOverride(); 
+		 new MetadataService.RecommendationStrategy(); 
+         new MetadataService.AssistantRecommendationType(); 
+         new MetadataService.CustomNotificationType(); 
+         new MetadataService.FlowStage(); 
+         new MetadataService.DashboardComponentColumn(); 
+         new MetadataService.ProfileSessionSetting(); 
+         new MetadataService.EmailServicesAddress(); 
+         new MetadataService.WaveRecipe(); 
+         new MetadataService.FlowTranslation(); 
+         new MetadataService.KnowledgeWorkOrderFieldsSettings(); 
+         new MetadataService.BrandingSetProperty();
+         new MetadataService.ServiceCloudConsoleConfig(); 
+         new MetadataService.FlexiPageTemplateInstance(); 
+         new MetadataService.KnowledgeWorkOrderLineItemFieldsSettings();
+         new MetadataService.AppComponentList(); 
+         new MetadataService.WaveXmdDimensionCustomAction(); 
+         new MetadataService.FlowChoiceTranslation(); 
+         new MetadataService.IndexField(); 
+         new MetadataService.EmailServicesFunction(); 
+         new MetadataService.ForecastingDisplayedFamilySettings(); 
+         new MetadataService.LiveMessageSettings(); 
+   		 new MetadataService.WaveXmdDimensionMember(); 
+         new MetadataService.IntegrationHubSettingsType(); 
+         new MetadataService.WaveXmdRecordDisplayLookup(); 
+         new MetadataService.UiFormulaRule(); 
+         new MetadataService.ScheduledRecommendationDetail(); 
+         new MetadataService.AppWorkspaceConfig(); 
+         new MetadataService.FileTypeDispositionAssignmentBean(); 
+         new MetadataService.Roles(); 
+         new MetadataService.WaveXmdDimensionSalesforceAction(); 
+         new MetadataService.CaseSubjectParticle(); 
+         new MetadataService.LightningBolt(); 
+         new MetadataService.FlowCategory();
+         new MetadataService.CspTrustedSite();
+         new MetadataService.KnowledgeWorkOrderLineItemField(); 
+         new MetadataService.OrchestrationContext(); 
+         new MetadataService.CommunityThemeSetting(); 
+         new MetadataService.IntegrationHubSettings(); 
+         new MetadataService.DashboardFlexTableComponentProperties(); 
+         new MetadataService.RoleAndSubordinatesInternal();
+         new MetadataService.CommunityRoles(); 
+         new MetadataService.FlowScreenTranslation(); 
+         new MetadataService.LightningBoltFeatures(); 
+         new MetadataService.MacroSettings(); 
+         new MetadataService.ExtendedErrorDetails(); 
+         new MetadataService.RecommendationDefinition(); 
+         new MetadataService.WaveXmdDimension(); 
+         new MetadataService.NetworkBranding(); 
+         new MetadataService.UserCriteria(); 
+         new MetadataService.LightningBoltImages(); 
+         new MetadataService.RecommendationAudience(); 
+         new MetadataService.WaveXmd(); 
+         new MetadataService.LightningExperienceTheme(); 
+         new MetadataService.ProfileCategoryGroupVisibility(); 
+         new MetadataService.CleanDataService(); 
+         new MetadataService.FlowCategoryItems(); 
+         new MetadataService.AppPreferences();
+         new MetadataService.SocialCustomerServiceSettings(); 
+         new MetadataService.EmbeddedServiceQuickAction(); 
+              new MetadataService.FlowScreenFieldTranslation(); 
+              new MetadataService.FlowDefinitionTranslation(); 
+              new MetadataService.StrategyNode(); 
+              new MetadataService.Index(); 
+              new MetadataService.WaveXmdDate(); 
+              new MetadataService.PublicGroups(); 
+              new MetadataService.NavigationSubMenu(); 
+              new MetadataService.EmbeddedServiceFieldService(); 
+              new MetadataService.BrandingSet(); 
+              new MetadataService.Users(); 
+              new MetadataService.FieldSetTranslation(); 
+              new MetadataService.CommunityThemeDefinition();
+              new MetadataService.CommunityTemplateBundleInfo();  
+              new MetadataService.UiFormulaCriterion(); 
+              new MetadataService.LightningComponentBundle(); 
+              new MetadataService.FlowScreenFieldInputParameter(); 
+              new MetadataService.Orchestration(); 
+              new MetadataService.ScheduledRecommendation(); 
+              new MetadataService.InsightType(); 
+              new MetadataService.QueueMembers(); 
+              new MetadataService.FileUploadAndDownloadSecuritySettings(); 
+              new MetadataService.LightningBoltItems(); 
+              new MetadataService.ChatterExtension(); 
+              new MetadataService.WaveXmdOrganization(); 
+              new MetadataService.NetworkPageOverride(); 
+              new MetadataService.KnowledgeWorkOrderField(); 
+              new MetadataService.CampaignInfluenceModel(); 
+              new MetadataService.OrchestrationContextEvent(); 
+         Test.stopTest(); 
+    }
+
 }
