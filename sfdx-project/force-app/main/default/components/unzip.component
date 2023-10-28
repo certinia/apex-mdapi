@@ -1,0 +1,66 @@
+<!--
+/**
+ * Copyright (c) 2012, FinancialForce.com, inc
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, 
+ *   are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, 
+ *      this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright notice, 
+ *      this list of conditions and the following disclaimer in the documentation 
+ *      and/or other materials provided with the distribution.
+ * - Neither the name of the FinancialForce.com, inc nor the names of its contributors 
+ *      may be used to endorse or promote products derived from this software without 
+ *      specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
+ *  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL 
+ *  THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
+ *  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ *  OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**/
+-->
+<apex:component >
+	<apex:attribute name="oncomplete" type="string" description="Javascript executed on unzip of file entry"/>
+	<apex:attribute name="name" type="string" description="Name of the Javascript function generated to unzip files"/>
+	<script>    
+		// Unzip and push zip entries onto list for processing
+	    var zipData = '<apex:componentBody />';
+	    var zip = new JSZip(zipData, {base64:true});
+	    var zipFileNames = [];
+	    for(var zipfileName in zip.files)
+	        zipFileNames.push(zipfileName);	        
+	    // Start sending the files
+	    {!name}();                     
+		// Function to be called from the page to unzip the next file	    
+	    function {!name}()
+	    {                 
+	        debugger;
+	              
+	        var fileName = null;
+	        var file = null;
+	        while(true)
+	        {
+	        	// Pop the next file
+	            file = null;
+	            fileName = zipFileNames.pop();
+	            if(fileName == null)
+	                break;
+	            file = zip.files[fileName];
+	            // Only break for files, skip over folder entries
+	            if(file.data!=null && file.data.length>0)
+	                break;
+	        }
+	        // File to send or done?
+	        var more = file!=null ? true : false;
+	        var path = more ? fileName : null;
+	        var data = more ? file.data : null;
+	        eval('{!oncomplete}');
+	    }           
+	</script>
+</apex:component>

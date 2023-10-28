@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>Metadata API</label>
+    <navType>Standard</navType>
+    <tabs>standard-home</tabs>
+    <tabs>MetadataBrowser</tabs>
+    <tabs>MetadataDeployDemo</tabs>
+    <tabs>MetadataRetrieveDemo</tabs>
+    <tabs>Metadata_Browser_LWC</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Metadata_API_UtilityBar</utilityBar>
+</CustomApplication>

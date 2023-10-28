@@ -1,0 +1,10 @@
+<apex:page showHeader="true" sidebar="true" standardStylesheets="true">
+	<c:remotesitehelper rssName="mdapi"
+		rssDescription="SFDC to SFDC metadata api."
+		pageOverview="This is an awesome overview of my tool."
+		pageOverviewLinkURL="http://google.com"
+		pageOverviewLinkText="Google This tool!"
+		pageSectionTitle="My Awesome Package Welcome Page"
+		pageSectionSubTitle="Welcome"
+		/>
+</apex:page>
