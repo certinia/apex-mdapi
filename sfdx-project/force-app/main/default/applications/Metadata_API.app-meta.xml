@@ -17,5 +17,4 @@
     <tabs>MetadataRetrieveDemo</tabs>
     <tabs>Metadata_Browser_LWC</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>Metadata_API_UtilityBar</utilityBar>
 </CustomApplication>
