@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>Metadata_API</application>
+        <visible>true</visible>
+    </applicationVisibilities>
     <classAccesses>
         <apexClass>MetadataDataController</apexClass>
         <enabled>true</enabled>
@@ -60,6 +64,10 @@
     </tabSettings>
     <tabSettings>
         <tab>MetadataRetrieveDemo</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Metadata_Browser_LWC</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>
