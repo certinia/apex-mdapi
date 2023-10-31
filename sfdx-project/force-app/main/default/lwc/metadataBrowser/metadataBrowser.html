@@ -1,0 +1,12 @@
+<template>
+    <div if:true={isMetadataListLoaded}>
+        <lightning-tree-grid
+            columns={gridColumns}
+            data={gridData}
+            key-field="metadataType"
+            expanded-rows={expandedRows}
+            ontoggle={handleToggle}
+            onrowselection={handleRowSelection}
+        ></lightning-tree-grid>
+    </div>
+</template>
