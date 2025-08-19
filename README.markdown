@@ -135,7 +135,7 @@ Community Examples
 ------------------
 
 - Thanks to [mohit-address](https://github.com/mohit-address) for submitting examples relating to updating picklist values.
-- Thanks to [KGFTW](https://github.com/KGFTW) for submitting an excellent example relating to [cloning reports](https://github.com/financialforcedev/apex-mdapi/issues/147).
+- Thanks to KGFTW for submitting an excellent example relating to [cloning reports](https://github.com/financialforcedev/apex-mdapi/issues/147).
 
 **Report Cloning with Apex Metadata API**
 
