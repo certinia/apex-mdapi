@@ -13189,6 +13189,15 @@ public class MetadataService {
         private String[] apex_schema_type_info = new String[]{SOAP_M_URI,'true','false'};
         private String[] field_order_type_info = new String[]{'active','adjustmentsSettings','displayedCategoryApiNames','forecastRangeSettings','forecastedCategoryApiNames','forecastingDateType','hasProductFamily','isAmount','isAvailable','isQuantity','managerAdjustableCategoryApiNames','masterLabel','name','opportunityListFieldsLabelMappings','opportunityListFieldsSelectedSettings','opportunityListFieldsUnselectedSettings','opportunitySplitName','ownerAdjustableCategoryApiNames','quotasSettings','territory2ModelName'};
     }
+
+    public static MetadataService.MetadataPort createService()
+	{ 
+		MetadataService.MetadataPort service = new MetadataService.MetadataPort();
+		service.SessionHeader = new MetadataService.SessionHeader_element();
+		service.SessionHeader.sessionId = UserInfo.getSessionId();
+		return service;		
+	}
+    
     public class MetadataPort {
         public String endpoint_x = URL.getOrgDomainUrl().toExternalForm() + '/services/Soap/m/42.0';
         public Map<String,String> inputHttpHeaders_x;
